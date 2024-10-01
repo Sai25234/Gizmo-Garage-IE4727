@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.promo-banner {
+  background-color: #01214A;
+  color: white;
+  text-align: center;
+  padding: 10px 0 10px;
+  font-size: 14px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  
+  background-color: white;
+}
+
+.logo img {
+  margin-left: 40px;
+  width: 170px;
+  height: 50px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin: 0 20px;
+}
+
+.search-bar select {
+  margin-left: 40px;
+  height: 55px;
+  width: 150px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #01214A ;
+  border-radius: 5px;
+}
+
+.search-bar input {
+  width: 500px;
+  height: 55px;
+  align-items: center;
+  
+  border: 1px solid #01214A;
+ 
+
+}
+.search-bar input::placeholder {
+  text-align: left;
+  font-size: 18px; 
+  padding-left: 30px;
+}
+
+.search-bar button {
+  padding: 6px 10px;
+  background-color: #0e1b44;
+  height: 55px;
+  width: 70px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.account-cart {
+  display: flex;
+  align-items: center;
+  margin-right: 60px;
+}
+
+
+
+.account-link img {
+  width: 130px;
+  height: 55px;
+  margin-right: 60px;
+ 
+}
+
+.cart-link img {
+  width: 100px;
+  height: 60px;
+}
+
+.nav-bar {
+  background-color: #f8f9fa;
+  margin-left: 5px;  
+  text-align: left;
+  padding-bottom: 15px;
+}
+
+.nav-bar a {
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #333;
+  padding-left: 40px;
+  
+  font-weight: bold;
+}
+
+.sale-link {
+  color: red;
+}
