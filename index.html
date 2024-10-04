@@ -1,46 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gizmo Garage</title>
-    <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
+  <body>
     <header>
-        <div class="promo-banner">
-            Running Promotion Banner
+      <div class="promo-banner">Running Promotion Banner</div>
+      <div class="top-bar">
+        <div class="logo">
+          <img src="images/gizmogaragelogo.png" alt="Gizmo Garage" />
         </div>
-        <div class="top-bar">
-            <div class="logo">
-                <img src="images/gizmogaragelogo.png" alt="Gizmo Garage">
-            </div>
-            <div class="search-bar">
-                <select>
-                    <option value="category">BY CATEGORY</option>
-                </select>
-                <input type="text" placeholder="Searh by Category..." >
-                <button><img src="images/search_icon.png" alt="Search" height="40px" width="40px"></button>
-            </div>
-            <div class="account-cart">
-                <a href="#" class="account-link">
-                    <img src="images/my_account_icon.png" alt="My Account" 
-                </a>
-                <a href="#" class="cart-link">
-                    <img src="images/cart_icon.png" alt="Cart">
-                </a>
-            </div>
+        <div class="search-bar">
+          <select>
+            <option value="category">BY CATEGORY</option>
+          </select>
+          <input type="text" placeholder="Search by Category..." />
+          <button>
+            <img
+              src="images/search_icon.png"
+              alt="Search"
+              height="40px"
+              width="40px"
+            />
+          </button>
         </div>
-        <nav class="nav-bar">
-            <a href="#">Laptops</a>
-            <a href="#">Desktops</a>
-            <a href="#">Phones</a>
-            <a href="#">Tablets</a>
-            <a href="#">Accessories</a>
-            <a href="#" class="sale-link">Sale</a>
-        </nav>
+        <div class="account-cart">
+          <a href="#" class="account-link">
+            <span class="material-symbols-outlined">
+                person
+                </span>
+            MY ACCOUNT
+          </a>
+          <a href="#" class="cart-link">
+            <span class="material-symbols-outlined">
+                shopping_cart
+                </span>
+                CART
+          </a>
+        </div>
+      </div>
+      <nav class="nav-bar">
+        <a href="#"
+          >LAPTOPS<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >DESKTOPS
+          <span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >PHONES<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >TABLETS<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >ACCESSORIES<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#" class="sale-link"
+          >SALE<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+      </nav>
     </header>
-
-</body>
+  </body>
 </html>
