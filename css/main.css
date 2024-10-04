@@ -51,7 +51,7 @@ header {
   height: 50px;
   width: 180px;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
   border: 1px solid #01214A ;
   color: #01214A;
@@ -133,7 +133,8 @@ header {
 
 .nav-bar a {
   margin: 0 15px;
-  text-decoration: none;
+  text-decoration: underline .12em rgba(0, 50, 116, 0);
+  transition: text-decoration-color 300ms;
   font-size: 18px;
   font-weight: 600;
   color: #333;
@@ -141,7 +142,13 @@ header {
 }
 
 a:hover{
-  color: #003274;
+  color: rgb(0, 50, 116);
+  text-decoration-color: rgba(0, 50, 116, 1);
+}
+
+a.sale-link:hover{
+  color: rgb(154, 0, 0);
+  text-decoration-color: rgba(154, 0, 0, 1);
 }
 
 .material-symbols-outlined {
