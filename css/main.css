@@ -166,6 +166,7 @@ body {
 }
 
 /* Carousel Indicators */
+
 .carousel-indicators {
   position: absolute;
   bottom: 20px; /* Positioning at the bottom within the image */
@@ -202,3 +203,110 @@ body {
       bottom: 10px;
   }
 }
+
+/* footer */
+
+/* Footer Styles */
+footer {
+  background-color: #01214A;
+  color: white;
+  height: 300px
+}
+
+.footer-container {
+  display: flex;
+}
+
+.footer-column {
+  padding-left: 15px;
+  min-width: 200px;
+  margin: 30px;
+
+}
+.newsletter-column {
+  
+  min-width: 200px;
+  margin: 30px;
+  margin-left: 150px;
+}
+
+.footer-column h4, .newsletter-column h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-column p, .newsletter-column p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: white;
+
+}
+
+
+
+.newsletter-form {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.newsletter-form input {
+  padding: 10px;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  width: 70%;
+}
+
+.newsletter-form button {
+  background-color: #0066cc;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 0 3px 3px 0;
+}
+
+.payment-methods img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 0px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .newsletter-form input {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 3px;
+  }
+
+  .newsletter-form button {
+      width: 100%;
+      border-radius: 3px;
+  }
+
+  .payment-methods img {
+      margin-top: 10px;
+  }
+}
+
