@@ -128,7 +128,7 @@ header {
   background-color: #fff;
   margin-left: 15px;  
   text-align: left;
-  padding-bottom: 15px;
+  padding-bottom: 12px;
 }
 
 .nav-bar a {
@@ -141,6 +141,92 @@ header {
   padding-left: 40px;
 }
 
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.promotion-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+}
+
+.carousel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  font-size: 24px;
+}
+
+.carousel .prev {
+  left: 10px;
+}
+
+.carousel .next {
+  right: 10px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px; /* Positioning at the bottom within the image */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.carousel-indicators .dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.carousel-indicators .active {
+  background-color: #333;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .carousel button {
+      font-size: 18px;
+  }
+  
+  .carousel img {
+      max-height: 300px;
+  }
+
+  .carousel-indicators {
+      bottom: 10px;
+  }
+=======
 a:hover{
   color: rgb(0, 50, 116);
   text-decoration-color: rgba(0, 50, 116, 1);
