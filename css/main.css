@@ -134,6 +134,7 @@ header {
 .nav-bar a {
   margin: 0 15px;
   text-decoration: underline .12em rgba(0, 50, 116, 0);
+  text-underline-offset: 0.2em;
   transition: text-decoration-color 300ms;
   font-size: 18px;
   font-weight: 600;
