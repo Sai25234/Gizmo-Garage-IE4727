@@ -494,3 +494,25 @@ footer {
   margin-bottom: 10px;
 }
 
+
+.empty-cart {
+  text-align: center;
+  margin-top: 50px;
+  margin-top: 100px;
+  padding: 100px 0 200px 0;
+  font-size: 35px;
+}
+
+.empty-cart button {
+  background-color: #0a2742;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.empty-cart button:hover {
+  background-color: #08335a;
+}
