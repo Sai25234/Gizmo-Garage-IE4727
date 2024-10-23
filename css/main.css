@@ -445,25 +445,29 @@ footer {
 }
 
 .offer-item-text-body{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
   width: 100%;
   margin-top: 1vw;
   padding: 0 0.5vw;
   font-size: 1vw;
+  gap: 1vw;
+  align-items: center;
 }
 
 .offer-item h3 {
   font-size: 1vw;
   text-align: center;
+  grid-column: span 2;
 }
 
 .shop-now-btn {
   background-color: #01214A;
   color: white;
-  margin-top: 1vw;
-  margin-left: 5vw;
-  padding: 7px 12px;
+  padding: 0.4vw 0.7vw;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 0.6vw;
   display: inline-block;
 }
 
@@ -477,14 +481,13 @@ footer {
   display: inline-block;
 }
 
-.new-product .price {
-  margin-left: 4.5vw;
-}
-
 .new-product-text-body{
+  display: grid;
+  grid-template-columns: 60% auto auto;
   width: 100%;
   padding: 0 0.5vw;
   font-size: 1vw;
+  align-items: center;
 }
 
 .new-product-text-body .material-symbols-outlined{
@@ -511,19 +514,48 @@ footer {
 }
 
 .product-item {
+  margin: 0 0.6px;
+  display: block;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  width: 180px;
-  margin: 0 10px;
+  border-radius: 0.6vw;
+  padding: 0.5vw;
+  height: 22vw;
+  width: 20vw;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+.product-item .material-symbols-outlined{
+  font-size: 2.5vw;
+}
+
+.product-name {
+  font-weight: 600;
 }
 
 .product-item img {
+  display: block;
   width: 100%;
   height: auto;
-  margin-bottom: 10px;
+  aspect-ratio: 1.2;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-item-body{
+  display: flex;
+  width: 100%;
+  padding: 0.5vw 0.5vw;
+  vertical-align: middle;
+  align-items: center;
+}
+
+.product-item-text{
+  display: grid;
+  grid-template-rows: auto auto;
+  width: 90%;
+  font-size: 1vw;
+  gap: 1vw;
 }
 
 
@@ -549,30 +581,34 @@ footer {
   background-color: #08335a;
 }
 
+/* Categories Page */
+
 .categories-container {
   display: flex;
-  margin: 20px;
+  margin: 1.1vw;
 }
 
 .filter-section {
   width: 20%;
-  padding: 20px;
+  padding: 1.1vw;
   background-color: #fff;
-  margin-right: 20px;
+  margin-right: 1.1vw;
   border: 1px solid #e0e0e0;
-  font-size: 18px;
+  font-size: 1.05vw;
+  height: fit-content;
+  display: block;
+  position: sticky;
+  top: 0;
 }
-
-
 
 .filter-section h3{
   display: inline-flex;
-  padding-bottom: 10px;
-  gap: 5px;
+  padding-bottom: 0.6vw;
+  gap: 0.3vw;
 }
 
 .filter-section h4{
-  padding-top: 15px ;
+  padding-top: 1vw ;
 }
 
 
@@ -585,21 +621,21 @@ footer {
   width: 80%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 2vw;
 }
 
 .pagination {
   align-items: left;
-  padding: 30px 0 30px 250px;
+  padding: 2vw 0 2vw 13vw;
   text-align: center;
-  margin: 20px;
+  margin: 1.1vw;
 }
 
 .pagination a {
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 0.6vw 1vw;
   border: 1px solid #ddd;
-  margin: 0 5px;
+  margin: 0 0.3vw;
   color: #333;
 }
 
@@ -612,6 +648,9 @@ footer {
   background-color: #01214A;
   color: white;
 }
+
+/* Order Confirmation Page */
+
 .order-confirmation{
   text-align: center;
   margin-top: 0;
@@ -623,6 +662,8 @@ footer {
 .order-confirmation p{
   padding-top: 20px;
 }
+
+/* Login Page */
 
 .login-box {
   background-color: white;
