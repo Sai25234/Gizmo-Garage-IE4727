@@ -666,54 +666,78 @@ footer {
 /* Login Page */
 
 .login-box {
+  display: block;
   background-color: white;
-  padding: 30px 30px 30px 30px;
-  width: 300px;
-  border-radius: 8px;
+  padding: 2vw;
+  width: 25%;
+  border-radius: 0.5vw;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin:0 500px;
-  
-
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.login-box h2{
+  font-size: 1.8vw;
+  text-align: start;
+  margin-bottom: 1.5vw;
+}
 
-.input-group Input, .create-account-btn {
+#form-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 11vw;
+  margin-top: 10vw;
+}
+
+.input-group input {
   width: 100%;
-  height: 40px;
-  margin-bottom: 30px;
-  border-radius: 4px;
+  height: 2.4vw;
+  margin-bottom: 2vw;
+  border-radius: 0.3vw;
   font-size: 1rem;
 }
 
 .login-box form button{
-  margin-bottom: 30px;
+  margin-bottom: 2vw;
 }
+
 .input-group label {
   float: left;
+  font-size: 1vw;
 }
 .forgot-password {
   float: right;
+  color: #4c4c4c;
 }
-
-
 
 a:hover {
   text-decoration: underline;
 }
 
-.btn, .create-account-btn {
+.btn {
   background-color: #003366;
   color: white;
   border: none;
   cursor: pointer;
 }
 
+.login-box #homepage-button{
+  width: 40%;
+  font-size: 1vw;
+}
+
 .create-account-btn {
-  margin-top: 10px;
+  width: 70%;
+  height: 2.4vw;
+  border-radius: 0.3vw;
+  margin-top: 0.6vw;
   border: 1px solid #003366;
   background-color: white;
   color:#01214A;
+  font-size: 1vw;
+  font-weight: 600;
 }
 
 .create-account-btn:hover {
@@ -722,8 +746,24 @@ a:hover {
 }
 
 .login-footer{
-  padding-top: 20px
+  padding-top: 0.5vw;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  justify-content: space-between;
+}
+.login-footer a{
+  color: #4c4c4c;
 }
 .create-account{
-  padding-top: 20px;
+  padding-top: 1vw;
+  font-size: 0.9vw;
+}
+.login-credits{
+  display: block;
+  margin-top: 7vh;
+  font-weight: 600;
+  text-align: center;
 }
