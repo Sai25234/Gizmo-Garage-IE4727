@@ -27,36 +27,36 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px;
+  padding: 2vw 2vw;
   background-color: white;
   width: 100%;
   height: 8vw;
 }
 
 .logo img {
-  margin-left: 4vw;
   height: 4vw;
   aspect-ratio: 4;
 }
 .logo{
-  width: 25%;
+  width: 20%;
+  margin-left: 4vw;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
   flex: 1;
-  margin: 0 30px;
+  margin: 0 2vw;
   border: 1px solid #222;
   border-radius: 5px;
   width: 42%;
-  max-width: 60%;
+  max-width: 48%;
 }
 
 .search-bar select {
   margin-left: 0px;
   height: 4vw;
-  width: 40%;
+  width: 35%;
   font-size: 1.2vw;
   font-weight: 500;
   text-align: center;
@@ -66,7 +66,7 @@ header {
 }
 
 .search-bar input {
-  width: 70%;
+  width: 80%;
   height: 4vw;
   align-items: center;
   border: 0;
@@ -93,7 +93,8 @@ header {
 .account-cart {
   display: flex;
   align-items: center;
-  padding: 0 30px;
+  padding-left: 5vw;
+  width: 32%;
 }
 
 .account-cart a {
@@ -104,7 +105,7 @@ header {
 }
 
 .account-cart .material-symbols-outlined{
-  font-size: 3.3vw;
+  font-size: 3.8vw;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -114,15 +115,15 @@ header {
 
 
 .account-link {
-  width: max-content;
-  height: 50px;
-  margin-right: 60px;
+  width: fit-content;
+  height: 4vw;
+  margin-right: 3vw;
+  vertical-align: middle;
 }
 
 .cart-link {
   width: max-content;
-  height: 50px;
-  margin-right: 30px;
+  height: 4vw;
   vertical-align: middle;
 }
 
@@ -330,7 +331,7 @@ footer {
   border: none;
   border-radius: 3px 0 0 3px;
   background-color: white;
-  width: 80%;
+  width: 86%;
 }
 
 .newsletter-form button {
@@ -340,7 +341,7 @@ footer {
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 0 3px 3px 0;
-  width: 12%;
+  aspect-ratio: 1;
 }
 
 .payment-methods img {
