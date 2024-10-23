@@ -328,7 +328,9 @@ footer {
 .newsletter-form input {
   padding: 10px;
   border: none;
-  width: 88%;
+  border-radius: 3px 0 0 3px;
+  background-color: white;
+  width: 70%;
 }
 
 .newsletter-form button {
@@ -508,3 +510,163 @@ footer {
   margin-bottom: 10px;
 }
 
+
+.empty-cart {
+  text-align: center;
+  margin-top: 50px;
+  margin-top: 100px;
+  padding: 100px 0 200px 0;
+  font-size: 35px;
+}
+
+#homepage-button {
+  background-color: #0a2742;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.empty-cart button:hover {
+  background-color: #08335a;
+}
+
+.categories-container {
+  display: flex;
+  margin: 20px;
+}
+
+.filter-section {
+  width: 20%;
+  padding: 20px;
+  background-color: #fff;
+  margin-right: 20px;
+  border: 1px solid #e0e0e0;
+  font-size: 18px;
+}
+
+
+
+.filter-section h3{
+  display: inline-flex;
+  padding-bottom: 10px;
+  gap: 5px;
+}
+
+.filter-section h4{
+  padding-top: 15px ;
+}
+
+
+.filter-section label {
+  display: block;
+  margin: 10px 0;
+}
+
+.product-grid {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pagination {
+  align-items: left;
+  padding: 30px 0 30px 250px;
+  text-align: center;
+  margin: 20px;
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  margin: 0 5px;
+  color: #333;
+}
+
+.pagination a.active {
+  background-color: #01214A;
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: #01214A;
+  color: white;
+}
+.order-confirmation{
+  text-align: center;
+  margin-top: 0;
+  padding: 100px 0 200px 0;
+  font-size: 25px;
+  gap: 20px;
+}
+
+.order-confirmation p{
+  padding-top: 20px;
+}
+
+.login-box {
+  background-color: white;
+  padding: 30px 30px 30px 30px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin:0 500px;
+  
+
+}
+
+
+.input-group Input, .create-account-btn {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-box form button{
+  margin-bottom: 30px;
+}
+.input-group label {
+  float: left;
+}
+.forgot-password {
+  float: right;
+}
+
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+.btn, .create-account-btn {
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.create-account-btn {
+  margin-top: 10px;
+  border: 1px solid #003366;
+  background-color: white;
+  color:#01214A;
+}
+
+.create-account-btn:hover {
+  background-color: #01214A;
+  color: white;
+}
+
+.login-footer{
+  padding-top: 20px
+}
+.create-account{
+  padding-top: 20px;
+}
