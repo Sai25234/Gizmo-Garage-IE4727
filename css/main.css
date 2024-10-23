@@ -316,6 +316,7 @@ footer {
   padding: 10px;
   border: none;
   border-radius: 3px 0 0 3px;
+  background-color: white;
   width: 70%;
 }
 
@@ -589,5 +590,68 @@ footer {
 }
 
 .order-confirmation p{
+  padding-top: 20px;
+}
+
+.login-box {
+  background-color: white;
+  padding: 30px 30px 30px 30px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin:0 500px;
+  
+
+}
+
+
+.input-group Input, .create-account-btn {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-box form button{
+  margin-bottom: 30px;
+}
+.input-group label {
+  float: left;
+}
+.forgot-password {
+  float: right;
+}
+
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+.btn, .create-account-btn {
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.create-account-btn {
+  margin-top: 10px;
+  border: 1px solid #003366;
+  background-color: white;
+  color:#01214A;
+}
+
+.create-account-btn:hover {
+  background-color: #01214A;
+  color: white;
+}
+
+.login-footer{
+  padding-top: 20px
+}
+.create-account{
   padding-top: 20px;
 }
