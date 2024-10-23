@@ -188,7 +188,7 @@ body {
   padding: 10px;
   cursor: pointer;
   z-index: 1;
-  font-size: 24px;
+  font-size: 2vw;
 }
 
 .carousel .prev {
@@ -274,16 +274,16 @@ footer {
 }
 
 .footer-column {
-  padding-left: 15px;
-  min-width: 200px;
-  margin: 30px;
+  padding-left: 1vw;
+  min-width: 13vw;
+  margin: 30px 2vw;
 
 }
 .newsletter-column {
   
   min-width: 200px;
-  margin: 30px;
-  margin-left: 150px;
+  margin: 2vw;
+  margin-left: 5vw;
 }
 
 .footer-column h4, .newsletter-column h4 {
@@ -331,14 +331,14 @@ footer {
   border: none;
   border-radius: 3px 0 0 3px;
   background-color: white;
-  width: 86%;
+  width: 88%;
 }
 
 .newsletter-form button {
   background-color: #01214A;
   border: none;
   color: white;
-  padding: 10px 15px;
+  padding: 0.7vw 1vw;
   cursor: pointer;
   border-radius: 0 3px 3px 0;
   aspect-ratio: 1;
