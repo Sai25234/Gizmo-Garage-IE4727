@@ -669,9 +669,9 @@ footer {
   padding: 1vw;
 }
 
-/* Login Page */
+/* Login Page, Sign Up Page */
 
-.login-box,.signup-box {
+.login-box,.signup-box,.form-box {
   display: block;
   background-color: white;
   padding: 2vw;
@@ -683,7 +683,8 @@ footer {
   margin-right: auto;
 }
 
-.login-box h2,.signup-box h2{
+.login-box h2,.signup-box h2,.form-box h2{
+  color: #01214A;
   font-size: 1.8vw;
   text-align: start;
   margin-bottom: 1.5vw;
@@ -734,7 +735,7 @@ a:hover {
   font-size: 1vw;
 }
 
-.create-account-btn {
+.create-account-btn,.form-btn {
   width: 70%;
   height: 2.4vw;
   border-radius: 0.3vw;
@@ -746,7 +747,7 @@ a:hover {
   font-weight: 600;
 }
 
-.create-account-btn:hover {
+.create-account-btn:hover, .form-btn:hover {
   background-color: #01214A;
   color: white;
 }
@@ -763,7 +764,7 @@ a:hover {
 .login-footer a{
   color: #4c4c4c;
 }
-.create-account{
+.create-account, .form-bottom{
   padding-top: 1vw;
   font-size: 0.9vw;
 }
@@ -776,4 +777,84 @@ a:hover {
   margin: 0 auto;
   bottom: 0;
   font-weight: 600;
+}
+
+/* Checkout Page */
+.checkout-container{
+  display: grid;
+  grid-template-columns: 75% 25%;
+  justify-content: end;
+}
+
+#checkout-wrapper{
+  margin-right: 10vw;
+  width: 40%;
+  justify-self: self-end;
+}
+
+.checkout-section .form-box{
+  width: 100%;
+  padding: 1.2vw 2vw;
+
+  h4{
+    text-align: start;
+    font-size: 1vw;
+    color: #01214A;
+    margin-bottom: 0.3vw;
+  }
+}
+.input-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto;
+  gap: 1.5vw 1.5vw;
+  margin-bottom: 1.5vw;
+
+  input{
+    height: 2vw;
+    border-radius: 0.3vw;
+    font-size: 0.8vw;
+    font-weight: 600;
+    padding-left: 0.5vw;
+    border: 1px solid #444;
+  }
+  input:focus{
+    color: #01214A;
+    border: 1px solid #01214A;
+  }
+}
+.input-grid #streetaddress, .input-grid #cardnum{
+  grid-column: span 2;
+}
+
+.checkout-section .form-footer{
+  padding-top: 0.5vw;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  justify-content: space-between;
+
+  a{
+    color: #4c4c4c;
+  }
+}
+.order-summary-section .order-summary{
+  padding: 1.2vw;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  font-size: 1.05vw;
+  height: fit-content;
+  display: block;
+  position: sticky;
+  top: 0;
+  width: 80%;
+  border-radius: 0.5vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+.order-summary h3{
+  font-size: 1.2vw;
+  color: #01214A;
 }

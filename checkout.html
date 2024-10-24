@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gizmo Garage</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="running-promo-banner">Running Promotion Banner</div>
+      <div class="top-bar">
+        <div class="logo">
+          <img src="images/gizmogaragelogo.png" alt="Gizmo Garage" />
+        </div>
+        <div class="search-bar">
+          <select>
+            <option value="category">BY CATEGORY</option>
+          </select>
+          <input type="text" placeholder="Search for a Product..." />
+          <button>
+            <img
+              src="images/search_icon.png"
+              alt="Search"
+              height="40px"
+              width="40px"
+            />
+          </button>
+        </div>
+        <div class="account-cart">
+          <a href="#" class="account-link">
+            <span class="material-symbols-outlined"> person </span>
+            MY ACCOUNT
+          </a>
+          <a href="#" class="cart-link">
+            <span class="material-symbols-outlined"> shopping_cart </span>
+            CART
+          </a>
+        </div>
+      </div>
+      <nav class="nav-bar">
+        <a href="#"
+          >LAPTOPS<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >DESKTOPS<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >PHONES<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >TABLETS<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#"
+          >ACCESSORIES<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+        <a href="#" class="sale-link"
+          >SALE<span class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span></a
+        >
+      </nav>
+    </header>
+    <div class="checkout-container">
+      <div class="checkout-section">
+        <div id="checkout-wrapper">
+            <img
+          src="images/gizmogaragelogo.png"
+          id="form-logo"
+          alt="Gizmo Garage Logo"
+        />
+        <div class="form-box">
+          <h2>Checkout</h2>
+          <form action="/checkout" method="POST">
+            <h4>Shipping Address</h4>
+            <div class="input-grid">
+              <input type="text" id="firstname" name="firstname" placeholder="First Name" required />
+              <input type="text" id="lastname" name="lastname" placeholder="Last Name" required />
+              <input type="text" id="streetaddress" name="streetaddress" placeholder="Street Address" required />
+              <input type="text" id="postalcode" name="postalcode" placeholder="Postal Code" required />
+              <input type="text" id="unitcode" name="unitcode" placeholder="Apt / Suite / Unit" required />
+            </div>
+            <h4>Billing Details</h4>
+            <div class="input-grid">
+                <input type="text" id="cardnum" name="cardnum" placeholder="Card Number" required />
+                <input type="text" id="cardexpiry" name="cardexpiry" placeholder="Card Expiry" onfocus="(this.type='date')" onblur="(this.type='text')" required />
+                <input type="text" id="cardcvv" name="cardcvv" placeholder="CVV" required />
+                <input type="email" id="email" name="email" placeholder="Email Address" required />
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required />
+              </div>
+            <button type="submit" id="homepage-button">Complete Order</button>
+          </form>
+        </div>
+        <div class="form-footer">
+            <a href="/privacy">Privacy Notice</a>
+            <a href="index.html">Return to Homepage</a>
+          </div>
+        </div>
+      </div>
+      <div class="order-summary-section">
+        <div class="order-summary">
+            <h3>ORDER SUMMARY</h3>
+            <hr>
+        </div>
+      </div>
+      <div class="login-credits"><p>© 2024 A Website by Ariel & Sai</p></div>
+    </div>
+  </body>
+</html>
