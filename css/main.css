@@ -800,6 +800,9 @@ a:hover {
     color: #01214A;
     margin-bottom: 0.3vw;
   }
+  #homepage-button{
+    width: 40%;
+  }
 }
 .input-grid {
   display: grid;
