@@ -772,11 +772,9 @@ a:hover {
   display: block;
   text-align: center;
   position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
   bottom: 0;
   font-weight: 600;
+  width: 100%;
 }
 
 /* Checkout Page */
