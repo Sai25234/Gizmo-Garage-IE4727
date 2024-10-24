@@ -671,7 +671,7 @@ footer {
 
 /* Login Page */
 
-.login-box {
+.login-box,.signup-box {
   display: block;
   background-color: white;
   padding: 2vw;
@@ -683,7 +683,7 @@ footer {
   margin-right: auto;
 }
 
-.login-box h2{
+.login-box h2,.signup-box h2{
   font-size: 1.8vw;
   text-align: start;
   margin-bottom: 1.5vw;
@@ -705,7 +705,7 @@ footer {
   font-size: 1rem;
 }
 
-.login-box form button{
+.login-box form button,.signup-box form button{
   margin-bottom: 2vw;
 }
 
@@ -729,7 +729,7 @@ a:hover {
   cursor: pointer;
 }
 
-.login-box #homepage-button{
+.login-box #homepage-button,.signup-box #homepage-button{
   width: 40%;
   font-size: 1vw;
 }
@@ -770,5 +770,10 @@ a:hover {
 .login-credits{
   display: block;
   text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   bottom: 0;
+  font-weight: 600;
 }
