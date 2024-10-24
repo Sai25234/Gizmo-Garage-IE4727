@@ -82,34 +82,96 @@
     <div class="checkout-container">
       <div class="checkout-section">
         <div id="checkout-wrapper">
-            <img
-          src="images/gizmogaragelogo.png"
-          id="form-logo"
-          alt="Gizmo Garage Logo"
-        />
-        <div class="form-box">
-          <h2>Checkout</h2>
-          <form action="/checkout" method="POST">
-            <h4>Shipping Address</h4>
-            <div class="input-grid">
-              <input type="text" id="firstname" name="firstname" placeholder="First Name" required />
-              <input type="text" id="lastname" name="lastname" placeholder="Last Name" required />
-              <input type="text" id="streetaddress" name="streetaddress" placeholder="Street Address" required />
-              <input type="text" id="postalcode" name="postalcode" placeholder="Postal Code" required />
-              <input type="text" id="unitcode" name="unitcode" placeholder="Apt / Suite / Unit" required />
-            </div>
-            <h4>Billing Details</h4>
-            <div class="input-grid">
-                <input type="text" id="cardnum" name="cardnum" placeholder="Card Number" required />
-                <input type="text" id="cardexpiry" name="cardexpiry" placeholder="Card Expiry" onfocus="(this.type='date')" onblur="(this.type='text')" required />
-                <input type="text" id="cardcvv" name="cardcvv" placeholder="CVV" required />
-                <input type="email" id="email" name="email" placeholder="Email Address" required />
-                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required />
+          <img
+            src="images/gizmogaragelogo.png"
+            id="form-logo"
+            alt="Gizmo Garage Logo"
+          />
+          <div class="form-box">
+            <h2>Checkout</h2>
+            <form action="/checkout" method="POST">
+              <h4>Shipping Address</h4>
+              <div class="input-grid">
+                <input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                  required
+                />
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Last Name"
+                  required
+                />
+                <input
+                  type="text"
+                  id="streetaddress"
+                  name="streetaddress"
+                  placeholder="Street Address"
+                  required
+                />
+                <input
+                  type="text"
+                  id="postalcode"
+                  name="postalcode"
+                  placeholder="Postal Code"
+                  required
+                />
+                <input
+                  type="text"
+                  id="unitcode"
+                  name="unitcode"
+                  placeholder="Apt / Suite / Unit"
+                  required
+                />
               </div>
-            <button type="submit" id="homepage-button">Complete Order</button>
-          </form>
-        </div>
-        <div class="form-footer">
+              <h4>Billing Details</h4>
+              <div class="input-grid">
+                <input
+                  type="text"
+                  id="cardnum"
+                  name="cardnum"
+                  placeholder="Card Number"
+                  required
+                />
+                <input
+                  type="text"
+                  id="cardexpiry"
+                  name="cardexpiry"
+                  placeholder="Card Expiry"
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                  required
+                />
+                <input
+                  type="text"
+                  id="cardcvv"
+                  name="cardcvv"
+                  placeholder="CVV"
+                  required
+                />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email Address"
+                  required
+                />
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+              <button type="submit" id="homepage-button">Complete Order</button>
+            </form>
+          </div>
+          <div class="form-footer">
             <a href="/privacy">Privacy Notice</a>
             <a href="index.html">Return to Homepage</a>
           </div>
@@ -117,38 +179,38 @@
       </div>
       <div class="order-summary-section">
         <div class="order-summary">
-            <h3>ORDER SUMMARY</h3>
-            <div id="summary-grid">
-              <div class="order-item">
-                <img src="...">
-                 <p class="product-name">Product Name</p>
-                 <p class="price">$XXX.XX</p>
-              </div>
-              <div class="order-item">
-                <img src="...">
-                 <p class="product-name">Product Name</p>
-                 <p class="price">$XXX.XX</p>
-              </div>
-              <div class="order-item">
-                <img src="...">
-                 <p class="product-name">Product Name</p>
-                 <p class="price">$XXX.XX</p>
-              </div>
-              <div class="order-item">
-                <img src="...">
-                 <p class="product-name">Product Name</p>
-                 <p class="price">$XXX.XX</p>
-              </div>
+          <h3>ORDER SUMMARY</h3>
+          <div id="summary-grid">
+            <div class="order-item">
+              <img src="..." />
+              <p class="product-name">Product Name</p>
+              <p class="price">$XXX.XX</p>
             </div>
-            <hr>
-            <div id="price-grid">
-              <h4>Subtotal</h4>
-              <p class="subtotal">$XXX.XX</p>
-              <h4>Shipping</h4>
-              <p>$XX.XX</p>
-              <h3>TOTAL</h3>
-              <h3 class="total">$XXXX.XX</h3>
+            <div class="order-item">
+              <img src="..." />
+              <p class="product-name">Product Name</p>
+              <p class="price">$XXX.XX</p>
             </div>
+            <div class="order-item">
+              <img src="..." />
+              <p class="product-name">Product Name</p>
+              <p class="price">$XXX.XX</p>
+            </div>
+            <div class="order-item">
+              <img src="..." />
+              <p class="product-name">Product Name</p>
+              <p class="price">$XXX.XX</p>
+            </div>
+          </div>
+          <hr />
+          <div id="price-grid">
+            <h4>Subtotal</h4>
+            <p class="subtotal">$XXX.XX</p>
+            <h4>Shipping</h4>
+            <p>$XX.XX</p>
+            <h3>TOTAL</h3>
+            <h3 class="total">$XXXX.XX</h3>
+          </div>
         </div>
       </div>
       <div class="web-credits"><p>© 2024 A Website by Ariel & Sai</p></div>
