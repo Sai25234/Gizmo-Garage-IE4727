@@ -592,12 +592,22 @@ footer {
   justify-self: self-end;
 }
 .cart-container .order-summary #price-grid {
-  margin-top: 0;
+  margin: 1vw 0;
   gap: 1vw 0;
   hr{
     grid-column: span 2;
   }
 }
+.cart-container .order-summary-section .order-summary {
+  width: 70%;
+  
+  #homepage-button{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-size: 0.9vw;
+}}
 
 .cart-wrapper #cart-grid{
   margin: 2vw 0;
