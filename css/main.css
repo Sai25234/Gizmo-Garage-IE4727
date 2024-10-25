@@ -876,6 +876,7 @@ footer {
   margin-bottom: 2vw;
   border-radius: 0.3vw;
   font-size: 1rem;
+  padding-left: 0.3vw;
 }
 
 .login-box form button,.signup-box form button{
