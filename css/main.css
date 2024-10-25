@@ -702,10 +702,18 @@ footer {
     font-size: 2vw;
     color: #01214A;
   }
-  h3.price{
+  h3 #price{
     font-weight: 500;
   }
-  h3.price::after {
+  h3 #price{
+    text-decoration: line-through;
+    color: #444;
+  }
+  h3 span#sale-price{
+    font-weight: 600;
+    color: #9A0000;
+  }
+  h3#product-price::after {
     content: '';
     display: block;
     width: 100%;
@@ -713,8 +721,9 @@ footer {
     background-color: #01214A;
     margin-top: 1vw;
   }
-  .product-name{
+  #product-name{
     text-transform: uppercase;
+    align-self: flex-end;
   }
   ul{
     display: grid;
