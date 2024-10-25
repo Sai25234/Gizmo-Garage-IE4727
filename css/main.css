@@ -12,6 +12,7 @@ header {
   background-color: white;
   border-bottom: 1px solid #ddd;
   width: 100%;
+  box-shadow: 0 3px 5px -2px #00000080;
 }
 
 .running-promo-banner {
@@ -24,33 +25,28 @@ header {
 }
 
 .top-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
   justify-content: space-between;
   align-items: center;
-  padding: 2vw 2vw;
+  padding: 2vw 5vw;
   background-color: white;
   width: 100%;
   height: 8vw;
+  gap: 2vw;
 }
 
 .logo img {
   height: 4vw;
   aspect-ratio: 4;
 }
-.logo{
-  width: 20%;
-  margin-left: 4vw;
-}
 
 .search-bar {
   display: flex;
   align-items: center;
   flex: 1;
-  margin: 0 2vw;
   border: 1px solid #222;
-  border-radius: 5px;
-  width: 42%;
-  max-width: 48%;
+  border-radius: 0.3vw;
 }
 
 .search-bar select {
@@ -62,7 +58,7 @@ header {
   text-align: center;
   border: 1px solid #01214A ;
   color: #01214A;
-  border-radius: 5px;
+  border-radius: 0.3vw;
 }
 
 .search-bar input {
@@ -70,7 +66,7 @@ header {
   height: 4vw;
   align-items: center;
   border: 0;
-  padding-left: 30px;
+  padding-left: 1.5vw;
   font-size: 1.1vw;
 }
 
@@ -93,8 +89,8 @@ header {
 .account-cart {
   display: flex;
   align-items: center;
-  padding-left: 5vw;
-  width: 32%;
+  gap: 3vw;
+  margin-left: 2vw;
 }
 
 .account-cart a {
@@ -117,7 +113,6 @@ header {
 .account-link {
   width: fit-content;
   height: 4vw;
-  margin-right: 3vw;
   vertical-align: middle;
 }
 
@@ -134,20 +129,23 @@ header {
 
 .nav-bar {
   background-color: #fff;
-  margin-left: 2%;  
+  margin-left: 4vw;  
   text-align: left;
-  padding-bottom: 12px;
+  padding-bottom: 0.8vw;
+  display: grid;
+  width: 60%;
+  grid-auto-flow: column;
 }
 
 .nav-bar a {
-  margin: 0 15px;
+  margin: 0 0.5vw;
   text-decoration: underline .12em rgba(0, 50, 116, 0);
   text-underline-offset: 0.2em;
   transition: text-decoration-color 300ms;
-  font-size: 1.15vw;
+  font-size: 1.2vw;
   font-weight: 600;
   color: #333;
-  padding-left: 3%;
+  padding-left: 0.5vw;
 }
 
 /* General reset */
@@ -246,6 +244,15 @@ a:hover{
 a.sale-link:hover{
   color: rgb(154, 0, 0);
   text-decoration-color: rgba(154, 0, 0, 1);
+}
+
+.account-cart a:hover {
+  color: #01214A;
+  text-decoration: none;
+
+  .material-symbols-outlined{
+    color: #01214A;
+  }
 }
 
 .material-symbols-outlined {
@@ -677,11 +684,13 @@ footer {
   
   #image-gallery{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(0, 1fr);
     align-content: space-evenly;
+    gap: 1.5vw 0;
 
     img{
-      aspect-ratio: 1.2;
+      aspect-ratio: 1;
       object-fit: contain;
     }
   }
