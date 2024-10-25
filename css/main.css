@@ -954,6 +954,7 @@ a:hover {
 .checkout-container{
   display: grid;
   grid-template-columns: 75% 25%;
+  margin-bottom: 3vw;
 }
 
 .checkout-container .checkout-section{
@@ -963,7 +964,7 @@ a:hover {
 
 #checkout-wrapper{
   margin-right: 10vw;
-  width: 40%;
+  width: 45%;
 
   #form-logo{
     margin-top: 3vw;
@@ -976,12 +977,15 @@ a:hover {
 
   h4{
     text-align: start;
-    font-size: 1vw;
+    font-size: 1.2vw;
     color: #01214A;
     margin-bottom: 0.3vw;
   }
   #homepage-button{
     width: 40%;
+    font-weight: 500;
+    font-size: 1.2vw;
+    margin-bottom: 1vw;
   }
 }
 .input-grid {
@@ -992,9 +996,9 @@ a:hover {
   margin-bottom: 1.5vw;
 
   input{
-    height: 2vw;
+    height: 3vw;
     border-radius: 0.3vw;
-    font-size: 0.8vw;
+    font-size: 1vw;
     font-weight: 600;
     padding-left: 0.5vw;
     border: 1px solid #444;
@@ -1017,7 +1021,7 @@ a:hover {
   width: 100%;
   justify-content: space-between;
 
-  a{
+  a,p{
     color: #4c4c4c;
   }
 }
