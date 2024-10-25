@@ -954,13 +954,20 @@ a:hover {
 .checkout-container{
   display: grid;
   grid-template-columns: 75% 25%;
+}
+
+.checkout-container .checkout-section{
+  display: flex;
   justify-content: end;
 }
 
 #checkout-wrapper{
   margin-right: 10vw;
   width: 40%;
-  justify-self: self-end;
+
+  #form-logo{
+    margin-top: 3vw;
+  }
 }
 
 .checkout-section .form-box{
