@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -79,11 +80,27 @@
         >
       </nav>
     </header>
-    <!-- <div class="empty-cart" id="empty-cart">
+    <?php
+    @ $db = new mysqli('hostname', 'username', 'password', 'db');
+    if (mysqli_connect_errno()) {
+      echo 'Error: Could not connect to database.  Please try again later.';
+      exit;
+    }
+    $query = "SELECT SUM(Quantity) AS totalQuantity FROM ShoppingCart WHERE CustomerID = :customerId";
+    $result = $db->query($query);
+    $row = $result->fetch_assoc()
+    $totalQuantity = $row['totakQuantity'];
+    if ($totalQuantity == 0) {
+      
+      echo '
+    <div class="empty-cart" id="empty-cart">
         <p>Your shopping cart is currently empty.</p>
-        <button id="homepage-button" onclick="location.href='index.html'">Return to Homepage</button>
-    </div> -->
-    <div class="cart-container">
+        <button id="homepage-button" onclick="location.href="index.html"">Return to Homepage</button>
+    </div>
+    ';
+    } else {
+      echo '
+      <div class="cart-container">
       <div class="checkout-section">
         <div class="cart-wrapper">
           <div id="cart-grid">
@@ -141,11 +158,14 @@
             <h3>TOTAL</h3>
             <h3 class="total">$XXXX.XX</h3>
           </div>
-            <button id="homepage-button" onclick="location.href='checkout.html'">
+            <button id="homepage-button" onclick="location.href="checkout.html"">
               Checkout</button>
         </div>
       </div>
-    </div>
+    </div> ';
+    }
+    
+    ?>    
     <footer>
       <div class="footer-container">
         <div class="footer-column">
