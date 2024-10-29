@@ -992,8 +992,8 @@ a:hover {
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto auto;
-  gap: 1.5vw 1.5vw;
-  margin-bottom: 1.5vw;
+  gap: 0.5vw 1.5vw;
+  margin-bottom: 1vw;
 
   input{
     height: 3vw;
@@ -1001,14 +1001,25 @@ a:hover {
     font-size: 1vw;
     font-weight: 600;
     padding-left: 0.5vw;
-    border: 1px solid #444;
-  }
-  input:focus{
-    color: #01214A;
     border: 1px solid #01214A;
+    color: #01214A;
   }
 }
-.input-grid #streetaddress, .input-grid #cardnum{
+.input-field, .input-field-span2{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+}
+.input-field span, .input-field-span2 span{
+  font-size: 0.8vw;
+  height: 0.8vw;
+  text-align: start;
+  padding-left: 0.5vw;
+  color: #980000;
+  font-weight: 500;
+}
+
+.input-grid .input-field-span2{
   grid-column: span 2;
 }
 
