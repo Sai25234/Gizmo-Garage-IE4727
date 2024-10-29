@@ -89,84 +89,122 @@
           />
           <div class="form-box">
             <h2>Checkout</h2>
-            <form action="/checkout" method="POST">
+            <form action="/checkout" method="POST" onsubmit="return validateForm()">
               <h4>Shipping Address</h4>
               <div class="input-grid">
-                <input
+                <div class="input-field">
+                  <input
                   type="text"
                   id="firstname"
                   name="firstname"
+                  onchange="validateFirstName.call(this)"
                   placeholder="First Name"
                   required
                 />
-                <input
+                <span id="errorFirstName"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="text"
                   id="lastname"
                   name="lastname"
+                  onchange="validateLastName.call(this)"
                   placeholder="Last Name"
                   required
                 />
-                <input
+                <span id="errorLastName"></span>
+                </div>
+                <div class="input-field-span2">
+                  <input
                   type="text"
-                  id="streetaddress"
-                  name="streetaddress"
+                  id="address"
+                  name="address"
+                  onchange="validateAddress.call(this)"
                   placeholder="Street Address"
                   required
                 />
-                <input
+                <span id="errorAddress"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="text"
                   id="postalcode"
                   name="postalcode"
+                  onchange="validatePostalCode.call(this)"
                   placeholder="Postal Code"
                   required
                 />
+                <span id="errorPostalCode"></span>
+                </div>
+                <div class="input-field">
                 <input
                   type="text"
                   id="unitcode"
                   name="unitcode"
+                  onchange="validateUnitCode.call(this)"
                   placeholder="Apt / Suite / Unit"
-                  required
                 />
+                <span id="errorUnitCode"></span>
+              </div>
               </div>
               <h4>Billing Details</h4>
               <div class="input-grid">
-                <input
+                <div class="input-field-span2">
+                  <input
                   type="text"
                   id="cardnum"
                   name="cardnum"
+                  onchange="validateCardNum.call(this)"
+                  oninput="formatCardNumber(this)"
                   placeholder="Card Number"
                   required
                 />
-                <input
+                <span id="errorCardNum"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="text"
                   id="cardexpiry"
                   name="cardexpiry"
+                  onchange="validateCardExpiry.call(this)"
                   placeholder="Card Expiry"
-                  onfocus="(this.type='date')"
-                  onblur="(this.type='text')"
                   required
                 />
-                <input
+                <span id="errorCardExpiry"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="text"
                   id="cardcvv"
                   name="cardcvv"
+                  onchange="validateCardCVV.call(this)"
                   placeholder="CVV"
                   required
                 />
-                <input
+                <span id="errorCardCVV"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="email"
                   id="email"
                   name="email"
+                  onchange="validateEmail.call(this)"
                   placeholder="Email Address"
                   required
                 />
-                <input
+                <span id="errorEmail"></span>
+                </div>
+                <div class="input-field">
+                  <input
                   type="tel"
                   id="phone"
                   name="phone"
+                  onchange="validatePhone.call(this)"
                   placeholder="Phone Number"
                   required
                 />
+                <span id="errorPhone"></span>
+                </div>
               </div>
               <button type="submit" id="homepage-button">Complete Order</button>
             </form>
@@ -271,5 +309,6 @@
         <p>© 2024 A Website by Ariel & Sai</p>
       </div>
     </footer>
+    <script src="checkout_validation.js"></script>
   </body>
 </html>
