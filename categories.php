@@ -112,20 +112,27 @@
       include 'dbconnect.php';
       if (isset($_GET['category'])) {
         $category = $_GET['category'];
-        $categoryquery = "SELECT * FROM products WHERE category = '$category'";
+        //Convert category name in URL to category ID
+        $catID = $db->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
+        $categoryquery = "SELECT * FROM Products WHERE CategoryID = '$catID'";
       } else {
         //Failsafe to load all products if no category query found
-        $categoryquery = "SELECT * FROM products";
+        $categoryquery = "SELECT * FROM Products";
       }
       $result = $db->query($categoryquery);
         
       while ($row = $result->fetch_assoc()){
         echo '<div class="product-item">';
-        echo '<img src="images/' . $row['image'] . '" alt="' . $row['product name'] . '">';
+        echo '<img src="images/' . $row['image'] . '" alt="' . $row['ProductName'] . '">';
         echo '<div class="product-item-body">';
         echo '<div class="product-item-text">';
-        echo '<p class="product-name">' . $row['product name'] . '</p>';
-        echo '<p class="price">$' . $row['price'] . '</p></div>';
+        echo '<p class="product-name">' . $row['ProductName'] . '</p>';
+        if ($row['SalePrice'] > 0){
+          echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+        }
+        else {
+          echo '<p class="price">$' . $row['Price'] . '</p></div>';
+        }
         echo '<a href="#"><span class="material-symbols-outlined">shopping_cart</span></a>';
         echo '</div></div>';
       }
