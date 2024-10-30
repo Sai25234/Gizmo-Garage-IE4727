@@ -109,12 +109,7 @@
 
     <div class="product-grid">
       <?php 
-      @ $db = new mysqli('localhost', 'root', '', 'javajam');
-
-      if (mysqli_connect_errno()) {
-      echo 'Error: Could not connect to database.  Please try again later.';
-      exit;
-      }
+      include 'dbconnect.php';
       if (isset($_GET['category'])) {
         $category = $_GET['category'];
         $categoryquery = "SELECT * FROM products WHERE category = '$category'";
