@@ -119,7 +119,7 @@ include 'session.php';
               else {
                 echo '<p class="price">$' . $row['Price'] . '</p></div>';
               }
-            echo "</div><a href='removeitem.php?item=".$item."'>";
+            echo "</div><a href='removeitem.php?remove=".$item."'>";
             echo "<span class='material-symbols-outlined'> delete </span>";
             echo "</a></div>";
         }

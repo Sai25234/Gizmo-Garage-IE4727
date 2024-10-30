@@ -1,3 +1,8 @@
+<?php
+include 'session.php';
+include 'dbconnect.php';
+include 'additem.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,7 +138,7 @@
         else {
           echo '<p class="price">$' . $row['Price'] . '</p></div>';
         }
-        echo '<a href="#"><span class="material-symbols-outlined">shopping_cart</span></a>';
+        echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
         echo '</div></div>';
       }
       ?>

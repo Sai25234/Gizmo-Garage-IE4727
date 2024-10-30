@@ -2,8 +2,8 @@
 include 'session.php';
 
 //Uses productID!!!!
-if (isset($_GET['item'])) {
-    $item = $_GET['item'];
+if (isset($_GET['remove'])) {
+    $item = $_GET['remove'];
     $index = array_search($item, $_SESSION['cart']['items']);
 
     if ($index !== false) {

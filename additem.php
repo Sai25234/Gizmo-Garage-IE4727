@@ -7,7 +7,7 @@ if (isset($_GET['buy'])){
         $_SESSION['cart']['qty'][$item]++;
     } else {
         $_SESSION['cart']['items'][] = $item;
-        $_SESSION['cart']['qty'][] = 1;
+        $_SESSION['cart']['qty'][$item] = 1;
     }
 
     //go back to previous page once done
