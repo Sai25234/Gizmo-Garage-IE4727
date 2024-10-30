@@ -2,6 +2,7 @@
 session_start();
 $_SESSION['cart'] = $_SESSION['cart'] ?? array('items' => array(), 'qty' => array());
 
+//adding item to cart will use buy=product_id
 if (isset($_GET['buy'])){
     $item = $_GET['buy'];
     if (in_array($item, $_SESSION['cart']['items'])){
