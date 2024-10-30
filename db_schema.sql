@@ -10,6 +10,7 @@ CREATE TABLE Products (
     ProductName VARCHAR(100) NOT NULL,
     Stock INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    SalePrice  DECIMAL(10, 2) NOT NULL DEFAULT 0.00, 
     Description TEXT,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -31,11 +32,22 @@ CREATE TABLE Orders (
     CustomerID INT,
     Status VARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Processing', 'Completed', 'Cancelled')),
     TotalPrice DECIMAL(10, 2),
-    PaymentStatus VARCHAR(50) DEFAULT 'Pending',
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
+
+CREATE TABLE ShoppingCart (
+    ProductID INT,
+    CustomerID INT,
+    Quantity INT NOT NULL,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ProductID, CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
 
 
 
