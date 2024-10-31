@@ -2,6 +2,17 @@
 include 'session.php';
 include 'dbconnect.php';
 include 'additem.php';
+$servername = "localhost";  
+$username = "root";         
+$password = "";            
+$dbname = "gizmo-garage";  
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT ProductID, ProductName, Price, Image_url FROM products";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,6 +153,31 @@ include 'additem.php';
         echo '</div></div>';
       }
       ?>
+      <?php
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  ?>
+                  <div class="product-item">               
+                    <img src="<?php echo htmlspecialchars($row['Image_url']); ?>" alt="<?php echo htmlspecialchars($row['ProductName']); ?>">
+                      <div class="product-item-body">
+                          <div class="product-item-text">
+                              <p class="product-name"><?php echo htmlspecialchars($row['ProductName']); ?></p>
+                              <p class="price">$<?php echo number_format($row['Price'], 2); ?></p>
+                          </div>
+                          <a href="cart.php?add=<?php echo $row['ProductID']; ?>">
+                              <span class="material-symbols-outlined">
+                                  shopping_cart
+                              </span>
+                          </a>
+                      </div>
+                  </div>
+                  <?php
+              }
+          } else {
+              echo "<p>No products available.</p>";
+          }
+          $conn->close();
+          ?>
     </div>
   </div>
 
