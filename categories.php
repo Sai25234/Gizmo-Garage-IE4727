@@ -1,3 +1,16 @@
+<?php
+$servername = "localhost";  
+$username = "root";         
+$password = "";            
+$dbname = "gizmo-garage";  
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT ProductID, ProductName, Price, Image_url FROM products";
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,33 +121,31 @@
     </div>
 
     <div class="product-grid">
-      <?php 
-      @ $db = new mysqli('localhost', 'root', '', 'javajam');
-
-      if (mysqli_connect_errno()) {
-      echo 'Error: Could not connect to database.  Please try again later.';
-      exit;
-      }
-      if (isset($_GET['category'])) {
-        $category = $_GET['category'];
-        $categoryquery = "SELECT * FROM products WHERE category = '$category'";
-      } else {
-        //Failsafe to load all products if no category query found
-        $categoryquery = "SELECT * FROM products";
-      }
-      $result = $db->query($categoryquery);
-        
-      while ($row = $result->fetch_assoc()){
-        echo '<div class="product-item">';
-        echo '<img src="images/' . $row['image'] . '" alt="' . $row['product name'] . '">';
-        echo '<div class="product-item-body">';
-        echo '<div class="product-item-text">';
-        echo '<p class="product-name">' . $row['product name'] . '</p>';
-        echo '<p class="price">$' . $row['price'] . '</p></div>';
-        echo '<a href="#"><span class="material-symbols-outlined">shopping_cart</span></a>';
-        echo '</div></div>';
-      }
-      ?>
+      <?php
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  ?>
+                  <div class="product-item">               
+                    <img src="<?php echo htmlspecialchars($row['Image_url']); ?>" alt="<?php echo htmlspecialchars($row['ProductName']); ?>">
+                      <div class="product-item-body">
+                          <div class="product-item-text">
+                              <p class="product-name"><?php echo htmlspecialchars($row['ProductName']); ?></p>
+                              <p class="price">$<?php echo number_format($row['Price'], 2); ?></p>
+                          </div>
+                          <a href="cart.php?add=<?php echo $row['ProductID']; ?>">
+                              <span class="material-symbols-outlined">
+                                  shopping_cart
+                              </span>
+                          </a>
+                      </div>
+                  </div>
+                  <?php
+              }
+          } else {
+              echo "<p>No products available.</p>";
+          }
+          $conn->close();
+          ?>
     </div>
   </div>
 
