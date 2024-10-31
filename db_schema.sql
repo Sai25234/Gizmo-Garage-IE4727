@@ -6,15 +6,13 @@ CREATE TABLE Categories (
 
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY,
-    CategoryID INT,
     ProductName VARCHAR(100) NOT NULL,
-    Stock INT NOT NULL,
+    Brand VARCHAR(100),
+    Category VARCHAR(100),
+    Image_url VARCHAR(255),
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Description TEXT,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
-);
+    Stock INT NOT NULL,
+    
 
 CREATE TABLE Customers (
     CustomerID INT PRIMARY KEY,

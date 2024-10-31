@@ -1,0 +1,199 @@
+<?php
+$servername = "localhost";  
+$username = "root";         
+$password = "";            
+$dbname = "gizmo-garage";  
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT ProductID, ProductName, Price, Image_url FROM products";
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gizmo Garage</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+  <header>
+    <div class="running-promo-banner">Running Promotion Banner</div>
+    <div class="top-bar">
+      <div class="logo">
+        <a href="index.html"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
+      </div>
+      <div class="search-bar">
+        <select>
+          <option value="category">BY CATEGORY</option>
+        </select>
+        <input type="text" placeholder="Search for a Product..." />
+        <button>
+          <img src="images/search_icon.png" alt="Search" height="40px" width="40px" />
+        </button>
+      </div>
+      <div class="account-cart">
+        <a href="#" class="account-link">
+          <span class="material-symbols-outlined">
+            person
+          </span>
+          MY ACCOUNT
+        </a>
+        <a href="cart.html" class="cart-link">
+          <span class="material-symbols-outlined">
+            shopping_cart
+          </span>
+          CART
+        </a>
+      </div>
+    </div>
+    <nav class="nav-bar">
+      <a href="#">LAPTOPS<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+      <a href="#">DESKTOPS<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+      <a href="#">PHONES<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+      <a href="#">TABLETS<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+      <a href="#">ACCESSORIES<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+      <a href="#" class="sale-link">SALE<span class="material-symbols-outlined">
+          keyboard_arrow_down
+        </span></a>
+    </nav>
+  </header>
+  <div class="categories-container">
+    <div class="filter-section">
+      <h3>SEARCH FILTER <img src="images/search_filter.png" height="30px" width="30px" /> </h3>
+      <h4>PRODUCT CATEGORIES</h4>
+      <label><input type="checkbox" name="category" value="laptops"> Laptops</label>
+      <label><input type="checkbox" name="category" value="desktops"> Desktops</label>
+      <label><input type="checkbox" name="category" value="phones"> Phones</label>
+      <label><input type="checkbox" name="category" value="tablets"> Tablets</label>
+      <label><input type="checkbox" name="category" value="accessories"> Accessories</label>
+
+      <h4>BRANDS</h4>
+      <label><input type="checkbox" name="brand" value="brandA"> Brand A</label>
+      <label><input type="checkbox" name="brand" value="brandB"> Brand B</label>
+      <label><input type="checkbox" name="brand" value="brandC"> Brand C</label>
+
+      <h4>SORT BY</h4>
+      <label><input type="radio" name="sort" value="relevance"> Relevance</label>
+      <label><input type="radio" name="sort" value="latest"> Latest</label>
+      <label><input type="radio" name="sort" value="low-to-high"> Price: Low to High</label>
+      <label><input type="radio" name="sort" value="high-to-low"> Price: High to Low</label>
+    </div>
+
+    <div class="product-grid">
+      <?php
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  ?>
+                  <div class="product-item">               
+                    <img src="<?php echo htmlspecialchars($row['Image_url']); ?>" alt="<?php echo htmlspecialchars($row['ProductName']); ?>">
+                      <div class="product-item-body">
+                          <div class="product-item-text">
+                              <p class="product-name"><?php echo htmlspecialchars($row['ProductName']); ?></p>
+                              <p class="price">$<?php echo number_format($row['Price'], 2); ?></p>
+                          </div>
+                          <a href="cart.php?add=<?php echo $row['ProductID']; ?>">
+                              <span class="material-symbols-outlined">
+                                  shopping_cart
+                              </span>
+                          </a>
+                      </div>
+                  </div>
+                  <?php
+              }
+          } else {
+              echo "<p>No products available.</p>";
+          }
+          $conn->close();
+          ?>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <a href="#">««</a>
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">»»</a>
+  </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4><u>Contact Us</u></h4>
+        <p>+65 1234 5678</p>
+        <p>Mon - Fri 9am-6pm<br>(excl. public holidays)</p>
+        <p>gizmogarage@gmail.com</p>
+      </div>
+      <div class="footer-column">
+        <h4><u>Our Products</u></h4>
+        <ul>
+          <li><a href="#">Category A</a></li>
+          <li><a href="#">Category B</a></li>
+          <li><a href="#">Category C</a></li>
+          <li><a href="#">Category D</a></li>
+          <li><a href="#">Category E</a></li>
+          <li><a href="#" class="sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4><u>Customer Service</u></h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4><u>My Gizmo Garage</u> </h4>
+        <ul>
+          <li><a href="#">My Account</a></li>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">The Gizmo Newsletter</a></li>
+        </ul>
+      </div>
+      <div class="newsletter-column">
+        <h4><u>Join Our Newsletter</u> !</h4>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter Email Address">
+          <button type="submit">&#10148;</button>
+        </form>
+        <p>Stay up-to-date with the latest news, products and exclusive deals.</p>
+        <div class="payment-methods">
+          <img src="images/visa_logo.png" alt="Visa">
+          <img src="images/mastercard_logo.png" alt="MasterCard">
+          <img src="images/paynow_logo.png" alt="PayNow">
+          <img src="images/Grab_pay_logo.png" alt="GrabPay">
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 A Website by Ariel & Sai</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
