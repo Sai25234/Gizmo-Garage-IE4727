@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-
 <body>
   <header>
     <div class="running-promo-banner">Running Promotion Banner</div>
@@ -108,92 +107,34 @@
       <label><input type="radio" name="sort" value="high-to-low"> Price: High to Low</label>
     </div>
 
-
     <div class="product-grid">
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
-      <div class="product-item">
-        <div class="placeholder"></div>
-        <div class="product-item-body">
-          <div class="product-item-text">
-            <p class="product-name">Product Name</p>
-            <p class="price">$XXX.XX</p>
-          </div>
-            <a href="#">
-              <span class="material-symbols-outlined">
-                shopping_cart
-              </span>
-            </a>
-        </div>
-      </div>
+      <?php 
+      @ $db = new mysqli('localhost', 'root', '', 'javajam');
+
+      if (mysqli_connect_errno()) {
+      echo 'Error: Could not connect to database.  Please try again later.';
+      exit;
+      }
+      if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+        $categoryquery = "SELECT * FROM products WHERE category = '$category'";
+      } else {
+        //Failsafe to load all products if no category query found
+        $categoryquery = "SELECT * FROM products";
+      }
+      $result = $db->query($categoryquery);
+        
+      while ($row = $result->fetch_assoc()){
+        echo '<div class="product-item">';
+        echo '<img src="images/' . $row['image'] . '" alt="' . $row['product name'] . '">';
+        echo '<div class="product-item-body">';
+        echo '<div class="product-item-text">';
+        echo '<p class="product-name">' . $row['product name'] . '</p>';
+        echo '<p class="price">$' . $row['price'] . '</p></div>';
+        echo '<a href="#"><span class="material-symbols-outlined">shopping_cart</span></a>';
+        echo '</div></div>';
+      }
+      ?>
     </div>
   </div>
 
@@ -262,7 +203,6 @@
       <p>© 2024 A Website by Ariel & Sai</p>
     </div>
   </footer>
-
 </body>
 
 </html>

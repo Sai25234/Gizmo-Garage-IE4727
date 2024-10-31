@@ -1,7 +1,7 @@
 CREATE TABLE Categories (
     CategoryID INT PRIMARY KEY,
     CategoryName VARCHAR(100) NOT NULL,
-    CategoryType VARCHAR(50) NOT NULL
+    CategoryType VARCHAR(50) NULL
 );
 
 CREATE TABLE Products (
@@ -10,6 +10,7 @@ CREATE TABLE Products (
     ProductName VARCHAR(100) NOT NULL,
     Stock INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    SalePrice  DECIMAL(10, 2) NOT NULL DEFAULT 0.00, 
     Description TEXT,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -31,30 +32,9 @@ CREATE TABLE Orders (
     CustomerID INT,
     Status VARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Processing', 'Completed', 'Cancelled')),
     TotalPrice DECIMAL(10, 2),
-    PaymentStatus VARCHAR(50) DEFAULT 'Pending',
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
-);
-
-CREATE TABLE Order_Items (
-    OrderItemID INT PRIMARY KEY,
-    OrderID INT,
-    ProductID INT,
-    Quantity INT NOT NULL DEFAULT 1,
-    Price DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-
-CREATE TABLE Payments (
-    PaymentID INT PRIMARY KEY,
-    OrderID INT,
-    Price DECIMAL(10, 2) NOT NULL,
-    Method VARCHAR(50) NOT NULL,
-    Status VARCHAR(50) NOT NULL,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE
 );
 
 CREATE TABLE ShoppingCart (
@@ -68,14 +48,6 @@ CREATE TABLE ShoppingCart (
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
-CREATE TABLE Deliveries (
-    DeliveryID INT PRIMARY KEY,
-    OrderID INT,
-    CustomerName VARCHAR(100) NOT NULL,
-    ProductID INT,
-    DateOfDelivery DATE NOT NULL,
-    Status VARCHAR(50) NOT NULL CHECK (Status IN ('Scheduled', 'In Transit', 'Delivered', 'Cancelled')),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
+
+
+
