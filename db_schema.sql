@@ -11,6 +11,7 @@ CREATE TABLE Products (
     Category VARCHAR(100),
     Image_url VARCHAR(255),
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    SalePrice DECIMAL(10,2) DEFAULT NULL,
     Stock INT NOT NULL
 );
 

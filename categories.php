@@ -1,15 +1,7 @@
 <?php
-$servername = "localhost";  
-$username = "root";         
-$password = "";            
-$dbname = "gizmo-garage";  
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT ProductID, ProductName, Price, Image_url FROM products";
-$result = $conn->query($sql);
+include 'session.php';
+include 'dbconnect.php';
+include 'additem.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +46,7 @@ $result = $conn->query($sql);
           </span>
           MY ACCOUNT
         </a>
-        <a href="cart.html" class="cart-link">
+        <a href="cart.php" class="cart-link">
           <span class="material-symbols-outlined">
             shopping_cart
           </span>
@@ -63,32 +55,32 @@ $result = $conn->query($sql);
       </div>
     </div>
     <nav class="nav-bar">
-      <a href="categories.html?category=laptops"
+      <a href="categories.php?category=laptops"
         >LAPTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=desktops"
+      <a href="categories.php?category=desktops"
         >DESKTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=phones"
+      <a href="categories.php?category=phones"
         >PHONES<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=tablets"
+      <a href="categories.php?category=tablets"
         >TABLETS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=accessories"
+      <a href="categories.php?category=accessories"
         >ACCESSORIES<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?sale=yes" class="sale-link"
+      <a href="categories.php?sale" class="sale-link"
         >SALE<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
@@ -121,31 +113,37 @@ $result = $conn->query($sql);
     </div>
 
     <div class="product-grid">
-      <?php
-          if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                  ?>
-                  <div class="product-item">               
-                    <img src="<?php echo htmlspecialchars($row['Image_url']); ?>" alt="<?php echo htmlspecialchars($row['ProductName']); ?>">
-                      <div class="product-item-body">
-                          <div class="product-item-text">
-                              <p class="product-name"><?php echo htmlspecialchars($row['ProductName']); ?></p>
-                              <p class="price">$<?php echo number_format($row['Price'], 2); ?></p>
-                          </div>
-                          <a href="cart.php?add=<?php echo $row['ProductID']; ?>">
-                              <span class="material-symbols-outlined">
-                                  shopping_cart
-                              </span>
-                          </a>
-                      </div>
-                  </div>
-                  <?php
-              }
-          } else {
-              echo "<p>No products available.</p>";
-          }
-          $conn->close();
-          ?>
+      <?php 
+      include 'dbconnect.php';
+      if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+        //Convert category name in URL to category ID
+        // $catID = $conn->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
+        $categoryquery = "SELECT * FROM Products WHERE Category = '$category'";
+      } else if (isset($_GET['sale'])) {
+        $categoryquery = "SELECT * FROM Products WHERE SalePrice > 0";
+      } else {
+        //Failsafe to load all products if no category or sale query found
+        $categoryquery = "SELECT * FROM Products";
+      }
+      $result = $conn->query($categoryquery);
+        
+      while ($row = $result->fetch_assoc()){
+        echo '<div class="product-item">';
+        echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+        echo '<div class="product-item-body">';
+        echo '<div class="product-item-text">';
+        echo '<p class="product-name">' . $row['ProductName'] . '</p>';
+        if ($row['SalePrice'] > 0){
+          echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+        }
+        else {
+          echo '<p class="price">$' . $row['Price'] . '</p></div>';
+        }
+        echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
+        echo '</div></div>';
+      }
+      ?>
     </div>
   </div>
 
