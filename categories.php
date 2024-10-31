@@ -128,7 +128,7 @@ include 'additem.php';
         
       while ($row = $result->fetch_assoc()){
         echo '<div class="product-item">';
-        echo '<img src="images/' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+        echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
         echo '<div class="product-item-body">';
         echo '<div class="product-item-text">';
         echo '<p class="product-name">' . $row['ProductName'] . '</p>';
