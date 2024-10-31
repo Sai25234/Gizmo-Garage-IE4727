@@ -61,7 +61,7 @@ include 'additem.php';
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="/html/categories.html?category=laptops"
+        <a href="/html/categories.html?category=Laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a

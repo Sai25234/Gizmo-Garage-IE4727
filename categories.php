@@ -118,8 +118,8 @@ include 'additem.php';
       if (isset($_GET['category'])) {
         $category = $_GET['category'];
         //Convert category name in URL to category ID
-        $catID = $conn->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
-        $categoryquery = "SELECT * FROM Products WHERE CategoryID = '$catID'";
+        // $catID = $conn->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
+        $categoryquery = "SELECT * FROM Products WHERE Category = '$category'";
       } else {
         //Failsafe to load all products if no category query found
         $categoryquery = "SELECT * FROM Products";

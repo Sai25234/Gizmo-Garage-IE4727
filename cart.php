@@ -110,10 +110,10 @@ include 'session.php';
             $result = $conn->query($query);
             $row = $result->fetch_assoc();
             echo "<div class='order-item'>";
-            echo "<img src='images/".$row['product_image']."' />";
+            echo "<img src='images/".$row['Image_url']."' />";
             echo "<div class='order-item-text'>";
             echo "<p class='product-name'>".$row['ProductName']."</p>";
-            if ($row['SalePrice'] > 0){
+            if ($row['SalePrice'] != NULL){
                 echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
               }
               else {
