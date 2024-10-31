@@ -57,7 +57,7 @@ include 'session.php';
             <span class="material-symbols-outlined"> person </span>
             MY ACCOUNT
           </a>
-          <a href="cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
           </a>
@@ -110,7 +110,7 @@ include 'session.php';
             $result = $conn->query($query);
             $row = $result->fetch_assoc();
             echo "<div class='order-item'>";
-            echo "<img src='images/".$row['Image_url']."' />";
+            echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
             echo "<div class='order-item-text'>";
             echo "<p class='product-name'>".$row['ProductName']."</p>";
             if ($row['SalePrice'] != NULL){
@@ -119,19 +119,19 @@ include 'session.php';
               else {
                 echo '<p class="price">$' . $row['Price'] . '</p></div>';
               }
-            echo "</div><a href='removeitem.php?remove=".$item."'>";
+            echo "<a href='removeitem.php?remove=".$item."'>";
             echo "<span class='material-symbols-outlined'> delete </span>";
             echo "</a></div>";
         }
         echo "</div></div></div>";
         echo "<div class='order-summary-section'><div class='order-summary'><div id='price-grid'>";
         echo "<h4>Subtotal</h4>";
-        echo "<p class='subtotal'>$XXX.XX</p>";
+        echo '<p class="subtotal">$XXX.XX</p>';
         echo "<h4>Shipping</h4>";
-        echo "<p>$XX.XX</p>";
+        echo '<p>$XX.XX</p>';
         echo "<hr />";
         echo "<h3>TOTAL</h3>";
-        echo "<h3 class='total'>$XXXX.XX</h3>";
+        echo '<h3 class="total">$XXXX.XX</h3>';
         echo "</div>";
         echo "<button id='homepage-button' onclick='location.href='checkout.html''>Checkout</button>";
         echo "</div></div></div>";

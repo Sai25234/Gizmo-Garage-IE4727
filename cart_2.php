@@ -54,7 +54,7 @@
             <span class="material-symbols-outlined"> person </span>
             MY ACCOUNT
           </a>
-          <a href="cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
           </a>

@@ -46,7 +46,7 @@ include 'additem.php';
           </span>
           MY ACCOUNT
         </a>
-        <a href="cart.html" class="cart-link">
+        <a href="cart.php" class="cart-link">
           <span class="material-symbols-outlined">
             shopping_cart
           </span>
@@ -55,32 +55,32 @@ include 'additem.php';
       </div>
     </div>
     <nav class="nav-bar">
-      <a href="categories.html?category=laptops"
+      <a href="categories.php?category=laptops"
         >LAPTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=desktops"
+      <a href="categories.php?category=desktops"
         >DESKTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=phones"
+      <a href="categories.php?category=phones"
         >PHONES<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=tablets"
+      <a href="categories.php?category=tablets"
         >TABLETS<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?category=accessories"
+      <a href="categories.php?category=accessories"
         >ACCESSORIES<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
       >
-      <a href="categories.html?sale=yes" class="sale-link"
+      <a href="categories.php?sale" class="sale-link"
         >SALE<span class="material-symbols-outlined">
           keyboard_arrow_down
         </span></a
@@ -120,8 +120,10 @@ include 'additem.php';
         //Convert category name in URL to category ID
         // $catID = $conn->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
         $categoryquery = "SELECT * FROM Products WHERE Category = '$category'";
+      } else if (isset($_GET['sale'])) {
+        $categoryquery = "SELECT * FROM Products WHERE SalePrice > 0";
       } else {
-        //Failsafe to load all products if no category query found
+        //Failsafe to load all products if no category or sale query found
         $categoryquery = "SELECT * FROM Products";
       }
       $result = $conn->query($categoryquery);

@@ -24,7 +24,7 @@ include 'additem.php';
       <div class="running-promo-banner">Running Promotion Banner</div>
       <div class="top-bar">
         <div class="logo">
-          <a href="/html/index.html"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
+          <a href="index.php"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
         </div>
         <div class="search-bar">
           <select>
@@ -52,7 +52,7 @@ include 'additem.php';
                 </span>
             MY ACCOUNT
           </a>
-          <a href="/html/cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined">
                 shopping_cart
                 </span>
@@ -61,32 +61,32 @@ include 'additem.php';
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="/html/categories.html?category=Laptops"
+        <a href="categories.php?category=Laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="/html/categories.html?category=desktops"
+        <a href="categories.php?category=desktops"
           >DESKTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="/html/categories.html?category=phones"
+        <a href="categories.php?category=phones"
           >PHONES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="/html/categories.html?category=tablets"
+        <a href="categories.php?category=tablets"
           >TABLETS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="/html/categories.html?category=accessories"
+        <a href="categories.php?category=accessories"
           >ACCESSORIES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="/html/categories.html?sale=yes" class="sale-link"
+        <a href="categories.php?sale" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
