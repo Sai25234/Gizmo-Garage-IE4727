@@ -1,8 +1,11 @@
 <?php
-    @ $db = new mysqli('localhost', 'root', '', 'gizmogarage');
+$servername = "localhost";  
+$username = "root";         
+$password = "";            
+$dbname = "gizmo-garage";  
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    if (mysqli_connect_errno()) {
-    echo 'Error: Could not connect to database.  Please try again later.';
-    exit;
-    }
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>

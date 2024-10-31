@@ -1,7 +1,4 @@
-<?php
-include 'dbconnect.php';
-include 'session.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -97,47 +94,30 @@ include 'session.php';
       </nav>
     </header>
     <?php
-    if (count($_SESSION['cart']['items']) == 0){
-        echo "<div class='empty-cart' id='empty-cart'>";
-        echo "<p>Your shopping cart is currently empty.</p>";
-        echo "<button id='homepage-button' onclick='location.href='index.html''>Return to Homepage</button></div>";
-    } else {
-        echo "<div class='cart-container'><div class='checkout-section'><div class='cart-wrapper'><div id='cart-grid'>";
-        for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
-            $item = $_SESSION['cart']['items'][$i];
-            //$qty = $_SESSION['cart']['qty'][$i];
-            $query = "SELECT * FROM Products WHERE ProductID = $item";
-            $result = $conn->query($query);
-            $row = $result->fetch_assoc();
-            echo "<div class='order-item'>";
-            echo "<img src='images/".$row['product_image']."' />";
-            echo "<div class='order-item-text'>";
-            echo "<p class='product-name'>".$row['ProductName']."</p>";
-            if ($row['SalePrice'] > 0){
-                echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
-              }
-              else {
-                echo '<p class="price">$' . $row['Price'] . '</p></div>';
-              }
-            echo "</div><a href='removeitem.php?remove=".$item."'>";
-            echo "<span class='material-symbols-outlined'> delete </span>";
-            echo "</a></div>";
-        }
-        echo "</div></div></div>";
-        echo "<div class='order-summary-section'><div class='order-summary'><div id='price-grid'>";
-        echo "<h4>Subtotal</h4>";
-        echo "<p class='subtotal'>$XXX.XX</p>";
-        echo "<h4>Shipping</h4>";
-        echo "<p>$XX.XX</p>";
-        echo "<hr />";
-        echo "<h3>TOTAL</h3>";
-        echo "<h3 class='total'>$XXXX.XX</h3>";
-        echo "</div>";
-        echo "<button id='homepage-button' onclick='location.href='checkout.html''>Checkout</button>";
-        echo "</div></div></div>";
+    @ $db = new mysqli('hostname', 'username', 'password', 'db');
+    if (mysqli_connect_errno()) {
+      echo 'Error: Could not connect to database.  Please try again later.';
+      exit;
     }
-     ?>
-            <!-- <div class="order-item">
+    $query = "SELECT SUM(Quantity) AS totalQuantity FROM ShoppingCart WHERE CustomerID = :customerId";
+    $result = $db->query($query);
+    $row = $result->fetch_assoc();
+    $totalQuantity = $row['totakQuantity'];
+    if ($totalQuantity == 0) {
+      
+      echo '
+    <div class="empty-cart" id="empty-cart">
+        <p>Your shopping cart is currently empty.</p>
+        <button id="homepage-button" onclick="location.href="index.html"">Return to Homepage</button>
+    </div>
+    ';
+    } else {
+      echo '
+      <div class="cart-container">
+      <div class="checkout-section">
+        <div class="cart-wrapper">
+          <div id="cart-grid">
+            <div class="order-item">
               <img src="..." />
               <div class="order-item-text">
                 <p class="product-name">Product Name</p>
@@ -146,7 +126,59 @@ include 'session.php';
               <a href="#">
                 <span class="material-symbols-outlined"> delete </span>
               </a>
-            </div> -->
+            </div>
+            <div class="order-item">
+              <img src="..." />
+              <div class="order-item-text">
+                <p class="product-name">Product Name</p>
+                <p class="price">$XXX.XX</p>
+              </div>
+              <a href="#">
+                <span class="material-symbols-outlined"> delete </span>
+              </a>
+            </div>
+            <div class="order-item">
+              <img src="..." />
+              <div class="order-item-text">
+                <p class="product-name">Product Name</p>
+                <p class="price">$XXX.XX</p>
+              </div>
+              <a href="#">
+                <span class="material-symbols-outlined"> delete </span>
+              </a>
+            </div>
+            <div class="order-item">
+              <img src="..." />
+              <div class="order-item-text">
+                <p class="product-name">Product Name</p>
+                <p class="price">$XXX.XX</p>
+              </div>
+              <a href="#">
+                <span class="material-symbols-outlined"> delete </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="order-summary-section">
+        <div class="order-summary">
+          <div id="price-grid">
+            <h4>Subtotal</h4>
+            <p class="subtotal">$XXX.XX</p>
+            <h4>Shipping</h4>
+            <p>$XX.XX</p>
+            <hr />
+            <h3>TOTAL</h3>
+            <h3 class="total">$XXXX.XX</h3>
+          </div>
+            <button id="homepage-button" onclick="location.href="checkout.html"">
+              Checkout</button>
+        </div>
+      </div>
+    </div> ';
+    }
+    
+    ?>    
     <footer>
       <div class="footer-container">
         <div class="footer-column">
