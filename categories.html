@@ -4,11 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gizmo Garage</title>
+  <title>View Products</title>
   <link rel="stylesheet" href="css/main.css" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,7 +23,12 @@
       </div>
       <div class="search-bar">
         <select>
-          <option value="category">BY CATEGORY</option>
+          <option value="all">BY CATEGORY</option>
+          <option value="laptops">LAPTOPS</option>
+          <option value="desktops">DESKTOPS</option>
+          <option value="phones">PHONES</option>
+          <option value="tablets">TABLETS</option>
+          <option value="accessories">ACCESSORIES</option>
         </select>
         <input type="text" placeholder="Search for a Product..." />
         <button>
@@ -43,29 +51,44 @@
       </div>
     </div>
     <nav class="nav-bar">
-      <a href="#">LAPTOPS<span class="material-symbols-outlined">
+      <a href="categories.html?category=laptops"
+        >LAPTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
-      <a href="#">DESKTOPS<span class="material-symbols-outlined">
+        </span></a
+      >
+      <a href="categories.html?category=desktops"
+        >DESKTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
-      <a href="#">PHONES<span class="material-symbols-outlined">
+        </span></a
+      >
+      <a href="categories.html?category=phones"
+        >PHONES<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
-      <a href="#">TABLETS<span class="material-symbols-outlined">
+        </span></a
+      >
+      <a href="categories.html?category=tablets"
+        >TABLETS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
-      <a href="#">ACCESSORIES<span class="material-symbols-outlined">
+        </span></a
+      >
+      <a href="categories.html?category=accessories"
+        >ACCESSORIES<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
-      <a href="#" class="sale-link">SALE<span class="material-symbols-outlined">
+        </span></a
+      >
+      <a href="categories.html?sale=yes" class="sale-link"
+        >SALE<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a>
+        </span></a
+      >
     </nav>
   </header>
   <div class="categories-container">
     <div class="filter-section">
-      <h3>SEARCH FILTER <img src="images/search_filter.png" height="30px" width="30px" /> </h3>
+      <div id="filter-header">
+        <h3>SEARCH FILTER</h3>
+        <span class="material-symbols-outlined">tune</span>
+      </div>
       <h4>PRODUCT CATEGORIES</h4>
       <label><input type="checkbox" name="category" value="laptops"> Laptops</label>
       <label><input type="checkbox" name="category" value="desktops"> Desktops</label>
