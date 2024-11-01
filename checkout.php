@@ -1,6 +1,6 @@
 <?php
+include 'dbconnect.php';
 include 'session.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,32 +64,32 @@ include 'session.php';
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="categories.html?category=laptops"
+        <a href="categories.php?category=Laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=desktops"
+        <a href="categories.php?category=desktops"
           >DESKTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=phones"
+        <a href="categories.php?category=phones"
           >PHONES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=tablets"
+        <a href="categories.php?category=tablets"
           >TABLETS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=accessories"
+        <a href="categories.php?category=accessories"
           >ACCESSORIES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?sale=yes" class="sale-link"
+        <a href="categories.php?sale" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
@@ -236,12 +236,16 @@ include 'session.php';
           <h3>ORDER SUMMARY</h3>
           <div id="summary-grid">
             <?php
+            $subtotal = 0.00;
+            $shipping = 10.00;
             for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
               $item = $_SESSION['cart']['items'][$i];
-              $qty = $_SESSION['cart']['qty'][$i];
+              $qty = $_SESSION['cart']['qty'][$item];
               $query = "SELECT * FROM Products WHERE ProductID = $item";
               $result = $conn->query($query);
               $row = $result->fetch_assoc();
+              $item_subtotal = $row['Price'] * $qty;
+              $subtotal += $item_subtotal;
               echo "<div class='order-item'>";
               echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
               echo "<p class='product-name'>".$row['ProductName']."</p>";
@@ -251,17 +255,12 @@ include 'session.php';
                 else {
                   echo '<p class="price"><span>Qty:'.$qty .'&nbsp;&nbsp;&nbsp;</span>$' . $row['Price'] . '</p></div>';
                 }
-          } ?>
-          </div>
-          <hr />
-          <div id="price-grid">
-            <h4>Subtotal</h4>
-            <p class="subtotal">$XXX.XX</p>
-            <h4>Shipping</h4>
-            <p>$XX.XX</p>
-            <h3>TOTAL</h3>
-            <h3 class="total">$XXXX.XX</h3>
-          </div>
+          } 
+          echo "</div><hr />";
+          echo "<div id='price-grid'><h4>Subtotal</h4><p class='subtotal'>$
+          ". number_format($subtotal, 2) ."</p><h4>Shipping</h4><p>$". number_format($shipping, 2) .
+          "</p><h3>TOTAL</h3><h3 class='total'>$". number_format(($subtotal + $shipping),2) ."</h3></div>";
+          ?>
         </div>
       </div>
     </div>

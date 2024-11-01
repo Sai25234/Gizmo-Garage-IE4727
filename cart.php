@@ -29,7 +29,7 @@ include 'session.php';
       <div class="running-promo-banner">Running Promotion Banner</div>
       <div class="top-bar">
         <div class="logo">
-          <a href="index.html"
+          <a href="index.php"
             ><img src="images/gizmogaragelogo.png" alt="Gizmo Garage"
           /></a>
         </div>
@@ -64,32 +64,32 @@ include 'session.php';
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="#"
+        <a href="categories.php?category=Laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="#"
+        <a href="categories.php?category=desktops"
           >DESKTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="#"
+        <a href="categories.php?category=phones"
           >PHONES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="#"
+        <a href="categories.php?category=tablets"
           >TABLETS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="#"
+        <a href="categories.php?category=accessories"
           >ACCESSORIES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="#" class="sale-link"
+        <a href="categories.php?sale" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
@@ -100,24 +100,28 @@ include 'session.php';
     if (count($_SESSION['cart']['items']) == 0){
         echo "<div class='empty-cart' id='empty-cart'>";
         echo "<p>Your shopping cart is currently empty.</p>";
-        echo "<button id='homepage-button' onclick='location.href='index.html''>Return to Homepage</button></div>";
+        echo "<button id='homepage-button' onclick=\"location.href='index.php'\">Return to Homepage</button></div>";
     } else {
-        echo "<div class='cart-container'><div class='checkout-section'><div class='cart-wrapper'><div id='cart-grid'>";
+      $subtotal = 0.00;
+      $shipping = 10.00;
+      echo "<div class='cart-container'><div class='checkout-section'><div class='cart-wrapper'><div id='cart-grid'>";
         for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
             $item = $_SESSION['cart']['items'][$i];
-            //$qty = $_SESSION['cart']['qty'][$i];
+            $qty = $_SESSION['cart']['qty'][$item];
             $query = "SELECT * FROM Products WHERE ProductID = $item";
             $result = $conn->query($query);
             $row = $result->fetch_assoc();
+            $item_subtotal = $row['Price'] * $qty;
+            $subtotal += $item_subtotal;
             echo "<div class='order-item'>";
             echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
             echo "<div class='order-item-text'>";
             echo "<p class='product-name'>".$row['ProductName']."</p>";
             if ($row['SalePrice'] != NULL){
-                echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+                echo '<p class="price"><span>Qty:'.$qty .'&nbsp;&nbsp;&nbsp;</span>$' . $row['SalePrice'] . '</p></div>';
               }
               else {
-                echo '<p class="price">$' . $row['Price'] . '</p></div>';
+                echo '<p class="price"><span>Qty:'.$qty .'&nbsp;&nbsp;&nbsp;</span>$' . $row['Price'] . '</p></div>';
               }
             echo "<a href='removeitem.php?remove=".$item."'>";
             echo "<span class='material-symbols-outlined'> delete </span>";
@@ -126,14 +130,14 @@ include 'session.php';
         echo "</div></div></div>";
         echo "<div class='order-summary-section'><div class='order-summary'><div id='price-grid'>";
         echo "<h4>Subtotal</h4>";
-        echo '<p class="subtotal">$XXX.XX</p>';
+        echo '<p class="subtotal">$'. number_format($subtotal, 2) .'</p>';
         echo "<h4>Shipping</h4>";
-        echo '<p>$XX.XX</p>';
+        echo '<p>$'. number_format($shipping, 2) .'</p>';
         echo "<hr />";
         echo "<h3>TOTAL</h3>";
-        echo '<h3 class="total">$XXXX.XX</h3>';
+        echo '<h3 class="total">$'. number_format(($subtotal + $shipping),2) .'</h3>';
         echo "</div>";
-        echo "<button id='homepage-button' onclick='location.href='checkout.html''>Checkout</button>";
+        echo "<button id='homepage-button' onclick=\"location.href='checkout.php'\">Checkout</button>";
         echo "</div></div></div>";
     }
      ?>
