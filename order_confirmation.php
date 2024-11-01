@@ -15,7 +15,7 @@ $phone = $_POST['phone'];
 
 $name = $firstName . " " . $lastName;
 $address = $streetaddress . " " . $unitcode . " " . $postalcode;
-$paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
+$paymentdetails = "Card Number:" . $cardnum . " Expiry:" . $cardexpiry . " CVV:" . $cardcvv;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,8 +129,8 @@ $paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
       } 
       //insert checkout details
       $order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, Status, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, 'Pending', NOW())";
-      $conn->query($order);
-      if ($conn->query($order) === TRUE) {
+      $order_result = $conn->query($order);
+      if ($order_result === TRUE) {
         $orderID = $conn->insert_id; //OrderID is primary key of Orders, retrieve it!!!
         //insert order items
         for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
