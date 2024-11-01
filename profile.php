@@ -1,5 +1,4 @@
 <?php
-include 'dbconnect.php';
 include 'session.php';
 ?>
 <!DOCTYPE html>
@@ -104,7 +103,31 @@ include 'session.php';
           <h1>MY ACCOUNT</h1>
           <div>
             <?php
+            include 'dbconnect.php';
             echo "<h2>Welcome, ".$_SESSION['valid_user']."!</h2>";
+            echo "<h2>MY ORDERS</h2>";
+            $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems 
+            FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
+            JOIN products ON orderitems.ProductID = products.ProductID 
+            WHERE Email = '".$_SESSION['valid_user']."' 
+            GROUP BY orders.OrderID
+            ORDER BY orders.CreatedAt DESC";
+            $result = $conn->query($sql);
+            if ($result->num_rows == 0){
+              echo "<h3>You have not made any orders yet.</h3>";
+            } else {
+              echo "<table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Status</th><th>Order Total</th><th>Order Date</th></tr>";
+              while ($row = $result->fetch_assoc()){
+                echo "<tr>";
+                echo "<td>".$row['OrderID']."</td>";
+                echo "<td>".$row['OrderItems']."</td>";
+                echo "<td>".$row['Status']."</td>";
+                echo "<td>$".$row['Total']."</td>";
+                echo "<td>".$row['CreatedAt']."</td>";
+                echo "</tr>";
+              }
+              echo "</tbody></table>";
+            }
             ?>
           </div>
         </div>
