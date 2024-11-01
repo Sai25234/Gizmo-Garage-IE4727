@@ -16,21 +16,6 @@ $phone = $_POST['phone'];
 $name = $firstName . " " . $lastName;
 $address = $streetaddress . " " . $unitcode . " " . $postalcode;
 $paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
-
-$subtotal = 0.00;
-for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
-  $item = $_SESSION['cart']['items'][$i];
-  $qty = $_SESSION['cart']['qty'][$item];
-  $query = "SELECT * FROM Products WHERE ProductID = $item";
-  $result = $conn->query($query);
-  $row = $result->fetch_assoc();
-  $price = $row['SalePrice'] ?? $row['Price'];
-  $item_subtotal = $price * $qty;
-  $subtotal += $item_subtotal;
-} 
-//insert checkout details
-$order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, NOW())";
-$conn->query($order);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,19 +112,49 @@ $conn->query($order);
       </nav>
     </header>
     <div class="order-confirmation">
-      <img
-        src="images/Order_Confirmed_symbol.png"
-        height="200px"
-        width="200px"
-      />
-      <p><strong>Order Confirmed!</strong></p>
-      <p>
-        We'll email you an order confirmation, along with future order status
-        updates.
-      </p>
-      <button id="homepage-button" onclick="location.href='index.php'">
-        Return to Homepage
-      </button>
+      <?php
+      $subtotal = 0.00;
+      for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
+        $item = $_SESSION['cart']['items'][$i];
+        $qty = $_SESSION['cart']['qty'][$item];
+        $query = "SELECT * FROM Products WHERE ProductID = $item";
+        $result = $conn->query($query);
+        $row = $result->fetch_assoc();
+        $price = $row['SalePrice'] ?? $row['Price'];
+        $item_subtotal = $price * $qty;
+        $subtotal += $item_subtotal;
+      } 
+      //insert checkout details
+      $order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, Status, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, 'Pending', NOW())";
+      $conn->query($order);
+      if ($conn->query($order) === TRUE) {
+        $orderID = $conn->insert_id; //OrderID is primary key of Orders, retrieve it!!!
+        //insert order items
+        for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
+          $item = $_SESSION['cart']['items'][$i];
+          $qty = $_SESSION['cart']['qty'][$item];
+          $query = "SELECT * FROM Products WHERE ProductID = $item";
+          $result = $conn->query($query);
+          $row = $result->fetch_assoc();
+          $price = $row['SalePrice'] ?? $row['Price'];
+          $orderitems = "INSERT INTO OrderItems (OrderID, ProductID, Quantity, Price) VALUES ($orderID, $item, $qty, $price)";
+          $conn->query($orderitems);
+        }
+        //empty cart
+        unset($_SESSION['cart']);
+
+        //order confirmation section
+        echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
+        echo '<p><strong>Order Confirmed!</strong></p>';
+        echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
+        echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
+      } else {
+        echo '<p><strong>Order Failed...</strong></p>';
+        echo "Error: ". $order . "<br>" . $conn->error;
+      }
+      
+      $conn->close();
+       ?>
     </div>
 
     <footer>
