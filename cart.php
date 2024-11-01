@@ -53,10 +53,13 @@ include 'session.php';
           </button>
         </div>
         <div class="account-cart">
-          <a href="#" class="account-link">
-            <span class="material-symbols-outlined"> person </span>
-            MY ACCOUNT
-          </a>
+          <?php if (isset($_SESSION['valid_user'])) {
+            echo "<a href='#' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } else {
+            echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } ?>
           <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
@@ -138,7 +141,7 @@ include 'session.php';
         echo "<h3>TOTAL</h3>";
         echo '<h3 class="total">$'. number_format(($subtotal + $shipping),2) .'</h3>';
         echo "</div>";
-        echo "<button id='homepage-button' onclick=\"location.href='checkout.php'\">Checkout</button>";
+        echo "<button id='homepage-button' onclick=\"location.href='" . (isset($_SESSION['valid_user']) ? 'checkout.php' : 'login.html') . "'\">Checkout</button>";
         echo "</div></div></div>";
     }
      ?>
