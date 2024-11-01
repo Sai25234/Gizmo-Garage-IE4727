@@ -23,7 +23,7 @@ include 'additem.php';
     <div class="running-promo-banner">Running Promotion Banner</div>
     <div class="top-bar">
       <div class="logo">
-        <a href="index.html"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
+        <a href="index.php"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
       </div>
       <div class="search-bar">
         <select>
@@ -40,12 +40,13 @@ include 'additem.php';
         </button>
       </div>
       <div class="account-cart">
-        <a href="#" class="account-link">
-          <span class="material-symbols-outlined">
-            person
-          </span>
-          MY ACCOUNT
-        </a>
+      <?php if (isset($_SESSION['valid_user'])) {
+            echo "<a href='#' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } else {
+            echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } ?>
         <a href="cart.php" class="cart-link">
           <span class="material-symbols-outlined">
             shopping_cart
