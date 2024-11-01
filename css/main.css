@@ -552,13 +552,13 @@ footer {
 }
 
 /* Shopping Cart Page */
-.cart-container{
+.cart-container, .profile-container{
   display: grid;
   grid-template-columns: 70% 30%;
   justify-content: end;
 }
 
-.cart-wrapper {
+.cart-wrapper, .profile-wrapper {
   width:60%;
   justify-self: self-end;
 }
@@ -1070,7 +1070,7 @@ a:hover {
     color: #4c4c4c;
   }
 }
-.order-summary-section .order-summary{
+.order-summary-section .order-summary, .profile-container .sidebar .action-box{
   padding: 1.2vw;
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -1084,7 +1084,7 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.order-summary h3{
+.order-summary h3, .action-box h3{
   font-size: 1.2vw;
   color: #01214A;
 }
@@ -1137,5 +1137,13 @@ a:hover {
   }
   .price{
     font-weight: 400;
+  }
+}
+
+/* Profile/My Account Page */
+.profile-container .sidebar .action-box{
+  justify-content: center;
+  #homepage-button{
+    width: 60%;
   }
 }

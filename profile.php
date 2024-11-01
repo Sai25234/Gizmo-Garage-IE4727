@@ -99,7 +99,19 @@ include 'session.php';
         >
       </nav>
     </header>
-    
+    <div class="profile-container">
+        <div class="profile-wrapper">
+            <div class="profile-header">
+                <h1>MY ACCOUNT</h1>
+        </div></div>
+        <div class="sidebar">
+            <div class="action-box">
+            <h3>ACTION MENU</h3>
+            <p>Sick of Us? Oh no..... I guess we'll have to let you go</p>
+            <button id='homepage-button' onclick="logout.php">Log Out</button>
+            </div>
+        </div>
+    </div>
     <footer>
       <div class="footer-container">
         <div class="footer-column">
