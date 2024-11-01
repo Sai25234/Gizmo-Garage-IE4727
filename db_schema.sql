@@ -5,7 +5,7 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Products (
-    ProductID INT PRIMARY KEY,
+    ProductID INT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(100) NOT NULL,
     Brand VARCHAR(100),
     Category VARCHAR(100),
@@ -22,9 +22,9 @@ CREATE TABLE Customers (
 );  
 
 CREATE TABLE Orders (
-    OrderID INT PRIMARY KEY,
+    OrderID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerName VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL CHECK (Email LIKE '%_@__%.__%'),
+    Email VARCHAR(100) NOT NULL CHECK (Email LIKE '%_@__%.__%'),
     Phone VARCHAR(15) CHECK (LENGTH(Phone) BETWEEN 10 AND 15),
     Address TEXT,
     PaymentDetails TEXT,
@@ -42,17 +42,6 @@ CREATE TABLE OrderItems (
     PRIMARY KEY (OrderID, ProductID),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-
-CREATE TABLE ShoppingCart (
-    ProductID INT,
-    CustomerID INT,
-    Quantity INT NOT NULL,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (ProductID, CustomerID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
 

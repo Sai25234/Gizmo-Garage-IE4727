@@ -1,5 +1,36 @@
 <?php
- 
+include 'dbconnect.php';
+include 'session.php';
+$firstName = $_POST['firstname'];
+$lastName = $_POST['lastname'];
+$streetaddress = $_POST['address'];
+$postalcode = $_POST['postalcode'];
+$unitcode = $_POST['unitcode'];
+
+$cardnum = $_POST['cardnum'];
+$cardexpiry = $_POST['cardexpiry'];
+$cardcvv = $_POST['cardcvv'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+
+$name = $firstName . " " . $lastName;
+$address = $streetaddress . " " . $unitcode . " " . $postalcode;
+$paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
+
+$subtotal = 0.00;
+for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
+  $item = $_SESSION['cart']['items'][$i];
+  $qty = $_SESSION['cart']['qty'][$item];
+  $query = "SELECT * FROM Products WHERE ProductID = $item";
+  $result = $conn->query($query);
+  $row = $result->fetch_assoc();
+  $price = $row['SalePrice'] ?? $row['Price'];
+  $item_subtotal = $price * $qty;
+  $subtotal += $item_subtotal;
+} 
+//insert checkout details
+$order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, NOW())";
+$conn->query($order);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +59,7 @@
       <div class="running-promo-banner">Running Promotion Banner</div>
       <div class="top-bar">
         <div class="logo">
-          <a href="index.html"
+          <a href="index.php"
             ><img src="images/gizmogaragelogo.png" alt="Gizmo Garage"
           /></a>
         </div>
@@ -56,39 +87,39 @@
             <span class="material-symbols-outlined"> person </span>
             MY ACCOUNT
           </a>
-          <a href="cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
           </a>
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="categories.html?category=laptops"
+        <a href="categories.php?category=Laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=desktops"
+        <a href="categories.php?category=desktops"
           >DESKTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=phones"
+        <a href="categories.php?category=phones"
           >PHONES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=tablets"
+        <a href="categories.php?category=tablets"
           >TABLETS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=accessories"
+        <a href="categories.php?category=accessories"
           >ACCESSORIES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?sale=yes" class="sale-link"
+        <a href="categories.php?sale" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
@@ -106,7 +137,7 @@
         We'll email you an order confirmation, along with future order status
         updates.
       </p>
-      <button id="homepage-button" onclick="location.href='index.html'">
+      <button id="homepage-button" onclick="location.href='index.php'">
         Return to Homepage
       </button>
     </div>
