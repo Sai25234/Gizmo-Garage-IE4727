@@ -1,29 +1,12 @@
 <?php
-include 'dbconnect.php';
 include 'session.php';
-$firstName = $_POST['firstname'];
-$lastName = $_POST['lastname'];
-$streetaddress = $_POST['address'];
-$postalcode = $_POST['postalcode'];
-$unitcode = $_POST['unitcode'];
-
-$cardnum = $_POST['cardnum'];
-$cardexpiry = $_POST['cardexpiry'];
-$cardcvv = $_POST['cardcvv'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-
-$name = $firstName . " " . $lastName;
-$address = $streetaddress . " " . $unitcode . " " . $postalcode;
-$paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
-$paymentdetails = md5($paymentdetails); //encrypt payment details
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Confirmation</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="css/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -69,7 +52,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
           </button>
         </div>
         <div class="account-cart">
-        <?php if (isset($_SESSION['valid_user'])) {
+          <?php if (isset($_SESSION['valid_user'])) {
             echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
             MY ACCOUNT</a>";
           } else {
@@ -115,52 +98,54 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         >
       </nav>
     </header>
-    <div class="order-confirmation">
-      <?php
-      $subtotal = 0.00;
-      for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
-        $item = $_SESSION['cart']['items'][$i];
-        $qty = $_SESSION['cart']['qty'][$item];
-        $query = "SELECT * FROM Products WHERE ProductID = $item";
-        $result = $conn->query($query);
-        $row = $result->fetch_assoc();
-        $price = $row['SalePrice'] ?? $row['Price'];
-        $item_subtotal = $price * $qty;
-        $subtotal += $item_subtotal;
-      } 
-      //insert checkout details
-      $order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, Status, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, 'Pending', NOW())";
-      $order_result = $conn->query($order);
-      if ($order_result === TRUE) {
-        $orderID = $conn->insert_id; //OrderID is primary key of Orders, retrieve it!!!
-        //insert order items
-        for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
-          $item = $_SESSION['cart']['items'][$i];
-          $qty = $_SESSION['cart']['qty'][$item];
-          $query = "SELECT * FROM Products WHERE ProductID = $item";
-          $result = $conn->query($query);
-          $row = $result->fetch_assoc();
-          $price = $row['SalePrice'] ?? $row['Price'];
-          $orderitems = "INSERT INTO OrderItems (OrderID, ProductID, Quantity, Price) VALUES ($orderID, $item, $qty, $price)";
-          $conn->query($orderitems);
-        }
-        //empty cart
-        unset($_SESSION['cart']);
-
-        //order confirmation section
-        echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
-        echo '<p><strong>Order Confirmed!</strong></p>';
-        echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
-        echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
-      } else {
-        echo '<p><strong>Order Failed...</strong></p>';
-        echo "Error: ". $order . "<br>" . $conn->error;
-      }
-      
-      $conn->close();
-       ?>
+    <div class="profile-container">
+        <div class="profile-wrapper">
+          <h1>MY ACCOUNT</h1>
+          <div>
+            <?php
+            include 'dbconnect.php';
+            echo "<h2>Welcome, ".$_SESSION['valid_user']."!</h2>";
+            echo "<h2>MY ORDERS</h2>";
+            $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems 
+            FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
+            JOIN products ON orderitems.ProductID = products.ProductID 
+            WHERE Email = '".$_SESSION['valid_user']."' 
+            GROUP BY orders.OrderID
+            ORDER BY orders.CreatedAt DESC";
+            $result = $conn->query($sql);
+            if ($result->num_rows == 0){
+              echo "<h3>You have not made any orders yet.</h3>";
+            } else {
+              echo "<table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Status</th><th>Order Total</th><th>Order Date</th></tr>";
+              while ($row = $result->fetch_assoc()){
+                echo "<tr>";
+                echo "<td>".$row['OrderID']."</td>";
+                echo "<td>".$row['OrderItems']."</td>";
+                echo "<td>".$row['Status']."</td>";
+                echo "<td>$".$row['Total']."</td>";
+                echo "<td>".$row['CreatedAt']."</td>";
+                echo "</tr>";
+              }
+              echo "</tbody></table>";
+            }
+            ?>
+          </div>
+        </div>
+        <div class="sidebar">
+            <div class="action-box">
+            <h3>ACTION MENU</h3>
+            <img
+              src="images/gizmogaragelogo.png"
+              id="form-logo"
+              alt="Gizmo Garage Logo"
+            />
+            <p>Sick of us already? Oh no..... I guess we'll have to let you go.</p>
+            <a href="logout.php">
+            <button id="homepage-button" type="button">Log Out</button>
+            </a>
+            </div>
+        </div>
     </div>
-
     <footer>
       <div class="footer-container">
         <div class="footer-column">
@@ -219,5 +204,5 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         <p>© 2024 A Website by Ariel & Sai</p>
       </div>
     </footer>
-  </body>
-</html>
+    </body>
+    </html>
