@@ -17,15 +17,15 @@ CREATE TABLE Products (
 
 
 CREATE TABLE Customers (
-    Email VARCHAR(100) UNIQUE NOT NULL CHECK (Email LIKE '%_@__%.__%'),
+    Email VARCHAR(100) UNIQUE NOT NULL PRIMARY KEY,
     Password VARCHAR(100) UNIQUE NOT NULL
 );  
 
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerName VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) NOT NULL CHECK (Email LIKE '%_@__%.__%'),
-    Phone VARCHAR(15) CHECK (LENGTH(Phone) BETWEEN 10 AND 15),
+    Email VARCHAR(100) NOT NULL,
+    Phone VARCHAR(12) NOT NULL,
     Address TEXT,
     PaymentDetails TEXT,
     Status VARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Processing', 'Completed', 'Cancelled')),
@@ -39,6 +39,7 @@ CREATE TABLE OrderItems (
     OrderID INT,
     ProductID INT,
     Quantity INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (OrderID, ProductID),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
