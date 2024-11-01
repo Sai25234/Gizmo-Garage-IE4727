@@ -26,7 +26,7 @@ $conn->close();
 if(isset($_SESSION['valid_user'])){
     echo "<script>
                 alert('Login Successful');
-                window.location.href='index.html';
+                window.location.href='index.php';
               </script>";
 }
     ?>
