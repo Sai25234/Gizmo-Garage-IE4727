@@ -54,7 +54,7 @@ include 'session.php';
         </div>
         <div class="account-cart">
           <?php if (isset($_SESSION['valid_user'])) {
-            echo "<a href='#' class='account-link'><span class='material-symbols-outlined'> person </span>
+            echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
             MY ACCOUNT</a>";
           } else {
             echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
@@ -99,6 +99,7 @@ include 'session.php';
         >
       </nav>
     </header>
+    
     <footer>
       <div class="footer-container">
         <div class="footer-column">
