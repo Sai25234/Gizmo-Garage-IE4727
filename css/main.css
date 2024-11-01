@@ -1070,7 +1070,7 @@ a:hover {
     color: #4c4c4c;
   }
 }
-.order-summary-section .order-summary, .profile-container .sidebar .action-box{
+.order-summary-section .order-summary{
   padding: 1.2vw;
   background-color: #fff;
   border: 1px solid #e0e0e0;
@@ -1084,7 +1084,7 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
 }
-.order-summary h3, .action-box h3{
+.order-summary h3{
   font-size: 1.2vw;
   color: #01214A;
 }
