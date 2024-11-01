@@ -15,7 +15,8 @@ $phone = $_POST['phone'];
 
 $name = $firstName . " " . $lastName;
 $address = $streetaddress . " " . $unitcode . " " . $postalcode;
-$paymentdetails = "Card Number:" . $cardnum . " Expiry:" . $cardexpiry . " CVV:" . $cardcvv;
+$paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
+$paymentdetails = md5($paymentdetails); //encrypt payment details
 ?>
 <!DOCTYPE html>
 <html lang="en">
