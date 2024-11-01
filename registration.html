@@ -35,14 +35,25 @@
             type="email"
             id="email"
             name="email"
-            onchange="validateEmail()"
+            onchange="validateEmail(this)"
             required
           />
           <span id="errorEmail"></span>
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password" onchange="matchPasswords()" required />
+        </div>
+        <div class="input-group">
+          <label for="confirmpassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmpassword"
+            name="confirmpassword"
+            onchange="matchPasswords()"
+            required
+          />
+          <span id="errorConfirmpassword"></span>
         </div>
         <button type="submit" id="homepage-button">Sign Up Now!</button>
       </form>
@@ -58,30 +69,44 @@
     </div>
     <div class="web-credits"><p>© 2024 A Website by Ariel & Sai</p></div>
     <script>
-      function validateEmail() {
+      function validateEmail(emailinput) {
         const emailValidation = /^[\w.-]+@([\w]+\.){1,3}[\w]{2,3}$/;
-        var inputEmail = this.value;
+        var inputEmail = emailinput.value;
         var validEmail = emailValidation.test(inputEmail);
 
         if (!validEmail) {
           document.getElementById("errorEmail").innerHTML =
             "Invalid email address format";
-          this.focus();
-          this.select();
+          emailinput.focus();
+          emailinput.select();
           return false;
         } else {
           document.getElementById("errorEmail").innerHTML = "";
           return true;
         }
       }
-      function validateSignUp(){
+      function matchPasswords() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmpassword").value;
+        if (password != confirmPassword) {
+          document.getElementById("errorConfirmpassword").innerHTML =
+            "Passwords do not match.";
+          return false;
+        } else {
+          document.getElementById("errorConfirmpassword").innerHTML = "";
+          return true;
+        }
+      }
+      function validateSignUp() {
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        var validEmail = validateEmail.call(document.getElementById("email"));
-        if(email == "" || password == ""){
+        var confirmpassword = document.getElementById("confirmpassword").value;
+        var validEmail = validateEmail(document.getElementById("email"));
+        var matchingPasswords = matchPasswords();
+        if (email == "" || password == "" || confirmpassword == "") {
           alert("Please fill out all fields");
           return false;
-        } else if(!validEmail){
+        } else if (!validEmail || !matchingPasswords) {
           alert("Invalid registration details!");
           return false;
         } else {
