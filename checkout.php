@@ -29,7 +29,7 @@ include 'session.php';
       <div class="running-promo-banner">Running Promotion Banner</div>
       <div class="top-bar">
         <div class="logo">
-          <a href="index.html"
+          <a href="index.php"
             ><img src="images/gizmogaragelogo.png" alt="Gizmo Garage"
           /></a>
         </div>
@@ -57,7 +57,7 @@ include 'session.php';
             <span class="material-symbols-outlined"> person </span>
             MY ACCOUNT
           </a>
-          <a href="cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
           </a>
@@ -106,7 +106,7 @@ include 'session.php';
           />
           <div class="form-box">
             <h2>Checkout</h2>
-            <form action="/checkout" method="POST" onsubmit="return validateForm()">
+            <form action="order_confirmation.php" method="POST" onsubmit="return validateForm()">
               <h4>Shipping Address</h4>
               <div class="input-grid">
                 <div class="input-field">
@@ -244,7 +244,8 @@ include 'session.php';
               $query = "SELECT * FROM Products WHERE ProductID = $item";
               $result = $conn->query($query);
               $row = $result->fetch_assoc();
-              $item_subtotal = $row['Price'] * $qty;
+              $price = $row['SalePrice'] ?? $row['Price'];
+              $item_subtotal = $price * $qty;
               $subtotal += $item_subtotal;
               echo "<div class='order-item'>";
               echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';

@@ -23,7 +23,7 @@ include 'additem.php';
     <div class="running-promo-banner">Running Promotion Banner</div>
     <div class="top-bar">
       <div class="logo">
-        <a href="index.html"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
+        <a href="index.php"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
       </div>
       <div class="search-bar">
         <select>
