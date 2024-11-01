@@ -552,13 +552,13 @@ footer {
 }
 
 /* Shopping Cart Page */
-.cart-container{
+.cart-container, .profile-container{
   display: grid;
   grid-template-columns: 70% 30%;
   justify-content: end;
 }
 
-.cart-wrapper {
+.cart-wrapper{
   width:60%;
   justify-self: self-end;
 }
@@ -1137,5 +1137,68 @@ a:hover {
   }
   .price{
     font-weight: 400;
+  }
+}
+
+/* Profile/My Account Page */
+.profile-container .sidebar .action-box{
+  padding: 1.5vw;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  font-size: 1.05vw;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  position: sticky;
+  top: 0;
+  width: 80%;
+  border-radius: 0.5vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profile-wrapper {
+  margin-top: 2vw;
+  width:60%;
+  justify-self: self-end;
+  padding: 1.5vw;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  font-size: 1.05vw;
+  height: fit-content;
+  width: 80%;
+  border-radius: 0.5vw;
+  margin-left: auto;
+  margin-right: auto;
+  color: #01214A;
+
+  h1{
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.2em;
+  }
+  h2{
+    padding: 1vw;
+  }
+}
+.action-box h3{
+  font-size: 1.2vw;
+  color: #01214A;
+}
+.action-box p{
+  padding: 1vw 2vw;
+  font-weight: 500;
+}
+.profile-container .sidebar .action-box{
+  a{
+    width: 60%;
+  }
+  #homepage-button{
+    width: 100%;
+    margin-top: 0;
+  }
+  #form-logo {
+    margin-top: 1vw;
   }
 }

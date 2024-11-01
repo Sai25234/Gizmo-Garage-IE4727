@@ -99,7 +99,30 @@ include 'session.php';
         >
       </nav>
     </header>
-    
+    <div class="profile-container">
+        <div class="profile-wrapper">
+          <h1>MY ACCOUNT</h1>
+          <div>
+            <?php
+            echo "<h2>Welcome, ".$_SESSION['valid_user']."!</h2>";
+            ?>
+          </div>
+        </div>
+        <div class="sidebar">
+            <div class="action-box">
+            <h3>ACTION MENU</h3>
+            <img
+              src="images/gizmogaragelogo.png"
+              id="form-logo"
+              alt="Gizmo Garage Logo"
+            />
+            <p>Sick of us already? Oh no..... I guess we'll have to let you go.</p>
+            <a href="logout.php">
+            <button id="homepage-button" type="button">Log Out</button>
+            </a>
+            </div>
+        </div>
+    </div>
     <footer>
       <div class="footer-container">
         <div class="footer-column">
