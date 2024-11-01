@@ -25,7 +25,7 @@
       <div class="running-promo-banner">Running Promotion Banner</div>
       <div class="top-bar">
         <div class="logo">
-          <a href="index.html"
+          <a href="index.php"
             ><img src="images/gizmogaragelogo.png" alt="Gizmo Garage"
           /></a>
         </div>
@@ -53,39 +53,39 @@
             <span class="material-symbols-outlined"> person </span>
             MY ACCOUNT
           </a>
-          <a href="cart.html" class="cart-link">
+          <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
           </a>
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="categories.html?category=laptops"
+        <a href="categories.php?category=laptops"
           >LAPTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=desktops"
+        <a href="categories.php?category=desktops"
           >DESKTOPS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=phones"
+        <a href="categories.php?category=phones"
           >PHONES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=tablets"
+        <a href="categories.php?category=tablets"
           >TABLETS<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?category=accessories"
+        <a href="categories.php?category=accessories"
           >ACCESSORIES<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.html?sale=yes" class="sale-link"
+        <a href="categories.php?sale=yes" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a
@@ -101,8 +101,7 @@
             $result = $conn->query($query);
             if (isset($_GET['id'])) {
                 $productID = $_GET['id'];
-                
-                // Fetch product details from the database
+      
                 $query = "SELECT * FROM Products WHERE ProductID = $productID";
                 $result = $conn->query($query);
                 
@@ -130,7 +129,7 @@
                     
                     echo "<h3 id='product-price'>";
                     if ($row['SalePrice'] > 0) {
-                        echo "<span id='original-price'><s>$" . $row['Price'] . "</s></span>";
+                        echo "<span id='price'><s>$" . $row['Price'] . "</s></span>";
                         echo "<span id='sale-price'> $" . $row['SalePrice'] . "</span>";
                     } else {
                         echo "<span id='price'>$" . $row['Price'] . "</span>";
@@ -144,16 +143,18 @@
                     echo "<li>" . $row['Description'] . " Line 3</li>";
                     echo "</ul>";
             
+                    echo "<a href='additem.php?buy=".$productID."'><button id='homepage-button'>Add to Cart</button></a>";
                 
-                    echo "<button id='homepage-button'>Add to Cart</button>";
-            
                     
                     echo "<p>Category: <span id='product-category'>" . $row['Category'] . "</span></p>";
                     
                     echo "</div>";
             
                     echo "</div>";
-
+                  }
+             }   
+        } 
+              
         $conn->close();
         ?>
     <footer>

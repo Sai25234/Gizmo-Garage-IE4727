@@ -133,9 +133,9 @@ include 'additem.php';
         echo '<div class="product-item">';
         echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
         echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+        echo '</a>';
         echo '<div class="product-item-body">';
         echo '<div class="product-item-text">';
-        echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
         echo '<p class="product-name">' . $row['ProductName'] . '</p>';
         if ($row['SalePrice'] > 0){
           echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
