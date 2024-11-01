@@ -648,21 +648,20 @@ footer {
   padding: 0 2vw;
   
   #image-gallery{
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-rows: minmax(0, 1fr);
-    align-content: space-evenly;
-    gap: 1.5vw 0;
-
     img{
-      aspect-ratio: 1;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1.2;
       object-fit: contain;
+      
     }
   }
   img#main-image{
+    width: 100%;
+    height: auto;
     aspect-ratio: 1.2;
     object-fit: contain;
-    height: 100%;
+    
   }
 }
 #text-grid {
@@ -679,11 +678,11 @@ footer {
   h3 #price{
     font-weight: 500;
   }
-  h3 #price{
+  h3 #original-price{
     text-decoration: line-through;
     color: #444;
   }
-  h3 span#sale-price{
+  h3 #sale-price{
     font-weight: 600;
     color: #9A0000;
   }
@@ -784,6 +783,7 @@ footer {
 
 .product-name {
   font-weight: 600;
+  text-decoration: none;
 }
 
 .product-item img {
