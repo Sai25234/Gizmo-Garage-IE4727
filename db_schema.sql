@@ -17,23 +17,31 @@ CREATE TABLE Products (
 
 
 CREATE TABLE Customers (
-    CustomerID INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE NOT NULL CHECK (Email LIKE '%_@__%.__%'),
+    Password VARCHAR(100) UNIQUE NOT NULL
+);  
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
     CustomerName VARCHAR(100) NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL CHECK (Email LIKE '%_@__%.__%'),
     Phone VARCHAR(15) CHECK (LENGTH(Phone) BETWEEN 10 AND 15),
     Address TEXT,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE Orders (
-    OrderID INT PRIMARY KEY,
-    CustomerID INT,
+    PaymentDetails TEXT,
     Status VARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Processing', 'Completed', 'Cancelled')),
-    TotalPrice DECIMAL(10, 2),
+    Total DECIMAL(10, 2),
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
+    FOREIGN KEY (Email) REFERENCES Customers(Email) ON DELETE CASCADE
+);
+
+CREATE TABLE OrderItems (
+    OrderID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    PRIMARY KEY (OrderID, ProductID),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 CREATE TABLE ShoppingCart (
