@@ -18,7 +18,7 @@ CREATE TABLE Products (
 
 CREATE TABLE Customers (
     Email VARCHAR(100) UNIQUE NOT NULL CHECK (Email LIKE '%_@__%.__%'),
-    Phone VARCHAR(15) CHECK (LENGTH(Phone) BETWEEN 10 AND 15),
+    Password VARCHAR(100) UNIQUE NOT NULL
 );  
 
 CREATE TABLE Orders (
