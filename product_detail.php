@@ -44,10 +44,13 @@
         </button>
         </form>
         <div class="account-cart">
-          <a href="#" class="account-link">
-            <span class="material-symbols-outlined"> person </span>
-            MY ACCOUNT
-          </a>
+          <?php if (isset($_SESSION['valid_user'])) {
+            echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } else {
+            echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
+            MY ACCOUNT</a>";
+          } ?>
           <a href="cart.php" class="cart-link">
             <span class="material-symbols-outlined"> shopping_cart </span>
             CART
