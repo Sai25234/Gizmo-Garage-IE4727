@@ -1,59 +1,4 @@
-<?php
-include 'session.php';
-include 'dbconnect.php';
-include 'additem.php';
 
-$whereClauses = []; 
-
-
-
-// Check if any category filters are set
-if (!empty($_GET['category'])) {
-    $categories = $_GET['category'];
-    // Use array_map with mysqli_real_escape_string and the $conn object
-    $escapedCategories = array_map(function($value) use ($conn) {
-        return mysqli_real_escape_string($conn, $value);
-    }, $categories);
-
-    $categoryFilter = "'" . implode("','", $escapedCategories) . "'";
-    $whereClauses[] = "Category IN ($categoryFilter)";
-}
-
-// Check if any brand filters are set
-if (!empty($_GET['brand'])) {
-    $brands = $_GET['brand'];
-    $escapedBrands = array_map(function($value) use ($conn) {
-        return mysqli_real_escape_string($conn, $value);
-    }, $brands);
-
-    $brandFilter = "'" . implode("','", $escapedBrands) . "'";
-    $whereClauses[] = "Brand IN ($brandFilter)";
-}
-
-
-$orderBy = '';
-if (isset($_GET['sort'])) {
-  $sortOption = mysqli_real_escape_string($conn, $_GET['sort']);
-    switch ($sortOption) {
-        case 'latest':
-            $orderBy = 'ORDER BY DateAdded DESC';
-            break;
-        case 'low-to-high':
-            $orderBy = 'ORDER BY Price ASC';
-            break;
-        case 'high-to-low':
-            $orderBy = 'ORDER BY Price DESC';
-            break;
-        default:
-            $orderBy = ''; 
-    }
-}
-$query = "SELECT * FROM Products";
-if (!empty($whereClauses)) {
-    $query .= " WHERE " . implode(" AND ", $whereClauses);
-}
-$query .= " $orderBy";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +34,7 @@ $query .= " $orderBy";
         <button>
           <img src="images/search_icon.png" alt="Search" height="40px" width="40px" />
         </button>
-        </form>
+      </form>
       <div class="account-cart">
       <?php if (isset($_SESSION['valid_user'])) {
             echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
@@ -141,29 +86,29 @@ $query .= " $orderBy";
   </header>
   <div class="categories-container">
     <form method="GET" action="categories_filtered.php" class="filter-section">
-      <?php
-      
-      $brands = [];
-      $categories = [];
+    <?php
+    include 'dbconnect.php';
+    $brands = [];
+    $categories = [];
 
 
-      $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
-      $brandResult = $conn->query($brandQuery);
-      if ($brandResult) {
-          while ($row = $brandResult->fetch_assoc()) {
-              $brands[] = $row['Brand'];
-          }
-      }
+    $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
+    $brandResult = $conn->query($brandQuery);
+    if ($brandResult) {
+        while ($row = $brandResult->fetch_assoc()) {
+            $brands[] = $row['Brand'];
+        }
+    }
 
-      $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
-      $categoryResult = $conn->query($categoryQuery);
-      if ($categoryResult) {
-          while ($row = $categoryResult->fetch_assoc()) {
-              $categories[] = $row['Category'];
-          }
-      }
+    $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
+    $categoryResult = $conn->query($categoryQuery);
+    if ($categoryResult) {
+        while ($row = $categoryResult->fetch_assoc()) {
+            $categories[] = $row['Category'];
+        }
+    }
 
-      ?>
+    ?>
       <div id="filter-header">
         <h3>SEARCH FILTER</h3>
         <span class="material-symbols-outlined">tune</span>
@@ -195,26 +140,44 @@ $query .= " $orderBy";
 
     <div class="product-grid">
       <?php 
-
-      $result = $conn->query($query);
-        
-      while ($row = $result->fetch_assoc()){
-        echo '<div class="product-item">';
-        echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
-        echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
-        echo '</a>';
-        echo '<div class="product-item-body">';
-        echo '<div class="product-item-text">';
-        echo '<p class="product-name">' . $row['ProductName'] . '</p>';
-        if ($row['SalePrice'] > 0){
-          echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
-        }
-        else {
-          echo '<p class="price">$' . $row['Price'] . '</p></div>';
-        }
-        echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
-        echo '</div></div>';
+      include 'dbconnect.php';
+      
+      
+      $category = isset($_GET['category']) ? $_GET['category'] : 'all';
+      $query = isset($_GET['query']) ? mysqli_real_escape_string($conn, $_GET['query']) : '';
+      
+      
+      $sql = "SELECT * FROM Products WHERE 1=1"; 
+      
+      if ($category !== 'all') {
+          $sql .= " AND Category = '" . mysqli_real_escape_string($conn, $category) . "'";
       }
+      
+      
+      if (!empty($query)) {
+          $sql .= " AND ProductName LIKE '%$query%'";
+      }
+      
+      $result = $conn->query($sql);
+      if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="product-item">';
+            echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
+            echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+            echo '</a>';
+            echo '<div class="product-item-body">';
+            echo '<div class="product-item-text">';
+            echo '<p class="product-name">' . $row['ProductName'] . '</p>';
+            if ($row['SalePrice'] > 0){
+            echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+            }
+            else {
+            echo '<p class="price">$' . $row['Price'] . '</p></div>';
+            }
+            echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
+            echo '</div></div>';
+        }
+    }
       ?>
     </div>
   </div>
