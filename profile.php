@@ -6,7 +6,7 @@ include 'session.php';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shopping Cart</title>
+    <title>Gizmo Garage | My Account</title>
     <link rel="stylesheet" href="css/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -99,6 +99,40 @@ include 'session.php';
           <div>
             <?php
             include 'dbconnect.php';
+            if (isset($_SESSION['admin'])){
+              echo "<h2>Welcome, Admin <u>".$_SESSION['valid_user']."</u>!</h2>";
+              echo "<h2>ADMIN DASHBOARD</h2>";
+              echo "<div class='admin-section'><h3>SET PROMOTION</h3>";
+              echo "<form method='POST' action='set_promotion.php'><table><tbody>";
+              echo "<tr><td><label for='category'>Select a Category:</label></td>";
+              echo "<td><select name='category'>";
+              echo "<option value='Laptops'>Laptops</option>";
+              echo "<option value='Desktops'>Desktops</option>";
+              echo "<option value='Phones'>Phones</option>";
+              echo "<option value='Tablets'>Tablets</option>";
+              echo "<option value='Accessories'>Accessories</option>";
+              echo "</select></td></tr>";
+              echo "<tr><td><label for='discount'>Enter Discount Percentage(1-100%):</label></td>";
+              echo "<td><input type='number' name='discount' min='1' max='100' required></td></tr></tbody></table>";
+              echo "<button type='submit'>Set Promotion</button>";
+              echo "</form></div>";
+              echo "<div class='admin-section'><h3>VIEW EXISTING PROMOTIONS</h3>";
+              $promotions = "SELECT * FROM promotions";
+              $result = $conn->query($promotions);
+              if ($result->num_rows == 0){
+                echo "<h4>No promotions have been set yet.</h4></div>";
+              } else {
+                echo "<table><tbody><tr><th>Category</th><th>Discount</th><th>Delete Promotion?</th></tr>";
+                while ($row = $result->fetch_assoc()){
+                  echo "<tr>";
+                  echo "<td>".$row['Category']."</td>";
+                  echo "<td>".$row['Discount']."%</td>";
+                  echo "<td><a href='delete_promotion.php?delete=".$row['Category']."'>Delete</a></td>";
+                  echo "</tr>";
+                }
+                echo "</tbody></table></div>";
+              }
+            } else {
             echo "<h2>Welcome, ".$_SESSION['valid_user']."!</h2>";
             echo "<h2>MY ORDERS</h2>";
             $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems 
@@ -122,7 +156,7 @@ include 'session.php';
                 echo "</tr>";
               }
               echo "</tbody></table>";
-            }
+            }}
             ?>
           </div>
         </div>
@@ -179,7 +213,7 @@ include 'session.php';
           </ul>
         </div>
         <div class="newsletter-column">
-          <h4><u>Join Our Newsletter</u> !</h4>
+          <h4><u>Join Our Newsletter</u></h4>
           <form class="newsletter-form">
             <input type="email" placeholder="Enter Email Address" />
             <button type="submit">&#10148;</button>

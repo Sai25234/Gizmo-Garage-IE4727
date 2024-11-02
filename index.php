@@ -1,5 +1,4 @@
 <?php
-include 'dbconnect.php';
 include 'session.php';
 include 'additem.php';
  ?>
@@ -106,38 +105,20 @@ include 'additem.php';
     <div class="offer-categories">
       <h2>Featured Offers</h2>
       <div class="offers-container">
-          <div class="offer-item">
-              <img src="images/headphone.png" alt="Headphones">
-              <div class="offer-item-text-body">
-              <h3 class="offer-name">Get 10% off on Accessories now!</h3>
-              <p>from <span class="price">$XXX.XX</span></p>
-              <button class="shop-now-btn">Shop Now</button>
-            </div>
-          </div>
-          <div class="offer-item">
-              <div class="placeholder"></div>
-              <div class="offer-item-text-body">
-                <h3 class="offer-name">Offer Description</h3>
-                <p>from <span class="price">$XXX.XX</span></p>
-              <button class="shop-now-btn">Shop Now</button>
-            </div>
-          </div>
-          <div class="offer-item">
-              <div class="placeholder"></div>
-              <div class="offer-item-text-body">
-                <h3 class="offer-name">Offer Description</h3>
-                <p>from <span class="price">$XXX.XX</span></p>
-                <button class="shop-now-btn">Shop Now</button>
-              </div>
-          </div>
-          <div class="offer-item">
-              <div class="placeholder"></div>
-              <div class="offer-item-text-body">
-                <h3 class="offer-name">Offer Description</h3>
-                <p>from <span class="price">$XXX.XX</span></p>
-                <button class="shop-now-btn">Shop Now</button>
-              </div>
-          </div>
+        <?php 
+        include 'dbconnect.php';
+        $promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
+        FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
+        ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
+        $result = $conn->query($promotions);
+        while ($row = $result->fetch_assoc()) {
+          echo "<div class='offer-item'><img src='$row[Image_url]' alt='$row[Category]'>";
+          echo "<div class='offer-item-text-body'><h3 class='offer-name'>Get $row[Discount]% off on $row[Category] now!</h3>";
+          echo "<p>from <span class='price'>$$row[SalePrice]</span></p>";
+          echo "<button class='shop-now-btn' onclick=\"location.href='categories.php?category=$row[Category]'\">Shop Now</button></div></div>";
+        }
+
+        ?>
       </div>
     </div>
     <div class="offer-categories">
