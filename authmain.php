@@ -15,10 +15,20 @@ if (isset($_POST['email']) && isset($_POST['password']))
         $_SESSION['valid_user'] = $email;
         
     } else {
-        echo "<script>
-                alert('Invalid username or password.');
-                window.location.href='login.html';
-              </script>";
+        $admin = "SELECT * FROM Admins WHERE email = '$email' AND password = '$password'";
+        $result = $conn->query($admin);
+
+        if ($result->num_rows > 0) {
+        
+            $_SESSION['valid_user'] = $email;
+            $_SESSION['admin'] = true;
+            
+        } else {
+            echo "<script>
+                    alert('Invalid username or password.');
+                    window.location.href='login.html';
+                </script>";
+            }
     }
 }
 $conn->close();
