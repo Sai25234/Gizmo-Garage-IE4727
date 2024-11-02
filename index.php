@@ -96,16 +96,16 @@ include 'additem.php';
     </header>
     <div class="promotion-banner"></div>
         <div class="carousel">
-            <button class="prev">&#10094;</button>
-            <img src="images/iphone.png" alt="iPhone 16 Promotion">
-            <button class="next">&#10095;</button>
+            <button class="prev" onclick="prevSlide()">&#10094;</button>
+            <img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion">
+            <img src="images/carousel/aipc.png" alt="HP Omnibook">
             <div class="carousel-indicators">
                 <span class="dot active"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
             </div>
-            <button class="next">&#10095;</button>
+            <button class="next" onclick="nextSlide()">&#10095;</button>
         </div>        
     </div>
     <div class="offer-categories">
@@ -198,6 +198,48 @@ include 'additem.php';
           </div>
       </div>
     </div>
+    <script>
+    const images = document.querySelectorAll('.carousel img');
+    let currentSlide = 0;
+
+    function updateCarousel() {
+        images.forEach((img, index) => {
+            img.classList.toggle('active', index === currentSlide);
+        });
+        const dots = document.querySelectorAll('.carousel-indicators .dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1 ) % images.length;
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + images.length) % images.length;
+        updateCarousel();
+    }
+
+    setInterval(nextSlide, 7000); 
+
+   
+    const indicators = document.getElementById('carousel-indicators');
+    images.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        if (index === currentSlide) dot.classList.add('active');
+        dot.onclick = () => {
+            currentSlide = index;
+            updateCarousel();
+        };
+        indicators.appendChild(dot);
+    });
+
+    updateCarousel();
+    </script>
     <footer>
         <div class="footer-container">
             <div class="footer-column">

@@ -2,6 +2,51 @@
 include 'session.php';
 include 'dbconnect.php';
 include 'additem.php';
+
+$whereClauses = []; 
+if (!empty($_GET['category'])) {
+    $categories = $_GET['category'];
+    $escapedCategories = array_map(function($value) use ($conn) {
+        return mysqli_real_escape_string($conn, $value);
+    }, $categories);
+
+    $categoryFilter = "'" . implode("','", $escapedCategories) . "'";
+    $whereClauses[] = "Category IN ($categoryFilter)";
+}
+
+if (!empty($_GET['brand'])) {
+    $brands = $_GET['brand'];
+    $escapedBrands = array_map(function($value) use ($conn) {
+        return mysqli_real_escape_string($conn, $value);
+    }, $brands);
+
+    $brandFilter = "'" . implode("','", $escapedBrands) . "'";
+    $whereClauses[] = "Brand IN ($brandFilter)";
+}
+
+
+$orderBy = '';
+if (isset($_GET['sort'])) {
+  $sortOption = mysqli_real_escape_string($conn, $_GET['sort']);
+    switch ($sortOption) {
+        case 'latest':
+            $orderBy = 'ORDER BY DateAdded DESC';
+            break;
+        case 'low-to-high':
+            $orderBy = 'ORDER BY Price ASC';
+            break;
+        case 'high-to-low':
+            $orderBy = 'ORDER BY Price DESC';
+            break;
+        default:
+            $orderBy = ''; 
+    }
+}
+$query = "SELECT * FROM Products";
+if (!empty($whereClauses)) {
+    $query .= " WHERE " . implode(" AND ", $whereClauses);
+}
+$query .= " $orderBy";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,29 +135,29 @@ include 'additem.php';
   </header>
   <div class="categories-container">
     <form method="GET" action="categories_filtered.php" class="filter-section">
-    <?php
-    
-    $brands = [];
-    $categories = [];
+      <?php
+      
+      $brands = [];
+      $categories = [];
 
 
-    $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
-    $brandResult = $conn->query($brandQuery);
-    if ($brandResult) {
-        while ($row = $brandResult->fetch_assoc()) {
-            $brands[] = $row['Brand'];
-        }
-    }
+      $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
+      $brandResult = $conn->query($brandQuery);
+      if ($brandResult) {
+          while ($row = $brandResult->fetch_assoc()) {
+              $brands[] = $row['Brand'];
+          }
+      }
 
-    $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
-    $categoryResult = $conn->query($categoryQuery);
-    if ($categoryResult) {
-        while ($row = $categoryResult->fetch_assoc()) {
-            $categories[] = $row['Category'];
-        }
-    }
+      $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
+      $categoryResult = $conn->query($categoryQuery);
+      if ($categoryResult) {
+          while ($row = $categoryResult->fetch_assoc()) {
+              $categories[] = $row['Category'];
+          }
+      }
 
-    ?>
+      ?>
       <div id="filter-header">
         <h3>SEARCH FILTER</h3>
         <span class="material-symbols-outlined">tune</span>
@@ -144,19 +189,8 @@ include 'additem.php';
 
     <div class="product-grid">
       <?php 
-      include 'dbconnect.php';
-      if (isset($_GET['category'])) {
-        $category = $_GET['category'];
-        //Convert category name in URL to category ID
-        // $catID = $conn->query("SELECT CategoryID FROM Categories WHERE CategoryName = '$category'")->fetch_assoc()['CategoryID'];
-        $categoryquery = "SELECT * FROM Products WHERE Category = '$category'";
-      } else if (isset($_GET['sale'])) {
-        $categoryquery = "SELECT * FROM Products WHERE SalePrice > 0";
-      } else {
-        //Failsafe to load all products if no category or sale query found
-        $categoryquery = "SELECT * FROM Products";
-      }
-      $result = $conn->query($categoryquery);
+
+      $result = $conn->query($query);
         
       while ($row = $result->fetch_assoc()){
         echo '<div class="product-item">';
