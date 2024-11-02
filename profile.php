@@ -32,25 +32,20 @@ include 'session.php';
             ><img src="images/gizmogaragelogo.png" alt="Gizmo Garage"
           /></a>
         </div>
-        <div class="search-bar">
-          <select>
-            <option value="all">BY CATEGORY</option>
-            <option value="laptops">LAPTOPS</option>
-            <option value="desktops">DESKTOPS</option>
-            <option value="phones">PHONES</option>
-            <option value="tablets">TABLETS</option>
-            <option value="accessories">ACCESSORIES</option>
-          </select>
-          <input type="text" placeholder="Search for a Product..." />
-          <button>
-            <img
-              src="images/search_icon.png"
-              alt="Search"
-              height="40px"
-              width="40px"
-            />
-          </button>
-        </div>
+        <form action="search_results.php" method="GET" class="search-bar">
+        <select name="category">
+          <option value="all">BY CATEGORY</option>
+          <option value="laptops">LAPTOPS</option>
+          <option value="desktops">DESKTOPS</option>
+          <option value="phones">PHONES</option>
+          <option value="tablets">TABLETS</option>
+          <option value="accessories">ACCESSORIES</option>
+        </select>
+        <input type="text" name="query" placeholder="Search for a Product..." />
+        <button>
+          <img src="images/search_icon.png" alt="Search" height="40px" width="40px" />
+        </button>
+        </form>
         <div class="account-cart">
           <?php if (isset($_SESSION['valid_user'])) {
             echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
