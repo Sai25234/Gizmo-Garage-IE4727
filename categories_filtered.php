@@ -4,10 +4,6 @@ include 'dbconnect.php';
 include 'additem.php';
 
 $whereClauses = []; 
-
-
-
-
 if (!empty($_GET['category'])) {
     $categories = $_GET['category'];
     $escapedCategories = array_map(function($value) use ($conn) {
