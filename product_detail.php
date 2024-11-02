@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Details</title>
+    <title>Gizmo Garage | Product Details</title>
     <link rel="stylesheet" href="css/main.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
@@ -190,7 +190,7 @@
           </ul>
         </div>
         <div class="newsletter-column">
-          <h4><u>Join Our Newsletter</u> !</h4>
+          <h4><u>Join Our Newsletter</u></h4>
           <form class="newsletter-form">
             <input type="email" placeholder="Enter Email Address" />
             <button type="submit">&#10148;</button>
