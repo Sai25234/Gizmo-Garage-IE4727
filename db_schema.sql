@@ -1,9 +1,3 @@
-CREATE TABLE Categories (
-    CategoryID INT PRIMARY KEY,
-    CategoryName VARCHAR(100) NOT NULL,
-    CategoryType VARCHAR(50) NULL
-);
-
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY AUTO_INCREMENT,
     ProductName VARCHAR(100) NOT NULL,
@@ -15,6 +9,11 @@ CREATE TABLE Products (
     Stock INT NOT NULL
 );
 
+CREATE TABLE Promotions (
+    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
+    Category VARCHAR(100),
+    Discount INT NOT NULL CHECK (Discount >= 0 AND Discount <= 100)
+);
 
 CREATE TABLE Customers (
     Email VARCHAR(100) UNIQUE NOT NULL PRIMARY KEY,

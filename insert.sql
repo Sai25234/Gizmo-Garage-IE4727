@@ -16,4 +16,4 @@ INSERT INTO products (ProductName, Brand, Category, Image_url, Price, Stock) VAL
 ('Dell Vostro 3000 Series 3520', 'Dell', 'Laptops', 'https://m.media-amazon.com/images/I/71R2LA5tZJL._AC_SX679_.jpg', 1294, 180);
 
 INSERT INTO Admins (Email, Password) VALUES 
-('admin@garage.com', 'admin123');
+('admin@garage.com', MD5('admin123'));
