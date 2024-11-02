@@ -4,13 +4,8 @@ include 'dbconnect.php';
 include 'additem.php';
 
 $whereClauses = []; 
-
-
-
-// Check if any category filters are set
 if (!empty($_GET['category'])) {
     $categories = $_GET['category'];
-    // Use array_map with mysqli_real_escape_string and the $conn object
     $escapedCategories = array_map(function($value) use ($conn) {
         return mysqli_real_escape_string($conn, $value);
     }, $categories);
@@ -19,7 +14,6 @@ if (!empty($_GET['category'])) {
     $whereClauses[] = "Category IN ($categoryFilter)";
 }
 
-// Check if any brand filters are set
 if (!empty($_GET['brand'])) {
     $brands = $_GET['brand'];
     $escapedBrands = array_map(function($value) use ($conn) {
