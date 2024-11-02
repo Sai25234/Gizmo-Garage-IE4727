@@ -115,7 +115,7 @@ include 'additem.php';
           echo "<div class='offer-item'><img src='$row[Image_url]' alt='$row[Category]'>";
           echo "<div class='offer-item-text-body'><h3 class='offer-name'>Get $row[Discount]% off on $row[Category] now!</h3>";
           echo "<p>from <span class='price'>$$row[SalePrice]</span></p>";
-          echo "<button class='shop-now-btn'>Shop Now</button></div></div>";
+          echo "<button class='shop-now-btn' onclick=\"location.href='categories.php?category=$row[Category]'\">Shop Now</button></div></div>";
         }
 
         ?>
