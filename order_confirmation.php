@@ -142,7 +142,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         //empty cart
         unset($_SESSION['cart']);
         //Email Confirmation
-        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(Products.Image_url, products.ProductName, ' x', orderitems.Quantity, orderitems.Price) SEPARATOR '<br>') AS OrderItems 
+        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,CONCAT(',Products.Image_url,') AS Img_url, GROUP_CONCAT(CONCAT( products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems, CONCAT('','$', orderitems.Price) AS ItemPrice
             FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
             JOIN products ON orderitems.ProductID = products.ProductID 
             WHERE Email = '".$_SESSION['valid_user']."' AND orders.OrderID = $orderID";
@@ -223,10 +223,11 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         <div class='profile-wrapper'>
           <h2>Thank you for your purchase, $name!</h2>
           <p>Your order has been successfully placed. Here are the details:</p>
-        <table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Status</th><th>Order Total</th><th>Order Date</th></tr>
+        <table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Total</th><th>Order Date</th></tr>
         <tr>
         <td>$orderID</td>
-        <td>{$row['OrderItems']}</td>
+
+        <td><img src={$row['Img_url']}> {$row['OrderItems']}&nbsp;{$row['ItemPrice']}</td>
         <td>{$row['Total']}</td>
         <td>{$row['CreatedAt']}</td>
         </tr>
@@ -237,6 +238,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
             <p><strong>Email:</strong>gizmogarage@gmail.com</p>
           <br>
         <p>Thank you for shopping with us!</p>
+        <img src='images/gizmogaragelogo.png' alt='Gizmo Garage'/>
         </div>
         </div>
         </body>
