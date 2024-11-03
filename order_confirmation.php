@@ -141,6 +141,13 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         }
         //empty cart
         unset($_SESSION['cart']);
+        //Email Confirmation
+        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(Products.Image_url, products.ProductName, ' x', orderitems.Quantity, orderitems.Price) SEPARATOR '<br>') AS OrderItems 
+            FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
+            JOIN products ON orderitems.ProductID = products.ProductID 
+            WHERE Email = '".$_SESSION['valid_user']."' AND orders.OrderID = $orderID";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
         $to = $email;
         $subject = "Order Confirmation - Gizmo Garage";
         $message = "
@@ -148,27 +155,95 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         <head>
           <title>Order Confirmation</title>
         </head>
+        <style>
+        .profile-container .sidebar .action-box{
+        padding: 1.5vw;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        font-size: 1.05vw;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+        width: 80%;
+        border-radius: 0.5vw;
+        margin-top: 2vw;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .profile-wrapper {
+        margin: 2vw 0;
+        justify-self: self-end;
+        padding: 3vw;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        font-size: 1.05vw;
+        height: fit-content;
+        width: 90%;
+        border-radius: 0.5vw;
+        color: #01214A;
+
+        h1{
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          text-underline-offset: 0.2em;
+        }
+        h2{
+          margin-top: 1vw;
+          padding: 1vw 0;
+        }
+        table{
+          width: 100%;
+          border-collapse: collapse;
+
+          tbody th{
+            padding: 0.5vw 0;
+            font-weight: 500;
+            border: 1px solid #bbb;
+          }
+        }
+        table tbody tr{
+          align-items: center;
+          justify-items: center;
+          border: 1px solid #bbb;
+
+          td{
+            padding:0.5vw;
+            border: 1px solid #bbb;
+          }
+          td:nth-of-type(2){
+            text-align: start;
+          }
+        }
+      }
+        </style>
         <body>
+        <div class='profile-container'>
+        <div class='profile-wrapper'>
           <h2>Thank you for your purchase, $name!</h2>
           <p>Your order has been successfully placed. Here are the details:</p>
-          <ul>
-            <li><strong>Name:</strong> $name</li>
-            <li><strong>Address:</strong> $address</li>
-            <li><strong>Phone:</strong> $phone</li>
-            <li><strong>Email:</strong> $email</li>
-            <li><strong>Order Total:</strong> $subtotal</li> <!-- Replace with actual total -->
-          </ul>
-          <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email. Bleow are the contact details.:</p>
-          <ul>
-            <li><strong>Phone:</strong>+65 1234 5678</li>
-            <li><strong>Email:</strong>gizmogarage@gmail.com</li>
-          </ul>
-          <p>Thank you for shopping with us!</p>
+        <table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Status</th><th>Order Total</th><th>Order Date</th></tr>
+        <tr>
+        <td>$orderID</td>
+        <td>{$row['OrderItems']}</td>
+        <td>{$row['Total']}</td>
+        <td>{$row['CreatedAt']}</td>
+        </tr>
+        </tbody></table>
+        <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email:</p>
+          <br>
+            <p><strong>Phone:</strong>+65 1234 5678</p>
+            <p><strong>Email:</strong>gizmogarage@gmail.com</p>
+          <br>
+        <p>Thank you for shopping with us!</p>
+        </div>
+        </div>
         </body>
         </html>
         ";
 
-        $headers = 'From: root@localhost' . "\r\n" .
+        $headers = 'From: Gizmo-Garage@localhost' . "\r\n" .
         'Reply-To: root@localhost' . "\r\n" .
         'X-Mailer: PHP/' . phpversion(). "\r\n" .
         'Content-type: text/html; charset=UTF-8';
