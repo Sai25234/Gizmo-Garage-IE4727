@@ -141,12 +141,45 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         }
         //empty cart
         unset($_SESSION['cart']);
+        $to = $email;
+        $subject = "Order Confirmation - Gizmo Garage";
+        $message = "
+        <html>
+        <head>
+          <title>Order Confirmation</title>
+        </head>
+        <body>
+          <h2>Thank you for your purchase, $name!</h2>
+          <p>Your order has been successfully placed. Here are the details:</p>
+          <ul>
+            <li><strong>Name:</strong> $name</li>
+            <li><strong>Address:</strong> $address</li>
+            <li><strong>Phone:</strong> $phone</li>
+            <li><strong>Email:</strong> $email</li>
+            <li><strong>Order Total:</strong> $subtotal</li> <!-- Replace with actual total -->
+          </ul>
+          <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email. Bleow are the contact details.:</p>
+          <ul>
+            <li><strong>Phone:</strong>+65 1234 5678</li>
+            <li><strong>Email:</strong>gizmogarage@gmail.com</li>
+          </ul>
+          <p>Thank you for shopping with us!</p>
+        </body>
+        </html>
+        ";
 
-        //order confirmation section
-        echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
-        echo '<p><strong>Order Confirmed!</strong></p>';
-        echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
-        echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
+        $headers = 'From: root@localhost' . "\r\n" .
+        'Reply-To: root@localhost' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion(). "\r\n" .
+        'Content-type: text/html; charset=UTF-8';
+       
+        if(mail('root2@localhost', $subject, $message, $headers,)) {
+          echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
+          echo '<p><strong>Order Confirmed!</strong></p>';
+          echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
+          echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
+        }
+
       } else {
         echo '<p><strong>Order Failed...</strong></p>';
         echo "Error: ". $order . "<br>" . $conn->error;
