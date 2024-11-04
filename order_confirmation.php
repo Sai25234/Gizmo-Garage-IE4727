@@ -141,12 +141,122 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         }
         //empty cart
         unset($_SESSION['cart']);
+        $break = '<br>';
+        //Email Confirmation
+        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,  GROUP_CONCAT(CONCAT( '<div style=\"display: flex; align-items: center; padding-left: 0.5vw; \">','<img src=\"', Products.Image_url, '\"style=\"width:80px; height:auto display:flex;\">&nbsp; ', products.ProductName, ' QTY: x', orderitems.Quantity,' PRICE: $', orderitems.Price, '</div>') SEPARATOR ' ') AS OrderItems
+            FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
+            JOIN products ON orderitems.ProductID = products.ProductID 
+            WHERE Email = '".$_SESSION['valid_user']."' AND orders.OrderID = $orderID";
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $to = $email;
+        $subject = "Order Confirmation - Gizmo Garage";
 
-        //order confirmation section
-        echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
-        echo '<p><strong>Order Confirmed!</strong></p>';
-        echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
-        echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
+        $message = <<<EOD
+        <html>
+        <head>
+          <title>Order Confirmation</title>
+        </head>
+        <style>
+        .profile-container .sidebar .action-box{
+        padding: 1.5vw;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        font-size: 1.05vw;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+        width: 80%;
+        border-radius: 0.5vw;
+        margin-top: 2vw;
+        margin-left: auto;
+        margin-right: auto;
+        }
+        .profile-wrapper {
+        margin: 2vw 0;
+        justify-self: self-end;
+        padding: 3vw;
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        font-size: 1.05vw;
+        height: fit-content;
+        width: 90%;
+        border-radius: 0.5vw;
+        color: #01214A;}
+
+        h1{
+          text-decoration: underline;
+          text-decoration-style: dashed;
+          text-underline-offset: 0.2em;
+        }
+        h2{
+          margin-top: 1vw;
+          padding: 1vw 0;
+        }
+        table{
+          width: 100%;
+          border-collapse: collapse;
+
+          tbody th{
+            padding: 0.5vw 0;
+            font-weight: 500;
+            border: 1px solid #bbb;
+          }
+        }
+        table tbody tr{
+          align-items: center;
+          justify-items: center;
+          border: 1px solid #bbb;
+          }
+
+        table tbody tr td{
+          
+          padding: 0.5vw;
+          border: 1px solid #bbb;
+          justify-content: center;
+          align-items: center;
+        }
+        </style>
+        <body>
+        <div class='profile-container'>
+        <div class='profile-wrapper'>
+          <h2>Thank you for your purchase, $name!</h2>
+          <p>Your order has been successfully placed. Here are the details:</p>
+        <table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Total</th><th>Order Date</th></tr>
+        <tr>
+        <td>$orderID</td>
+        <td> {$row['OrderItems']}</td>
+        <td>{$row['Total']}</td>
+        <td>{$row['CreatedAt']}</td>
+        </tr>
+        </tbody></table>
+         
+        <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email.</p>
+        <p>Thank you for shopping with us!</p><br>
+            <p><strong>Phone:</strong>+65 1234 5678<br>
+            <strong>Email:</strong>gizmogarage@gmail.com
+        </p>
+        <img src="https://github.com/Sai25234/Gizmo-Garage-IE4727/blob/master/images/gizmogaragelogo.png?raw=true" alt='Gizmo Garage' style= " height: 60px; aspect-ratio: 4;" />  
+        </div>
+        </div>
+        </body>
+        </html>
+        EOD;
+
+        $headers = 'From: Gizmo-Garage@localhost' . "\r\n" .
+        'Reply-To: root@localhost' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion(). "\r\n" .
+        'Content-type: text/html; charset=UTF-8';
+       
+        if(mail('root2@localhost', $subject, $message, $headers,)) {
+          echo '<img src="images/Order_Confirmed_symbol.png" height="200px" width="200px"/>';
+          echo '<p><strong>Order Confirmed!</strong></p>';
+          echo '<p>We\'ll email you an order confirmation, along with future order status updates.</p>';
+          echo '<button id="homepage-button" onclick="location.href=\'index.php\'">Return to Homepage</button>';
+        }
+
       } else {
         echo '<p><strong>Order Failed...</strong></p>';
         echo "Error: ". $order . "<br>" . $conn->error;
