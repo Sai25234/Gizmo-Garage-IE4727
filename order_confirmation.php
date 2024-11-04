@@ -151,9 +151,6 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         $row = $result->fetch_assoc();
         $to = $email;
         $subject = "Order Confirmation - Gizmo Garage";
-        $imagePath = 'images/gizmogaragelogo.png';
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $imageSrc = 'data:image/png;base64,' . $imageData;
 
         $message = <<<EOD
         <html>
