@@ -141,8 +141,9 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         }
         //empty cart
         unset($_SESSION['cart']);
+        $break = '<br>';
         //Email Confirmation
-        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,CONCAT(',Products.Image_url,') AS Img_url, GROUP_CONCAT(CONCAT( products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems, CONCAT('','$', orderitems.Price) AS ItemPrice
+        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,  GROUP_CONCAT(CONCAT( '<div style=\"display: flex; align-items: center; padding-left: 0.5vw; \">','<img src=\"', Products.Image_url, '\"style=\"width:80px; height:auto display:flex;\">&nbsp; ', products.ProductName, ' QTY: x', orderitems.Quantity,' PRICE: $', orderitems.Price, '</div>') SEPARATOR ' ') AS OrderItems
             FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
             JOIN products ON orderitems.ProductID = products.ProductID 
             WHERE Email = '".$_SESSION['valid_user']."' AND orders.OrderID = $orderID";
@@ -150,7 +151,11 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         $row = $result->fetch_assoc();
         $to = $email;
         $subject = "Order Confirmation - Gizmo Garage";
-        $message = "
+        $imagePath = 'images/gizmogaragelogo.png';
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $imageSrc = 'data:image/png;base64,' . $imageData;
+
+        $message = <<<EOD
         <html>
         <head>
           <title>Order Confirmation</title>
@@ -171,8 +176,8 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         margin-top: 2vw;
         margin-left: auto;
         margin-right: auto;
-      }
-      .profile-wrapper {
+        }
+        .profile-wrapper {
         margin: 2vw 0;
         justify-self: self-end;
         padding: 3vw;
@@ -182,7 +187,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         height: fit-content;
         width: 90%;
         border-radius: 0.5vw;
-        color: #01214A;
+        color: #01214A;}
 
         h1{
           text-decoration: underline;
@@ -207,16 +212,15 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
           align-items: center;
           justify-items: center;
           border: 1px solid #bbb;
+          }
 
-          td{
-            padding:0.5vw;
-            border: 1px solid #bbb;
-          }
-          td:nth-of-type(2){
-            text-align: start;
-          }
+        table tbody tr td{
+          
+          padding: 0.5vw;
+          border: 1px solid #bbb;
+          justify-content: center;
+          align-items: center;
         }
-      }
         </style>
         <body>
         <div class='profile-container'>
@@ -226,24 +230,23 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         <table><tbody><tr><th>Order ID</th><th>Order Items</th><th>Order Total</th><th>Order Date</th></tr>
         <tr>
         <td>$orderID</td>
-
-        <td><img src={$row['Img_url']}> {$row['OrderItems']}&nbsp;{$row['ItemPrice']}</td>
+        <td> {$row['OrderItems']}</td>
         <td>{$row['Total']}</td>
         <td>{$row['CreatedAt']}</td>
         </tr>
         </tbody></table>
-        <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email:</p>
-          <br>
-            <p><strong>Phone:</strong>+65 1234 5678</p>
-            <p><strong>Email:</strong>gizmogarage@gmail.com</p>
-          <br>
-        <p>Thank you for shopping with us!</p>
-        <img src='images/gizmogaragelogo.png' alt='Gizmo Garage'/>
+         
+        <p>We will send you an update when your order ships. For any queries regarding your order, please reach out to us via phone or email.</p>
+        <p>Thank you for shopping with us!</p><br>
+            <p><strong>Phone:</strong>+65 1234 5678<br>
+            <strong>Email:</strong>gizmogarage@gmail.com
+        </p>
+        <img src="https://github.com/Sai25234/Gizmo-Garage-IE4727/blob/master/images/gizmogaragelogo.png?raw=true" alt='Gizmo Garage' style= " height: 60px; aspect-ratio: 4;" />  
         </div>
         </div>
         </body>
         </html>
-        ";
+        EOD;
 
         $headers = 'From: Gizmo-Garage@localhost' . "\r\n" .
         'Reply-To: root@localhost' . "\r\n" .
