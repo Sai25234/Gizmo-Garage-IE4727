@@ -829,14 +829,17 @@ footer {
   padding: 0.5vw 0.5vw;
   vertical-align: middle;
   align-items: center;
+  height: 25%;
 }
 
 .product-item-text{
   display: grid;
   grid-template-rows: auto auto;
   width: 90%;
+  height: 100%;
   font-size: 1.2vw;
-  gap: 0.8vw;
+  gap: minmax(0, 0.8vw);
+  align-items: space-between;
 }
 
 /* Order Confirmation Page */
