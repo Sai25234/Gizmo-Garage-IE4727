@@ -180,14 +180,7 @@ include 'additem.php';
     </div>
   </div>
 
-  <div class="pagination">
-    <a href="#">««</a>
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">»»</a>
-  </div>
-  </div>
+  
 
   <footer>
     <div class="footer-container">

@@ -161,9 +161,10 @@
       $result = $conn->query($sql);
       if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+            $images = explode(',', $row['Image_url']);
             echo '<div class="product-item">';
             echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
-            echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+            echo "<img src='" . trim($images[0]) . "' alt='" . $row['ProductName'] . "' />";
             echo '</a>';
             echo '<div class="product-item-body">';
             echo '<div class="product-item-text">';
@@ -177,19 +178,15 @@
             echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
             echo '</div></div>';
         }
-    }
+      }
+      else{
+        echo "<p style='color:color: #01214A;'>No Products fornd :(<p>";
+      }
       ?>
     </div>
   </div>
 
-  <div class="pagination">
-    <a href="#">««</a>
-    <a href="#" class="active">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">»»</a>
-  </div>
-  </div>
+  
 
   <footer>
     <div class="footer-container">
