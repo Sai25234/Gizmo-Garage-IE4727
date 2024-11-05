@@ -136,7 +136,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         unset($_SESSION['cart']);
         $break = '<br>';
         //Email Confirmation
-        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,  GROUP_CONCAT(CONCAT( '<div style=\"display: flex; align-items: center; padding-left: 0.5vw; \">','<img src=\"', Products.Image_url, '\"style=\"width:80px; height:auto display:flex;\">&nbsp; ', products.ProductName, ' QTY: x', orderitems.Quantity,' PRICE: $', orderitems.Price, '</div>') SEPARATOR ' ') AS OrderItems
+        $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total,  GROUP_CONCAT(CONCAT( '<div style=\"display: flex; align-items: center; padding-left: 0.5vw; \">','<img src=\"', SUBSTRING_INDEX(Products.Image_url, ',', 1), '\"style=\"width:80px; height:auto display:flex;\">&nbsp; ', products.ProductName, ' QTY: x', orderitems.Quantity,' PRICE: $', orderitems.Price, '</div>') SEPARATOR ' ') AS OrderItems
             FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
             JOIN products ON orderitems.ProductID = products.ProductID 
             WHERE Email = '".$_SESSION['valid_user']."' AND orders.OrderID = $orderID";
