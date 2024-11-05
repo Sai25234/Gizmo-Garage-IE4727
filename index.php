@@ -102,25 +102,23 @@ include 'additem.php';
             <button class="next" onclick="nextSlide()">&#10095;</button>
         </div>        
     </div>
-    <div class="offer-categories">
-      <h2>Featured Offers</h2>
-      <div class="offers-container">
         <?php 
         include 'dbconnect.php';
         $promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
         FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
         ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
         $result = $conn->query($promotions);
+        if ($result->num_rows > 0){
+        echo '<div class="offer-categories"><h2>Featured Offers</h2><div class="offers-container">';
         while ($row = $result->fetch_assoc()) {
           echo "<div class='offer-item'><img src='$row[Image_url]' alt='$row[Category]'>";
           echo "<div class='offer-item-text-body'><h3 class='offer-name'>Get $row[Discount]% off on $row[Category] now!</h3>";
           echo "<p>from <span class='price'>$$row[SalePrice]</span></p>";
           echo "<button class='shop-now-btn' onclick=\"location.href='categories.php?category=$row[Category]'\">Shop Now</button></div></div>";
         }
-
+        echo '</div></div>';
+      }
         ?>
-      </div>
-    </div>
     <div class="offer-categories">
       <h2>Whats New at the Garage</h2>
       <div class="offers-container">
