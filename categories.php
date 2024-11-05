@@ -14,10 +14,11 @@ include 'additem.php';
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header>
     <div class="running-promo-banner">Running Promotion Banner</div>
@@ -25,8 +26,8 @@ include 'additem.php';
       <div class="logo">
         <a href="index.php"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
       </div>
-      <div class="search-bar">
-        <select>
+      <form action="search_results.php" method="GET" class="search-bar">
+        <select name="category">
           <option value="all">BY CATEGORY</option>
           <option value="laptops">LAPTOPS</option>
           <option value="desktops">DESKTOPS</option>
@@ -34,19 +35,19 @@ include 'additem.php';
           <option value="tablets">TABLETS</option>
           <option value="accessories">ACCESSORIES</option>
         </select>
-        <input type="text" placeholder="Search for a Product..." />
+        <input type="text" name="query" placeholder="Search for a Product..." />
         <button>
           <img src="images/search_icon.png" alt="Search" height="40px" width="40px" />
         </button>
-      </div>
+      </form>
       <div class="account-cart">
-      <?php if (isset($_SESSION['valid_user'])) {
-            echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
+        <?php if (isset($_SESSION['valid_user'])) {
+          echo "<a href='profile.php' class='account-link'><span class='material-symbols-outlined'> person </span>
             MY ACCOUNT</a>";
-          } else {
-            echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
+        } else {
+          echo "<a href='login.html' class='account-link'><span class='material-symbols-outlined'> person </span>
             MY ACCOUNT</a>";
-          } ?>
+        } ?>
         <a href="cart.php" class="cart-link">
           <span class="material-symbols-outlined">
             shopping_cart
@@ -56,63 +57,51 @@ include 'additem.php';
       </div>
     </div>
     <nav class="nav-bar">
-      <a href="categories.php?category=laptops"
-        >LAPTOPS<span class="material-symbols-outlined">
+      <a href="categories.php?category=laptops">LAPTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=desktops"
-        >DESKTOPS<span class="material-symbols-outlined">
+        </span></a>
+      <a href="categories.php?category=desktops">DESKTOPS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=phones"
-        >PHONES<span class="material-symbols-outlined">
+        </span></a>
+      <a href="categories.php?category=phones">PHONES<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=tablets"
-        >TABLETS<span class="material-symbols-outlined">
+        </span></a>
+      <a href="categories.php?category=tablets">TABLETS<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=accessories"
-        >ACCESSORIES<span class="material-symbols-outlined">
+        </span></a>
+      <a href="categories.php?category=accessories">ACCESSORIES<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?sale" class="sale-link"
-        >SALE<span class="material-symbols-outlined">
+        </span></a>
+      <a href="categories.php?sale" class="sale-link">SALE<span class="material-symbols-outlined">
           keyboard_arrow_down
-        </span></a
-      >
+        </span></a>
     </nav>
   </header>
   <div class="categories-container">
     <form method="GET" action="categories_filtered.php" class="filter-section">
-    <?php
-    
-    $brands = [];
-    $categories = [];
+      <?php
+
+      $brands = [];
+      $categories = [];
 
 
-    $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
-    $brandResult = $conn->query($brandQuery);
-    if ($brandResult) {
+      $brandQuery = "SELECT DISTINCT Brand FROM Products ORDER BY Brand ASC";
+      $brandResult = $conn->query($brandQuery);
+      if ($brandResult) {
         while ($row = $brandResult->fetch_assoc()) {
-            $brands[] = $row['Brand'];
+          $brands[] = $row['Brand'];
         }
-    }
+      }
 
-    $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
-    $categoryResult = $conn->query($categoryQuery);
-    if ($categoryResult) {
+      $categoryQuery = "SELECT DISTINCT Category FROM Products ORDER BY Category ASC";
+      $categoryResult = $conn->query($categoryQuery);
+      if ($categoryResult) {
         while ($row = $categoryResult->fetch_assoc()) {
-            $categories[] = $row['Category'];
+          $categories[] = $row['Category'];
         }
-    }
+      }
 
-    ?>
+      ?>
       <div id="filter-header">
         <h3>SEARCH FILTER</h3>
         <span class="material-symbols-outlined">tune</span>
@@ -120,18 +109,18 @@ include 'additem.php';
       <h4>PRODUCT CATEGORIES</h4>
       <?php foreach ($categories as $category): ?>
         <label>
-            <input type="checkbox" name="category[]" value="<?php echo htmlspecialchars($category); ?>">
-            <?php echo htmlspecialchars($category); ?>
+          <input type="checkbox" name="category[]" value="<?php echo htmlspecialchars($category); ?>">
+          <?php echo htmlspecialchars($category); ?>
         </label>
       <?php endforeach; ?>
 
 
       <h4>BRANDS</h4>
       <?php foreach ($brands as $brand): ?>
-          <label>
-              <input type="checkbox" name="brand[]" value="<?php echo htmlspecialchars($brand); ?>">
-              <?php echo htmlspecialchars($brand); ?>
-          </label>
+        <label>
+          <input type="checkbox" name="brand[]" value="<?php echo htmlspecialchars($brand); ?>">
+          <?php echo htmlspecialchars($brand); ?>
+        </label>
       <?php endforeach; ?>
 
       <h4>SORT BY</h4>
@@ -143,7 +132,7 @@ include 'additem.php';
     </form>
 
     <div class="product-grid">
-      <?php 
+      <?php
       include 'dbconnect.php';
       if (isset($_GET['category'])) {
         $category = $_GET['category'];
@@ -157,30 +146,33 @@ include 'additem.php';
         $categoryquery = "SELECT * FROM Products";
       }
       $result = $conn->query($categoryquery);
-        
-      while ($row = $result->fetch_assoc()){
-        $images = explode(',', $row['Image_url']);
-        echo '<div class="product-item">';
-        echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
-        echo "<img src='" . trim($images[0]) . "' alt='" . $row['ProductName'] . "' />";
-        echo '</a>';
-        echo '<div class="product-item-body">';
-        echo '<div class="product-item-text">';
-        echo '<p class="product-name">' . $row['ProductName'] . '</p>';
-        if ($row['SalePrice'] > 0){
-          echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+      if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+          $images = explode(',', $row['Image_url']);
+          echo '<div class="product-item">';
+          echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
+          echo "<img src='" . trim($images[0]) . "' alt='" . $row['ProductName'] . "' />";
+          echo '</a>';
+          echo '<div class="product-item-body">';
+          echo '<div class="product-item-text">';
+          echo '<p class="product-name">' . $row['ProductName'] . '</p>';
+          if ($row['SalePrice'] > 0) {
+            echo '<p class="price">$' . $row['SalePrice'] . '</p></div>';
+          } else {
+            echo '<p class="price">$' . $row['Price'] . '</p></div>';
+          }
+          echo "<a href='additem.php?buy=" . $row['ProductID'] . "'><span class='material-symbols-outlined'>shopping_cart</span></a>";
+          echo '</div></div>';
         }
-        else {
-          echo '<p class="price">$' . $row['Price'] . '</p></div>';
-        }
-        echo "<a href='additem.php?buy=".$row['ProductID']."'><span class='material-symbols-outlined'>shopping_cart</span></a>";
-        echo '</div></div>';
+      } else {
+        echo "<div class='empty-query'>";
+        echo "<p>No Products Found :( <br>Try Searching for Something Else?</p></div>";
       }
       ?>
     </div>
   </div>
 
-  
+
 
   <footer>
     <div class="footer-container">
