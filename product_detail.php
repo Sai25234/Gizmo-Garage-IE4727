@@ -108,16 +108,20 @@
             
                     echo "<div id='product-detail-container'>";
             
-                
+                    $images = explode(',', $row['Image_url']);
                     echo "<div id='image-grid'>";
                     echo "<div id='image-gallery'>";
                     
-                    echo "<img src='" . $row['Image_url'] . "' alt='Image 1' />";
-                    echo "<img src='" . $row['Image_url'] . "' alt='Image 2' />";
-                    echo "<img src='" . $row['Image_url'] . "' alt='Image 3' />";
-                    echo "</div>";
+                    if (count($images) > 1) {
+                      for ($i = 0; $i < count($images); $i++) {
+                        echo "<img style='border: 1px solid #4c4c4c;' src='" . trim($images[$i]) . "' alt='Product Image' onclick='changeMainImage(this.src)'/>";
+                      }
+                      echo "</div>";
+                    }
                     
-                    echo "<img id='main-image' src='" . $row['Image_url'] . "' alt='" . $row['ProductName'] . "' />";
+
+                    
+                    echo "<img id='main-image' src='" . trim($images[0]) . "' alt='" . $row['ProductName'] . "'  />";
                     echo "</div>";
             
                     
@@ -134,11 +138,12 @@
                     }
                     echo "</h3>";
             
-                    
+                    $specs = explode(',', $row['Specs']);
+
                     echo "<ul class='product-description'>";
-                    echo "<li>" . $row['Description'] . " Line 1</li>";
-                    echo "<li>" . $row['Description'] . " Line 2</li>";
-                    echo "<li>" . $row['Description'] . " Line 3</li>";
+                    foreach ($specs as $spec) {
+                      echo "<li>" . trim($spec) . "</li>";
+                    }
                     echo "</ul>";
             
                     echo "<a href='additem.php?buy=".$productID."'><button id='homepage-button'>Add to Cart</button></a>";
@@ -155,6 +160,11 @@
               
         $conn->close();
         ?>
+    <script>
+      function changeMainImage(newSrc) {
+          document.getElementById('main-image').src = newSrc;
+      }
+    </script>
     <footer>
       <div class="footer-container">
         <div class="footer-column">

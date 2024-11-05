@@ -658,8 +658,13 @@ footer {
   gap: 0 4vw;
   width: 100%;
   padding: 0 2vw;
+  border: #4c4c4c;
   
   #image-gallery{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
     img{
       width: 100%;
       height: auto;

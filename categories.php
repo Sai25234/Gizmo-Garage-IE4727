@@ -159,9 +159,10 @@ include 'additem.php';
       $result = $conn->query($categoryquery);
         
       while ($row = $result->fetch_assoc()){
+        $images = explode(',', $row['Image_url']);
         echo '<div class="product-item">';
         echo '<a href="product_detail.php?id=' . $row['ProductID'] . '">';
-        echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+        echo "<img src='" . trim($images[0]) . "' alt='" . $row['ProductName'] . "' />";
         echo '</a>';
         echo '<div class="product-item-body">';
         echo '<div class="product-item-text">';
