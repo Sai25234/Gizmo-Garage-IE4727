@@ -1,6 +1,14 @@
 <?php
 include 'dbconnect.php';
 include 'session.php';
+$promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
+      FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
+      ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
+$promotionsresult = $conn->query($promotions);
+$promotionData = [];
+while ($row = $promotionsresult->fetch_assoc()) {
+  $promotionData[] = $row;
+}
 $firstName = $_POST['firstname'];
 $lastName = $_POST['lastname'];
 $streetaddress = $_POST['address'];
@@ -42,7 +50,16 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
   </head>
   <body>
     <header>
-      <div class="running-promo-banner">Running Promotion Banner</div>
+    <div class="running-promo-banner">
+      <div class="banner-inner">
+        <div class="banner-text">Welcome to Gizmo Garage!</div>
+        <?php
+          foreach ($promotionData as $row) {
+              echo "<div class='banner-text'>Get $row[Discount]% off on $row[Category] now!</div>";
+            }
+          ?>
+      </div>
+    </div>
       <div class="top-bar">
         <div class="logo">
           <a href="index.php"

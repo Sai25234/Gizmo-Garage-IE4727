@@ -1,6 +1,15 @@
 <?php
 include 'session.php';
 include 'additem.php';
+include 'dbconnect.php';
+$promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
+      FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
+      ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
+$promotionsresult = $conn->query($promotions);
+$promotionData = [];
+while ($row = $promotionsresult->fetch_assoc()) {
+  $promotionData[] = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +30,16 @@ include 'additem.php';
 
 <body>
   <header>
-    <div class="running-promo-banner">Running Promotion Banner</div>
+    <div class="running-promo-banner">
+      <div class="banner-inner">
+        <div class="banner-text">Welcome to Gizmo Garage!</div>
+        <?php
+          foreach ($promotionData as $row) {
+              echo "<div class='banner-text'>Get $row[Discount]% off on $row[Category] now!</div>";
+            }
+          ?>
+      </div>
+    </div>
     <div class="top-bar">
       <div class="logo">
         <a href="index.php"><img src="images/gizmogaragelogo.png" alt="Gizmo Garage" /></a>
@@ -80,15 +98,11 @@ include 'additem.php';
   </div>
   </div>
   <?php
-  include 'dbconnect.php';
-  $promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
-        FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
-        ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
-  $result = $conn->query($promotions);
   if ($result->num_rows > 0) {
     echo '<div class="offer-categories"><h2>Featured Offers</h2><div class="offers-container">';
-    while ($row = $result->fetch_assoc()) {
-      echo "<div class='offer-item'><img src='$row[Image_url]' alt='$row[Category]'>";
+    foreach ($promotionData as $row) {
+      $images = explode(',', $row['Image_url']);
+      echo "<div class='offer-item'><a href='categories.php?category=$row[Category]'><img src='" . trim($images[0]) . "' alt='$row[Category]'></a>";
       echo "<div class='offer-item-text-body'><h3 class='offer-name'>Get $row[Discount]% off on $row[Category] now!</h3>";
       echo "<p>from <span class='price'>$$row[SalePrice]</span></p>";
       echo "<button class='shop-now-btn' onclick=\"location.href='categories.php?category=$row[Category]'\">Shop Now</button></div></div>";
