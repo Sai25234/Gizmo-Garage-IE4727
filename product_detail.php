@@ -1,3 +1,6 @@
+<?php
+include 'session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,7 +86,7 @@
             keyboard_arrow_down
           </span></a
         >
-        <a href="categories.php?sale=yes" class="sale-link"
+        <a href="categories.php?sale" class="sale-link"
           >SALE<span class="material-symbols-outlined">
             keyboard_arrow_down
           </span></a

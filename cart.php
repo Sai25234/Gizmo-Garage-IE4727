@@ -109,11 +109,12 @@ include 'session.php';
             $query = "SELECT * FROM Products WHERE ProductID = $item";
             $result = $conn->query($query);
             $row = $result->fetch_assoc();
+            $images = explode(',', $row['Image_url']);
             $price = $row['SalePrice'] ?? $row['Price'];
             $item_subtotal = $price * $qty;
             $subtotal += $item_subtotal;
             echo "<div class='order-item'>";
-            echo '<img src="' . $row['Image_url'] . '" alt="' . $row['ProductName'] . '">';
+            echo '<img src="' . trim($images[0]) . '" alt="' . $row['ProductName'] . '">';
             echo "<div class='order-item-text'>";
             echo "<p class='product-name'>".$row['ProductName']."</p>";
             if ($row['SalePrice'] != NULL){
