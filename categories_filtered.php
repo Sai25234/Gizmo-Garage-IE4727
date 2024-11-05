@@ -101,36 +101,12 @@ $query .= " $orderBy";
       </div>
     </div>
     <nav class="nav-bar">
-      <a href="categories.php?category=laptops"
-        >LAPTOPS<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=desktops"
-        >DESKTOPS<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=phones"
-        >PHONES<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=tablets"
-        >TABLETS<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?category=accessories"
-        >ACCESSORIES<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
-      <a href="categories.php?sale" class="sale-link"
-        >SALE<span class="material-symbols-outlined">
-          keyboard_arrow_down
-        </span></a
-      >
+      <a href="categories.php?category=Laptops">LAPTOPS</a>
+      <a href="categories.php?category=desktops">DESKTOPS</a>
+      <a href="categories.php?category=phones">PHONES</a>
+      <a href="categories.php?category=tablets">TABLETS</a>
+      <a href="categories.php?category=accessories">ACCESSORIES</a>
+      <a href="categories.php?sale" class="sale-link">SALE</a>
     </nav>
   </header>
   <div class="categories-container">
@@ -232,12 +208,12 @@ $query .= " $orderBy";
       <div class="footer-column">
         <h4><u>Our Products</u></h4>
         <ul>
-          <li><a href="#">Category A</a></li>
-          <li><a href="#">Category B</a></li>
-          <li><a href="#">Category C</a></li>
-          <li><a href="#">Category D</a></li>
-          <li><a href="#">Category E</a></li>
-          <li><a href="#" class="sale">Sale</a></li>
+          <li><a href="categories.php?category=Laptops">Laptops</a></li>
+          <li><a href="categories.php?category=desktops">Desktops</a></li>
+          <li><a href="categories.php?category=phones">Phones</a></li>
+          <li><a href="categories.php?category=tablets">Tablets</a></li>
+          <li><a href="categories.php?category=accessories">Accessories</a></li>
+          <li><a href="categories.php?sale" class="sale-link">Sale</a></li>
         </ul>
       </div>
       <div class="footer-column">
@@ -252,14 +228,20 @@ $query .= " $orderBy";
       <div class="footer-column">
         <h4><u>My Gizmo Garage</u> </h4>
         <ul>
-          <li><a href="#">My Account</a></li>
-          <li><a href="#">Track Your Order</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">The Gizmo Newsletter</a></li>
+          <?php
+          if (isset($_SESSION['valid_user'])) {
+            echo "<li><a href='profile.php'>My Account</a></li>";
+            echo "<li><a href='profile.php'>Track Your Order</a></li>";
+          } else {
+            echo "<li><a href='login.html'>My Account</a></li>";
+            echo "<li><a href='login.html'>Track Your Order</a></li>";
+          }
+          ?>
+          <li><a href="cart.php">My Cart</a></li>
         </ul>
       </div>
       <div class="newsletter-column">
-        <h4><u>Join Our Newsletter</u></h4>
+        <h4>Join Our Newsletter!</h4>
         <form class="newsletter-form">
           <input type="email" placeholder="Enter Email Address">
           <button type="submit">&#10148;</button>

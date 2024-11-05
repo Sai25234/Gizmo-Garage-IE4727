@@ -140,7 +140,7 @@ header {
   text-align: left;
   padding-bottom: 0.8vw;
   display: grid;
-  width: 60%;
+  width: 50%;
   grid-auto-flow: column;
 }
 
@@ -152,7 +152,7 @@ header {
   font-size: 1.2vw;
   font-weight: 600;
   color: #333;
-  padding-left: 0.5vw;
+  padding-left: 1vw;
 }
 
 /* General reset */
