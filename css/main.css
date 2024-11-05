@@ -22,6 +22,26 @@ header {
   padding: 10px 0 10px;
   font-size: 1vw;
   width: 100%;
+  overflow: hidden;
+
+  .banner-inner{
+    animation : slide 20s linear infinite;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .top-bar {
@@ -140,7 +160,7 @@ header {
   text-align: left;
   padding-bottom: 0.8vw;
   display: grid;
-  width: 60%;
+  width: 50%;
   grid-auto-flow: column;
 }
 
@@ -152,7 +172,7 @@ header {
   font-size: 1.2vw;
   font-weight: 600;
   color: #333;
-  padding-left: 0.5vw;
+  padding-left: 1vw;
 }
 
 /* General reset */

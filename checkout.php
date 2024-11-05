@@ -1,6 +1,14 @@
 <?php
 include 'dbconnect.php';
 include 'session.php';
+$promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
+      FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
+      ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
+$promotionsresult = $conn->query($promotions);
+$promotionData = [];
+while ($row = $promotionsresult->fetch_assoc()) {
+  $promotionData[] = $row;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +34,16 @@ include 'session.php';
   </head>
   <body>
     <header>
-      <div class="running-promo-banner">Running Promotion Banner</div>
+    <div class="running-promo-banner">
+      <div class="banner-inner">
+        <div class="banner-text">Welcome to Gizmo Garage!</div>
+        <?php
+          foreach ($promotionData as $row) {
+              echo "<div class='banner-text'>Get $row[Discount]% off on $row[Category] now!</div>";
+            }
+          ?>
+      </div>
+    </div>
       <div class="top-bar">
         <div class="logo">
           <a href="index.php"
@@ -62,37 +79,13 @@ include 'session.php';
         </div>
       </div>
       <nav class="nav-bar">
-        <a href="categories.php?category=Laptops"
-          >LAPTOPS<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-        <a href="categories.php?category=desktops"
-          >DESKTOPS<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-        <a href="categories.php?category=phones"
-          >PHONES<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-        <a href="categories.php?category=tablets"
-          >TABLETS<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-        <a href="categories.php?category=accessories"
-          >ACCESSORIES<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-        <a href="categories.php?sale" class="sale-link"
-          >SALE<span class="material-symbols-outlined">
-            keyboard_arrow_down
-          </span></a
-        >
-      </nav>
+      <a href="categories.php?category=Laptops">LAPTOPS</a>
+      <a href="categories.php?category=desktops">DESKTOPS</a>
+      <a href="categories.php?category=phones">PHONES</a>
+      <a href="categories.php?category=tablets">TABLETS</a>
+      <a href="categories.php?category=accessories">ACCESSORIES</a>
+      <a href="categories.php?sale" class="sale-link">SALE</a>
+    </nav>
     </header>
     <div class="checkout-container">
       <div class="checkout-section">
@@ -182,7 +175,7 @@ include 'session.php';
                   id="cardexpiry"
                   name="cardexpiry"
                   onchange="validateCardExpiry.call(this)"
-                  placeholder="Card Expiry"
+                  placeholder="Card Expiry (MM/YY)"
                   required
                 />
                 <span id="errorCardExpiry"></span>
@@ -205,6 +198,7 @@ include 'session.php';
                   name="email"
                   onchange="validateEmail.call(this)"
                   placeholder="Email Address"
+                  value="<?php echo $_SESSION['valid_user'] ?? ''; ?>"
                   required
                 />
                 <span id="errorEmail"></span>
@@ -264,64 +258,68 @@ include 'session.php';
         </div>
       </div>
     </div>
-    <footer>
-      <div class="footer-container">
-        <div class="footer-column">
-          <h4><u>Contact Us</u></h4>
-          <p>+65 1234 5678</p>
-          <p>Mon - Fri 9am-6pm<br />(excl. public holidays)</p>
-          <p>gizmogarage@gmail.com</p>
-        </div>
-        <div class="footer-column">
-          <h4><u>Our Products</u></h4>
-          <ul>
-            <li><a href="#">Category A</a></li>
-            <li><a href="#">Category B</a></li>
-            <li><a href="#">Category C</a></li>
-            <li><a href="#">Category D</a></li>
-            <li><a href="#">Category E</a></li>
-            <li><a href="#" class="sale">Sale</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4><u>Customer Service</u></h4>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">FAQs</a></li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4><u>My Gizmo Garage</u></h4>
-          <ul>
-            <li><a href="#">My Account</a></li>
-            <li><a href="#">Track Your Order</a></li>
-            <li><a href="#">Sustainability</a></li>
-            <li><a href="#">The Gizmo Newsletter</a></li>
-          </ul>
-        </div>
-        <div class="newsletter-column">
-          <h4><u>Join Our Newsletter</u></h4>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Enter Email Address" />
-            <button type="submit">&#10148;</button>
-          </form>
-          <p>
-            Stay up-to-date with the latest news, products and exclusive deals.
-          </p>
-          <div class="payment-methods">
-            <img src="images/visa_logo.png" alt="Visa" />
-            <img src="images/mastercard_logo.png" alt="MasterCard" />
-            <img src="images/paynow_logo.png" alt="PayNow" />
-            <img src="images/Grab_pay_logo.png" alt="GrabPay" />
-          </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4><u>Contact Us</u></h4>
+        <p>+65 1234 5678</p>
+        <p>Mon - Fri 9am-6pm<br>(excl. public holidays)</p>
+        <p>gizmogarage@gmail.com</p>
+      </div>
+      <div class="footer-column">
+        <h4><u>Our Products</u></h4>
+        <ul>
+          <li><a href="categories.php?category=Laptops">Laptops</a></li>
+          <li><a href="categories.php?category=desktops">Desktops</a></li>
+          <li><a href="categories.php?category=phones">Phones</a></li>
+          <li><a href="categories.php?category=tablets">Tablets</a></li>
+          <li><a href="categories.php?category=accessories">Accessories</a></li>
+          <li><a href="categories.php?sale" class="sale-link">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4><u>Customer Service</u></h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4><u>My Gizmo Garage</u> </h4>
+        <ul>
+          <?php
+          if (isset($_SESSION['valid_user'])) {
+            echo "<li><a href='profile.php'>My Account</a></li>";
+            echo "<li><a href='profile.php'>Track Your Order</a></li>";
+          } else {
+            echo "<li><a href='login.html'>My Account</a></li>";
+            echo "<li><a href='login.html'>Track Your Order</a></li>";
+          }
+          ?>
+          <li><a href="cart.php">My Cart</a></li>
+        </ul>
+      </div>
+      <div class="newsletter-column">
+        <h4>Join Our Newsletter!</h4>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter Email Address">
+          <button type="submit">&#10148;</button>
+        </form>
+        <p>Stay up-to-date with the latest news, products and exclusive deals.</p>
+        <div class="payment-methods">
+          <img src="images/visa_logo.png" alt="Visa">
+          <img src="images/mastercard_logo.png" alt="MasterCard">
+          <img src="images/paynow_logo.png" alt="PayNow">
+          <img src="images/Grab_pay_logo.png" alt="GrabPay">
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2024 A Website by Ariel & Sai</p>
-      </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 A Website by Ariel & Sai</p>
+    </div>
+  </footer>
     <script src="js/checkout_validation.js"></script>
   </body>
 </html>
