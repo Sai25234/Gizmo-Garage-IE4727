@@ -175,7 +175,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   id="cardexpiry"
                   name="cardexpiry"
                   onchange="validateCardExpiry.call(this)"
-                  placeholder="Card Expiry"
+                  placeholder="Card Expiry (MM/YY)"
                   required
                 />
                 <span id="errorCardExpiry"></span>
@@ -198,6 +198,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="email"
                   onchange="validateEmail.call(this)"
                   placeholder="Email Address"
+                  value="<?php echo $_SESSION['valid_user'] ?? ''; ?>"
                   required
                 />
                 <span id="errorEmail"></span>

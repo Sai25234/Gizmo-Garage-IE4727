@@ -114,7 +114,7 @@ function validateCardNum(){
 }
 
 function validateCardExpiry(){
-    const cardExpiryValidation = /^\d{2}\/\d{2}$/;
+    const cardExpiryValidation = /^(1[1-2]\/24)|((0[1-9]|1[0-2])\/(2[5-9]|[3-9][0-9]))$/;
     var inputCardExpiry = this.value;
     var validCardExpiry = cardExpiryValidation.test(inputCardExpiry);
 
