@@ -98,7 +98,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
   </div>
   </div>
   <?php
-  if ($result->num_rows > 0) {
+  if (count($promotionData) > 0) {
     echo '<div class="offer-categories"><h2>Featured Offers</h2><div class="offers-container">';
     foreach ($promotionData as $row) {
       $images = explode(',', $row['Image_url']);
