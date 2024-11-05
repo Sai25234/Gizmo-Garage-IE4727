@@ -1,4 +1,7 @@
-
+<?php
+include 'session.php';
+include 'additem.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
