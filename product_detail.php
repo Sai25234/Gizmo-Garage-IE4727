@@ -114,7 +114,7 @@
                     
                     if (count($images) > 1) {
                       for ($i = 0; $i < count($images); $i++) {
-                        echo "<img style='box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.45);' src='" . trim($images[$i]) . "' alt='Product Image' onclick='changeMainImage(this.src)'/>";
+                        echo "<img style='border: 1px solid #4c4c4c;' src='" . trim($images[$i]) . "' alt='Product Image' onclick='changeMainImage(this.src)'/>";
                       }
                       echo "</div>";
                     }

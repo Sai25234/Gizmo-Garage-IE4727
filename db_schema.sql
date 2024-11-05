@@ -3,9 +3,10 @@ CREATE TABLE Products (
     ProductName VARCHAR(100) NOT NULL,
     Brand VARCHAR(100),
     Category VARCHAR(100),
-    Image_url VARCHAR(255),
+    Image_url VARCHAR(1000),
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     SalePrice DECIMAL(10,2) DEFAULT NULL,
+    Specs VARCHAR(500) DEFAULT NULL
     Stock INT NOT NULL
 );
 
