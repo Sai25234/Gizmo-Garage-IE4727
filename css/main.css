@@ -661,6 +661,10 @@ footer {
   border: #4c4c4c;
   
   #image-gallery{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
     img{
       width: 100%;
       height: auto;
