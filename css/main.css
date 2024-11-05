@@ -740,6 +740,16 @@ footer {
   margin: 1.1vw;
 }
 
+.empty-query{
+  grid-column: span 3;
+  text-align: center;
+  margin-top: 5.3vw;
+  padding: 5.3vw 0 10.6vw 0;
+  font-size: 1.7vw;
+  transition: all ease-in .3s;
+  color: #01214A;
+}
+
 .filter-section {
   width: 20%;
   padding: 1.1vw;

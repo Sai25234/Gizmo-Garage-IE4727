@@ -180,7 +180,8 @@
         }
       }
       else{
-        echo "<p style='color:color: #01214A;'>No Products fornd :(<p>";
+        echo "<div class='empty-query'>";
+        echo "<p>No Products Found :( <br>Try Searching for Something Else?</p></div>";
       }
       ?>
     </div>
