@@ -93,7 +93,6 @@ while ($row = $promotionsresult->fetch_assoc()) {
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
-      <span class="dot"></span>
     </div>
     <button class="next" onclick="nextSlide()">&#10095;</button>
   </div>
