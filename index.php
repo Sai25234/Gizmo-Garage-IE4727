@@ -86,16 +86,15 @@ while ($row = $promotionsresult->fetch_assoc()) {
   <div class="promotion-banner"></div>
   <div class="carousel">
     <button class="prev" onclick="prevSlide()">&#10094;</button>
-    <img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion">
-    <img src="images/carousel/aipc.png" alt="HP Omnibook">
+    <a href="product_detail.php?id=9"><img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion"><a>
+    <a href="product_detail.php?id=8"><img src="images/carousel/aipc.png" alt="HP Omnibook"></a>
+    <a href="product_detail.php?id=21"><img src="images/carousel/Zflip.png" alt="Galaxy zflip"></a>
     <div class="carousel-indicators">
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
-      <span class="dot"></span>
     </div>
     <button class="next" onclick="nextSlide()">&#10095;</button>
-  </div>
   </div>
   <?php
   if (count($promotionData) > 0) {
@@ -165,6 +164,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
   </div>
   <script>
     const images = document.querySelectorAll('.carousel img');
+    const dots = document.querySelectorAll('.carousel-indicators .dot');
     let currentSlide = 0;
 
     function updateCarousel() {
@@ -190,19 +190,12 @@ while ($row = $promotionsresult->fetch_assoc()) {
 
     setInterval(nextSlide, 7000);
 
-
-    const indicators = document.getElementById('carousel-indicators');
-    images.forEach((_, index) => {
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      if (index === currentSlide) dot.classList.add('active');
+    dots.forEach((dot, index) => {
       dot.onclick = () => {
         currentSlide = index;
         updateCarousel();
       };
-      indicators.appendChild(dot);
     });
-
     updateCarousel();
   </script>
   <footer>
