@@ -86,9 +86,9 @@ while ($row = $promotionsresult->fetch_assoc()) {
   <div class="promotion-banner"></div>
   <div class="carousel">
     <button class="prev" onclick="prevSlide()">&#10094;</button>
-    <a href="product_detail.php?id=8"><img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion"><a>
-    <a href="product_detail.php?id=7"><img src="images/carousel/aipc.png" alt="HP Omnibook"></a>
-    <a href="product_detail.php?id=20"><img src="images/carousel/Zflip.png" alt="Galaxy zflip"></a>
+    <a href="product_detail.php?id=9"><img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion"><a>
+    <a href="product_detail.php?id=8"><img src="images/carousel/aipc.png" alt="HP Omnibook"></a>
+    <a href="product_detail.php?id=21"><img src="images/carousel/Zflip.png" alt="Galaxy zflip"></a>
     <div class="carousel-indicators">
       <span class="dot active"></span>
       <span class="dot"></span>
