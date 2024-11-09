@@ -86,9 +86,9 @@ while ($row = $promotionsresult->fetch_assoc()) {
   <div class="promotion-banner"></div>
   <div class="carousel">
     <button class="prev" onclick="prevSlide()">&#10094;</button>
-    <a href="product_detail.php?id=9"><img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion"><a>
-    <a href="product_detail.php?id=8"><img src="images/carousel/aipc.png" alt="HP Omnibook"></a>
-    <a href="product_detail.php?id=21"><img src="images/carousel/Zflip.png" alt="Galaxy zflip"></a>
+    <a href="product_detail.php?id=40"><img class="active" src="images/carousel/iphone.png" alt="iPhone 16 Promotion"><a>
+    <a href="product_detail.php?id=7"><img src="images/carousel/aipc.png" alt="HP Omnibook"></a>
+    <a href="product_detail.php?id=42"><img src="images/carousel/Zflip.png" alt="Galaxy zflip"></a>
     <div class="carousel-indicators">
       <span class="dot active"></span>
       <span class="dot"></span>
@@ -111,55 +111,22 @@ while ($row = $promotionsresult->fetch_assoc()) {
   ?>
   <div class="offer-categories">
     <h2>Whats New at the Garage</h2>
-    <div class="offers-container">
-      <div class="new-product">
-        <img src="images/laptop.png" alt="Headphones">
-        <div class="new-product-text-body">
-          <p class="product-name">Product Name</p>
-          <p class="price">$XXX.XX</p>
-          <a href="#">
-            <span class="material-symbols-outlined">
-              shopping_cart
-            </span>
-          </a>
-        </div>
-      </div>
-      <div class="new-product">
-        <div class="placeholder"></div>
-        <div class="new-product-text-body">
-          <p class="product-name">Product Name</p>
-          <p class="price">$XXX.XX</p>
-          <a href="#">
-            <span class="material-symbols-outlined">
-              shopping_cart
-            </span>
-          </a>
-        </div>
-      </div>
-      <div class="new-product">
-        <div class="placeholder"></div>
-        <div class="new-product-text-body">
-          <p class="product-name">Product Name</p>
-          <p class="price">$XXX.XX</p>
-          <a href="#">
-            <span class="material-symbols-outlined">
-              shopping_cart
-            </span>
-          </a>
-        </div>
-      </div>
-      <div class="new-product">
-        <div class="placeholder"></div>
-        <div class="new-product-text-body">
-          <p class="product-name">Product Name</p>
-          <p class="price">$XXX.XX</p>
-          <a href="#">
-            <span class="material-symbols-outlined">
-              shopping_cart
-            </span>
-          </a>
-        </div>
-      </div>
+    <div class="offers-container" id="newest-products">
+      <?php
+      $newestProd = "SELECT * FROM products ORDER BY UploadedAt DESC LIMIT 6";
+      $newestProdResult = $conn->query($newestProd);
+      while ($row = $newestProdResult->fetch_assoc()) {
+        $images = explode(',', $row['Image_url']);
+        echo "<div class='new-product'><a href='product_detail.php?id=$row[ProductID]'><img src='" . trim($images[0]) . "' alt='$row[ProductName]'></a>";
+        echo "<div class='new-product-text-body'><p class='product-name'>$row[ProductName]</p>";
+        if ($row['SalePrice'] > 0) {
+          echo '<p class="price">$' . $row['SalePrice'] . '</p>';
+        } else {
+          echo '<p class="price">$' . $row['Price'] . '</p>';
+        }
+        echo "<a href='additem.php?buy=" . $row['ProductID'] . "'><span class='material-symbols-outlined'>shopping_cart</span></a></div></div>";
+      }
+       ?>
     </div>
   </div>
   <script>
