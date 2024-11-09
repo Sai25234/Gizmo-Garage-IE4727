@@ -94,7 +94,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
         echo "<button id='homepage-button' onclick=\"location.href='index.php'\">Return to Homepage</button></div>";
     } else {
       $subtotal = 0.00;
-      $shipping = 10.00;
+      $shipping = 0.00;
       echo "<div class='cart-container'><div class='checkout-section'><div class='cart-wrapper'><div id='cart-grid'>";
         for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
             $item = $_SESSION['cart']['items'][$i];

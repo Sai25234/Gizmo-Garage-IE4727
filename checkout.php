@@ -229,7 +229,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
           <div id="summary-grid">
             <?php
             $subtotal = 0.00;
-            $shipping = 10.00;
+            $shipping = 0.00;
             for ($i = 0; $i < count($_SESSION['cart']['items']); $i++){
               $item = $_SESSION['cart']['items'][$i];
               $qty = $_SESSION['cart']['qty'][$item];

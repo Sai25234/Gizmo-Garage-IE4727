@@ -430,8 +430,6 @@ footer {
 .offers-container {
   display: flex;
   gap: 4vw;
-}
-.offers-container#newest-products{
   overflow-x: auto;
   white-space: nowrap;
   width: 90vw;
@@ -446,6 +444,8 @@ footer {
   padding: 1vw;
   height: 22vw;
   width: 20vw;
+  flex: 0 0 auto;
+  box-sizing: border-box;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0), 25px 0 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45);
   
 }
