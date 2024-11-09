@@ -304,8 +304,8 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
       </div>
       <div class="newsletter-column">
         <h4>Join Our Newsletter!</h4>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Enter Email Address">
+        <form action="newsletter.php" method="POST" class="newsletter-form">
+          <input type="email" name="email" placeholder="Enter Email Address">
           <button type="submit">&#10148;</button>
         </form>
         <p>Stay up-to-date with the latest news, products and exclusive deals.</p>
