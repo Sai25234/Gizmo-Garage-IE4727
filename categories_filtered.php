@@ -259,7 +259,7 @@ $query .= " $orderBy";
       </div>
       <div class="newsletter-column">
         <h4>Join Our Newsletter!</h4>
-        <form action="index.php" method="POST" class="newsletter-form">
+        <form action="newsletter.php" method="POST" class="newsletter-form">
           <input type="email" name="email" placeholder="Enter Email Address">
           <button type="submit">&#10148;</button>
         </form>
