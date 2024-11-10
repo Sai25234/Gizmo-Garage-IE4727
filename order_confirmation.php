@@ -131,6 +131,8 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
           $price = $row['SalePrice'] ?? $row['Price'];
           $orderitems = "INSERT INTO OrderItems (OrderID, ProductID, Quantity, Price) VALUES ($orderID, $item, $qty, $price)";
           $conn->query($orderitems);
+          $productqty = "UPDATE Products SET Stock = Stock - $qty WHERE ProductID = $item";
+          $conn->query($productqty);
         }
         //empty cart
         unset($_SESSION['cart']);
