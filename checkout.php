@@ -1,6 +1,15 @@
 <?php
 include 'dbconnect.php';
 include 'session.php';
+//Retrieve cookie data if available
+$firstName = $_COOKIE['firstname'] ?? '';
+$lastName = $_COOKIE['lastname'] ?? '';
+$address = $_COOKIE['address'] ?? '';
+$postalCode = $_COOKIE['postalcode'] ?? '';
+$unitCode = $_COOKIE['unitcode'] ?? '';
+$cardNum = $_COOKIE['cardnum'] ?? '';
+$phone = $_COOKIE['phone'] ?? '';
+
 $promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
       FROM promotions JOIN (Select Category, MIN(SalePrice) AS SalePrice FROM products GROUP BY Category) cheapest
       ON promotions.Category = cheapest.Category JOIN products ON products.Category = promotions.Category AND products.SalePrice = cheapest.SalePrice";
@@ -107,6 +116,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="firstname"
                   onchange="validateFirstName.call(this)"
                   placeholder="First Name"
+                  value = "<?php echo $firstName; ?>"
                   required
                 />
                 <span id="errorFirstName"></span>
@@ -118,6 +128,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="lastname"
                   onchange="validateLastName.call(this)"
                   placeholder="Last Name"
+                  value = "<?php echo $lastName; ?>"
                   required
                 />
                 <span id="errorLastName"></span>
@@ -129,6 +140,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="address"
                   onchange="validateAddress.call(this)"
                   placeholder="Street Address"
+                  value = "<?php echo $address; ?>"
                   required
                 />
                 <span id="errorAddress"></span>
@@ -140,6 +152,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="postalcode"
                   onchange="validatePostalCode.call(this)"
                   placeholder="Postal Code"
+                  value = "<?php echo $postalCode; ?>"
                   required
                 />
                 <span id="errorPostalCode"></span>
@@ -151,6 +164,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="unitcode"
                   onchange="validateUnitCode.call(this)"
                   placeholder="Apt / Suite / Unit"
+                  value = "<?php echo $unitCode; ?>"
                 />
                 <span id="errorUnitCode"></span>
               </div>
@@ -165,6 +179,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   onchange="validateCardNum.call(this)"
                   oninput="formatCardNumber(this)"
                   placeholder="Card Number"
+                  value="<?php echo $cardNum; ?>"
                   required
                 />
                 <span id="errorCardNum"></span>
@@ -210,6 +225,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   name="phone"
                   onchange="validatePhone.call(this)"
                   placeholder="Phone Number"
+                  value = "<?php echo $phone; ?>"
                   required
                 />
                 <span id="errorPhone"></span>

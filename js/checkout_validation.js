@@ -114,15 +114,23 @@ function validateCardNum(){
 }
 
 function validateCardExpiry(){
+    const cardExpiryFormat = /^\d{2}\/\d{2}$/;
     const cardExpiryValidation = /^(1[1-2]\/24)|((0[1-9]|1[0-2])\/(2[5-9]|[3-9][0-9]))$/;
     var inputCardExpiry = this.value;
+    var validCardFormat = cardExpiryFormat.test(inputCardExpiry);
     var validCardExpiry = cardExpiryValidation.test(inputCardExpiry);
 
-    if (!validCardExpiry){
+    if (!validCardFormat){
         document.getElementById("errorCardExpiry").innerHTML = "Please enter date in the format MM/YY";
         this.focus();
         this.select();
         return false;
+    }
+    else if (!validCardExpiry){
+        document.getElementById("errorCardExpiry").innerHTML = "Expiry date must be in the future";
+        this.focus();
+        this.select();
+        return false
     }
     else
     {

@@ -128,6 +128,20 @@ while ($row = $promotionsresult->fetch_assoc()) {
               }
             } else {
             echo "<h2>Welcome, ".$_SESSION['valid_user']."!</h2>";
+            echo "<h2>MY PROFILE</h2>";
+            $savedinfo = "SELECT CustomerName, Phone, Address, CardNum, OrderID FROM orders WHERE Email = '".$_SESSION['valid_user']."'";
+            $profileresult = $conn->query($savedinfo);
+            if ($profileresult -> num_rows == 0){
+              echo "<h3>You have not saved any profile information yet.</h3>";
+            } else {
+              $row = $profileresult->fetch_assoc();
+              echo "<table id='profiletable'><tbody><tr><th>Name</th><td>".$row['CustomerName']."</td></tr>";
+              echo "<tr><th>Phone Number</th><td>".$row['Phone']."</td></tr>";
+              echo "<tr><th>Shipping Address</th><td>".$row['Address']."</td></tr>";
+              echo "<tr><th>Card Payment Details</th><td>**** **** **** ".$row['CardNum']."</td></tr></tbody></table>";
+              echo "</tbody></table>";
+              echo "<p>*Only the latest set of records are retrieved (Reference: Order ID #". $row['OrderID'] .")</p>";
+            }
             echo "<h2>MY ORDERS</h2>";
             $sql = "SELECT orders.OrderID, DATE(orders.CreatedAt) AS CreatedAt, orders.Status, orders.Total, GROUP_CONCAT(CONCAT(products.ProductName, ' x', orderitems.Quantity) SEPARATOR '<br>') AS OrderItems 
             FROM orders JOIN orderitems ON orders.OrderID = orderitems.OrderID 
@@ -150,7 +164,8 @@ while ($row = $promotionsresult->fetch_assoc()) {
                 echo "</tr>";
               }
               echo "</tbody></table>";
-            }}
+            }
+          }
             ?>
           </div>
         </div>

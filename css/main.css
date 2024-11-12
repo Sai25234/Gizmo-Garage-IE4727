@@ -1223,6 +1223,13 @@ a:hover {
       border: 1px solid #bbb;
     }
   }
+  table#profiletable tbody tr{
+    text-align: left;
+    th{
+      padding-left: 0.5vw;
+      width: 30%;
+    }
+  }
   table tbody tr{
     align-items: center;
     justify-items: center;

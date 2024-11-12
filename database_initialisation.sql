@@ -42,6 +42,7 @@ CREATE TABLE Orders (
     Phone VARCHAR(12) NOT NULL,
     Address TEXT,
     PaymentDetails TEXT,
+    CardNum VARCHAR(4),
     Status VARCHAR(50) NOT NULL CHECK (Status IN ('Pending', 'Processing', 'Completed', 'Cancelled')),
     Total DECIMAL(10, 2),
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
