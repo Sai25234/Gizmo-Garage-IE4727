@@ -419,6 +419,7 @@ footer {
 .offer-categories {
   text-align: left;
   margin: 2.5vw 0 2vw 4vw;
+  position: relative;
 }
 .scroll-button {
   position: absolute;
