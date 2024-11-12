@@ -7,7 +7,6 @@ $lastName = $_COOKIE['lastname'] ?? '';
 $address = $_COOKIE['address'] ?? '';
 $postalCode = $_COOKIE['postalcode'] ?? '';
 $unitCode = $_COOKIE['unitcode'] ?? '';
-$cardNum = $_COOKIE['cardnum'] ?? '';
 $phone = $_COOKIE['phone'] ?? '';
 
 $promotions = "SELECT promotions.Category, promotions.Discount, products.Image_url, products.SalePrice 
@@ -179,7 +178,6 @@ while ($row = $promotionsresult->fetch_assoc()) {
                   onchange="validateCardNum.call(this)"
                   oninput="formatCardNumber(this)"
                   placeholder="Card Number"
-                  value="<?php echo $cardNum; ?>"
                   required
                 />
                 <span id="errorCardNum"></span>

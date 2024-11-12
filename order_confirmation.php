@@ -27,7 +27,6 @@ setcookie('lastname', $lastName, time() + 86400);
 setcookie('address', $streetaddress, time() + 86400);
 setcookie('postalcode', $postalcode, time() + 86400);
 setcookie('unitcode', $unitcode, time() + 86400);
-setcookie('cardnum', $cardnum, time() + 86400);
 setcookie('phone', $phone, time() + 86400);
 
 $name = $firstName . " " . $lastName;
