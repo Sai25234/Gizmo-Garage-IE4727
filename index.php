@@ -111,6 +111,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
   ?>
   <div class="offer-categories">
     <h2>Whats New at the Garage</h2>
+    <button class="scroll-button left-button" onclick="scrollLeftButton()">&#9664;</button>
     <div class="offers-container" id="newest-products">
       <?php
       $newestProd = "SELECT * FROM products ORDER BY UploadedAt DESC LIMIT 6";
@@ -128,6 +129,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
       }
        ?>
     </div>
+    <button class="scroll-button right-button" onclick="scrollRightButton()">&#9654;</button>
   </div>
   <script>
     const images = document.querySelectorAll('.carousel img');
@@ -164,6 +166,23 @@ while ($row = $promotionsresult->fetch_assoc()) {
       };
     });
     updateCarousel();
+    
+    const scrollAmount = 500; 
+
+    function scrollLeftButton() {
+      console.log("Left button clicked");
+      document.querySelector('.offers-container').scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    function scrollRightButton() {
+      document.querySelector('.offers-container').scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   </script>
   <footer>
     <div class="footer-container">
