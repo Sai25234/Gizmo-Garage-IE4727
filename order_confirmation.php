@@ -21,10 +21,19 @@ $cardcvv = $_POST['cardcvv'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 
+//Set cookies for user details
+setcookie('firstname', $firstName, time() + 86400);
+setcookie('lastname', $lastName, time() + 86400);
+setcookie('address', $streetaddress, time() + 86400);
+setcookie('postalcode', $postalcode, time() + 86400);
+setcookie('unitcode', $unitcode, time() + 86400);
+setcookie('phone', $phone, time() + 86400);
+
 $name = $firstName . " " . $lastName;
 $address = $streetaddress . " " . $unitcode . " " . $postalcode;
 $paymentdetails = $cardnum . " " . $cardexpiry . " " . $cardcvv;
 $paymentdetails = md5($paymentdetails); //encrypt payment details
+$last4digits = substr($cardnum, -4);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +126,7 @@ $paymentdetails = md5($paymentdetails); //encrypt payment details
         $subtotal += $item_subtotal;
       } 
       //insert checkout details
-      $order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, Status, CreatedAt) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, 'Pending', NOW())";
+      $order = "INSERT INTO Orders (CustomerName, Email, Phone, Address, PaymentDetails, Total, Status, CreatedAt, CardNum) VALUES ('$name', '$email', '$phone', '$address', '$paymentdetails', $subtotal, 'Pending', NOW(), '$last4digits')";
       $order_result = $conn->query($order);
       if ($order_result === TRUE) {
         $orderID = $conn->insert_id; //OrderID is primary key of Orders, retrieve it!!!

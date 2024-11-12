@@ -965,6 +965,9 @@ footer {
   font-size: 1rem;
   padding-left: 0.3vw;
 }
+.input-group input:focus{
+  outline: #003366 1px solid;
+}
 
 .login-box form button,.signup-box form button{
   margin-bottom: 2vw;
@@ -1094,6 +1097,9 @@ a:hover {
     padding-left: 0.5vw;
     border: 1px solid #01214A;
     color: #01214A;
+  }
+  input:focus{
+    outline: #003366 2px solid;
   }
 }
 .input-field, .input-field-span2{
@@ -1244,6 +1250,13 @@ a:hover {
       padding: 0.5vw 0;
       font-weight: 500;
       border: 1px solid #bbb;
+    }
+  }
+  table#profiletable tbody tr{
+    text-align: left;
+    th{
+      padding-left: 0.5vw;
+      width: 30%;
     }
   }
   table tbody tr{
