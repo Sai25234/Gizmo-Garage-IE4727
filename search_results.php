@@ -10,6 +10,50 @@ $promotionData = [];
 while ($row = $promotionsresult->fetch_assoc()) {
   $promotionData[] = $row;
 }
+$query = isset($_GET['query']) ? mysqli_real_escape_string($conn, $_GET['query']) : '';
+$sql = "SELECT * FROM Products WHERE 1=1";
+
+if (!empty($query)) {
+    $sql .= " AND ProductName LIKE '%$query%'";
+}
+
+if (!empty($_GET['category']) && is_array($_GET['category'])) {
+  $categories = $_GET['category'];
+  $escapedCategories = array_map(function($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+  }, $categories);
+
+  // Join the categories with commas for SQL `IN` clause
+  $categoryFilter = "'" . implode("','", $escapedCategories) . "'";
+  $sql .= " AND Category IN ($categoryFilter)";
+}
+
+if (!empty($_GET['brand'])) {
+  $brands = $_GET['brand'];
+  $escapedBrands = array_map(function($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+  }, $brands);
+
+  $brandFilter = "'" . implode("','", $escapedBrands) . "'";
+  $sql.= " AND Brand IN ($brandFilter)";
+}
+
+if (isset($_GET['sort'])) {
+    $sort = mysqli_real_escape_string($conn, $_GET['sort']);
+    switch ($sort) {
+        case 'latest':
+            $sql .= " ORDER BY UploadedAt DESC";
+            break;
+        case 'low-to-high':
+            $sql .= " ORDER BY Price ASC";
+            break;
+        case 'high-to-low':
+            $sql .= " ORDER BY Price DESC";
+            break;
+    }
+}
+
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +126,8 @@ while ($row = $promotionsresult->fetch_assoc()) {
     </nav>
   </header>
   <div class="categories-container">
-    <form method="GET" action="categories_filtered.php" class="filter-section">
+    <form method="GET" action="search_results.php" class="filter-section">
+    <input type="hidden" name="query" value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>" />
     <?php
     include 'dbconnect.php';
     $brands = [];
@@ -138,22 +183,7 @@ while ($row = $promotionsresult->fetch_assoc()) {
       <?php 
       include 'dbconnect.php';
       
-      
-      $category = isset($_GET['category']) ? $_GET['category'] : 'all';
-      $query = isset($_GET['query']) ? mysqli_real_escape_string($conn, $_GET['query']) : '';
-      
-      
-      $sql = "SELECT * FROM Products WHERE 1=1"; 
-      
-      if ($category !== 'all') {
-          $sql .= " AND Category = '" . mysqli_real_escape_string($conn, $category) . "'";
-      }
-      
-      
-      if (!empty($query)) {
-          $sql .= " AND ProductName LIKE '%$query%'";
-      }
-      
+
       $result = $conn->query($sql);
       if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

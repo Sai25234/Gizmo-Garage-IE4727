@@ -84,8 +84,8 @@ while ($row = $promotionsresult->fetch_assoc()) {
   </header>
   <div class="categories-container">
     <form method="GET" action="categories_filtered.php" class="filter-section">
-      <?php
-
+    
+      <?php    
       $brands = [];
       $categories = [];
 
