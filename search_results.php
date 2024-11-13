@@ -16,9 +16,16 @@ $sql = "SELECT * FROM Products WHERE 1=1";
 if (!empty($query)) {
     $sql .= " AND ProductName LIKE '%$query%'";
 }
-if (!empty($_GET['category']) && $_GET['category'] != 'all') {
-    $category = mysqli_real_escape_string($conn, $_GET['category']);
-    $sql .= " AND Category = '$category'";
+
+if (!empty($_GET['category']) && is_array($_GET['category'])) {
+  $categories = $_GET['category'];
+  $escapedCategories = array_map(function($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+  }, $categories);
+
+  // Join the categories with commas for SQL `IN` clause
+  $categoryFilter = "'" . implode("','", $escapedCategories) . "'";
+  $sql .= " AND Category IN ($categoryFilter)";
 }
 
 if (isset($_GET['sort'])) {
