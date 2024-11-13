@@ -38,7 +38,7 @@ if (isset($_GET['sort'])) {
   $sortOption = mysqli_real_escape_string($conn, $_GET['sort']);
     switch ($sortOption) {
         case 'latest':
-            $orderBy = 'ORDER BY DateAdded DESC';
+            $orderBy = 'ORDER BY UploadedAt DESC';
             break;
         case 'low-to-high':
             $orderBy = 'ORDER BY Price ASC';
@@ -172,8 +172,7 @@ $query .= " $orderBy";
           </label>
       <?php endforeach; ?>
 
-      <h4>SORT BY</h4>
-      <label><input type="radio" name="sort" value="relevance"> Relevance</label>
+      <h4>SORT BY</h4>  
       <label><input type="radio" name="sort" value="latest"> Latest</label>
       <label><input type="radio" name="sort" value="low-to-high"> Price: Low to High</label>
       <label><input type="radio" name="sort" value="high-to-low"> Price: High to Low</label>

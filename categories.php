@@ -129,7 +129,6 @@ while ($row = $promotionsresult->fetch_assoc()) {
       <?php endforeach; ?>
 
       <h4>SORT BY</h4>
-      <label><input type="radio" name="sort" value="relevance"> Relevance</label>
       <label><input type="radio" name="sort" value="latest"> Latest</label>
       <label><input type="radio" name="sort" value="low-to-high"> Price: Low to High</label>
       <label><input type="radio" name="sort" value="high-to-low"> Price: High to Low</label>
