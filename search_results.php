@@ -28,6 +28,16 @@ if (!empty($_GET['category']) && is_array($_GET['category'])) {
   $sql .= " AND Category IN ($categoryFilter)";
 }
 
+if (!empty($_GET['brand'])) {
+  $brands = $_GET['brand'];
+  $escapedBrands = array_map(function($value) use ($conn) {
+      return mysqli_real_escape_string($conn, $value);
+  }, $brands);
+
+  $brandFilter = "'" . implode("','", $escapedBrands) . "'";
+  $sql.= " AND Brand IN ($brandFilter)";
+}
+
 if (isset($_GET['sort'])) {
     $sort = mysqli_real_escape_string($conn, $_GET['sort']);
     switch ($sort) {
