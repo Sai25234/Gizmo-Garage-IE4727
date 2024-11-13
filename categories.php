@@ -107,7 +107,6 @@ while ($row = $promotionsresult->fetch_assoc()) {
       }
 
       ?>
-      <input type="hidden" name="category" value="<?php echo htmlspecialchars($_GET['category'] ?? 'all'); ?>" />
       <div id="filter-header">
         <h3>SEARCH FILTER</h3>
         <span class="material-symbols-outlined">tune</span>
