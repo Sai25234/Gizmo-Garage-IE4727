@@ -171,14 +171,14 @@ while ($row = $promotionsresult->fetch_assoc()) {
 
     function scrollLeftButton() {
       console.log("Left button clicked");
-      document.querySelector('.offers-container').scrollBy({
+      document.getElementById('newest-products').scrollBy({
         left: -scrollAmount,
         behavior: 'smooth'
       });
     }
 
     function scrollRightButton() {
-      document.querySelector('.offers-container').scrollBy({
+      document.getElementById('newest-products').scrollBy({
         left: scrollAmount,
         behavior: 'smooth'
       });
