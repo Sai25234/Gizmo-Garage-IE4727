@@ -121,7 +121,7 @@ function validateCardExpiry(){
     var validCardExpiry = cardExpiryValidation.test(inputCardExpiry);
 
     if (!validCardFormat){
-        document.getElementById("errorCardExpiry").innerHTML = "Please enter date in the format MM/YY";
+        document.getElementById("errorCardExpiry").innerHTML = "Date should follow format MM/YY";
         this.focus();
         this.select();
         return false;
